@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using QuanLyNhanVien.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace QuanLyNhanVien.Data
 {
@@ -18,7 +19,8 @@ namespace QuanLyNhanVien.Data
 
         public List<NhanVien> GetAll()
         {
-            return _context.NhanViens.ToList();
+            // Sử dụng Include để load thông tin PhongBan cùng với NhanVien
+            return _context.NhanViens.Include(nv => nv.PhongBan).ToList();
         }
 
         public void Add(NhanVien nv)
@@ -59,7 +61,7 @@ namespace QuanLyNhanVien.Data
                 existing.GioiTinh = nv.GioiTinh;
                 existing.DiaChi = nv.DiaChi;
                 existing.SoDT = nv.SoDT;
-                existing.PhongBan = nv.PhongBan;
+                existing.PhongBanId = nv.PhongBanId; // Sử dụng PhongBanId thay vì PhongBan
                 existing.ChucVu = nv.ChucVu;
                 existing.NgayVaoLam = nv.NgayVaoLam;
 

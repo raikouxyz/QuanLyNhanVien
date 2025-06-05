@@ -28,6 +28,12 @@ namespace QuanLyNhanVien
             Application.Exit();
         }
 
+        private void btnQuanLyPhongBan_Click(object sender, EventArgs e)
+        {
+            var frm = new Views.FormPhongBan(); // Mở form quản lý phòng ban
+            frm.ShowDialog();
+        }
+
         public Form1()
         {
             InitializeComponent();

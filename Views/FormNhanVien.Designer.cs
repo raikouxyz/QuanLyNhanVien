@@ -17,7 +17,7 @@
         private System.Windows.Forms.Label lblNgaySinh;
         private System.Windows.Forms.DateTimePicker dtpNgaySinh;
         private System.Windows.Forms.Label lblGioiTinh;
-        private System.Windows.Forms.TextBox txtGioiTinh;
+        private System.Windows.Forms.ComboBox cmbGioiTinh; // Thay cho txtGioiTinh
         private System.Windows.Forms.Label lblDiaChi;
         private System.Windows.Forms.TextBox txtDiaChi;
         private System.Windows.Forms.Label lblSoDT;
@@ -28,6 +28,7 @@
         private System.Windows.Forms.TextBox txtChucVu;
         private System.Windows.Forms.Label lblNgayVaoLam;
         private System.Windows.Forms.DateTimePicker dtpNgayVaoLam;
+        private System.Windows.Forms.ComboBox cmbPhongBan; // ComboBox cho phòng ban
 
         /// <summary>
         /// Clean up any resources being used.
@@ -61,17 +62,17 @@
             lblNgaySinh = new System.Windows.Forms.Label();
             dtpNgaySinh = new System.Windows.Forms.DateTimePicker();
             lblGioiTinh = new System.Windows.Forms.Label();
-            txtGioiTinh = new System.Windows.Forms.TextBox();
+            cmbGioiTinh = new System.Windows.Forms.ComboBox();
             lblDiaChi = new System.Windows.Forms.Label();
             txtDiaChi = new System.Windows.Forms.TextBox();
             lblSoDT = new System.Windows.Forms.Label();
             txtSoDT = new System.Windows.Forms.TextBox();
             lblPhongBan = new System.Windows.Forms.Label();
-            txtPhongBan = new System.Windows.Forms.TextBox();
             lblChucVu = new System.Windows.Forms.Label();
             txtChucVu = new System.Windows.Forms.TextBox();
             lblNgayVaoLam = new System.Windows.Forms.Label();
             dtpNgayVaoLam = new System.Windows.Forms.DateTimePicker();
+            cmbPhongBan = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)dgvNhanVien).BeginInit();
             SuspendLayout();
             // 
@@ -137,7 +138,7 @@
             btnTimKiem.TabIndex = 1;
             btnTimKiem.Text = "Tìm kiếm";
             btnTimKiem.UseVisualStyleBackColor = true;
-            btnTimKiem.Click += new System.EventHandler(this.btnTimKiem_Click);
+            btnTimKiem.Click += btnTimKiem_Click;
             // 
             // lblHoTen
             // 
@@ -177,12 +178,14 @@
             lblGioiTinh.TabIndex = 10;
             lblGioiTinh.Text = "Giới tính";
             // 
-            // txtGioiTinh
+            // cmbGioiTinh
             // 
-            txtGioiTinh.Location = new System.Drawing.Point(110, 120);
-            txtGioiTinh.Name = "txtGioiTinh";
-            txtGioiTinh.Size = new System.Drawing.Size(180, 23);
-            txtGioiTinh.TabIndex = 11;
+            cmbGioiTinh.Location = new System.Drawing.Point(110, 120);
+            cmbGioiTinh.Name = "cmbGioiTinh";
+            cmbGioiTinh.Size = new System.Drawing.Size(180, 23);
+            cmbGioiTinh.TabIndex = 11;
+            cmbGioiTinh.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cmbGioiTinh.Items.AddRange(new object[] {"Nam", "Nữ"});
             // 
             // lblDiaChi
             // 
@@ -222,13 +225,6 @@
             lblPhongBan.TabIndex = 16;
             lblPhongBan.Text = "Phòng ban";
             // 
-            // txtPhongBan
-            // 
-            txtPhongBan.Location = new System.Drawing.Point(110, 210);
-            txtPhongBan.Name = "txtPhongBan";
-            txtPhongBan.Size = new System.Drawing.Size(180, 23);
-            txtPhongBan.TabIndex = 17;
-            // 
             // lblChucVu
             // 
             lblChucVu.Location = new System.Drawing.Point(18, 240);
@@ -259,6 +255,13 @@
             dtpNgayVaoLam.Size = new System.Drawing.Size(180, 23);
             dtpNgayVaoLam.TabIndex = 21;
             // 
+            // cmbPhongBan
+            // 
+            cmbPhongBan.Location = new System.Drawing.Point(110, 210);
+            cmbPhongBan.Name = "cmbPhongBan";
+            cmbPhongBan.Size = new System.Drawing.Size(180, 23);
+            cmbPhongBan.TabIndex = 22;
+            // 
             // FormNhanVien
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -275,17 +278,17 @@
             Controls.Add(lblNgaySinh);
             Controls.Add(dtpNgaySinh);
             Controls.Add(lblGioiTinh);
-            Controls.Add(txtGioiTinh);
+            Controls.Add(cmbGioiTinh);
             Controls.Add(lblDiaChi);
             Controls.Add(txtDiaChi);
             Controls.Add(lblSoDT);
             Controls.Add(txtSoDT);
             Controls.Add(lblPhongBan);
-            Controls.Add(txtPhongBan);
             Controls.Add(lblChucVu);
             Controls.Add(txtChucVu);
             Controls.Add(lblNgayVaoLam);
             Controls.Add(dtpNgayVaoLam);
+            Controls.Add(cmbPhongBan);
             Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             Name = "FormNhanVien";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

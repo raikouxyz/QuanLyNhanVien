@@ -19,7 +19,8 @@ namespace QuanLyNhanVien.Models
 
         public string SoDT {  get; set; }
 
-        public string PhongBan { get; set; }
+        public int PhongBanId { get; set; }
+        public virtual PhongBan PhongBan { get; set; }
 
         public string ChucVu {  get; set; }
 

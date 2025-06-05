@@ -48,15 +48,58 @@ namespace QuanLyNhanVien.Migrations
                     b.Property<DateTime>("NgayVaoLam")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("PhongBan")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PhongBanId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PhongBanId1")
+                        .HasColumnType("int");
 
                     b.Property<string>("SoDT")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PhongBanId");
+
+                    b.HasIndex("PhongBanId1");
+
                     b.ToTable("NhanViens");
+                });
+
+            modelBuilder.Entity("QuanLyNhanVien.Models.PhongBan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("TenPhongBan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PhongBans");
+                });
+
+            modelBuilder.Entity("QuanLyNhanVien.Models.NhanVien", b =>
+                {
+                    b.HasOne("QuanLyNhanVien.Models.PhongBan", "PhongBan")
+                        .WithMany()
+                        .HasForeignKey("PhongBanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("QuanLyNhanVien.Models.PhongBan", null)
+                        .WithMany("NhanViens")
+                        .HasForeignKey("PhongBanId1");
+
+                    b.Navigation("PhongBan");
+                });
+
+            modelBuilder.Entity("QuanLyNhanVien.Models.PhongBan", b =>
+                {
+                    b.Navigation("NhanViens");
                 });
 #pragma warning restore 612, 618
         }
