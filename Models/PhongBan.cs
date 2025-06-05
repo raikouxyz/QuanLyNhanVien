@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuanLyNhanVien.Models
 {
-    internal class PhongBan
+    public class PhongBan
     {
         public int Id { get; set; }
         public string TenPhongBan { get; set; }

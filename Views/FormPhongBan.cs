@@ -1,5 +1,6 @@
 ﻿using QuanLyNhanVien.Database;
 using QuanLyNhanVien.Models;
+using QuanLyNhanVien.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,6 +41,7 @@ namespace QuanLyNhanVien.Views
                 this.FormClosed += FormPhongBan_FormClosed;
                 
                 LoadPhongBan();
+                KiemTraPhanQuyen();
             }
             catch (Exception ex)
             {
@@ -227,6 +229,49 @@ namespace QuanLyNhanVien.Views
             // Xóa trắng các trường nhập liệu
             txtTenPhongBan.Text = "";
             selectedPhongBanId = null;
+        }
+
+        /// <summary>
+        /// Kiểm tra phân quyền và ẩn/hiện các chức năng tương ứng
+        /// </summary>
+        private void KiemTraPhanQuyen()
+        {
+            try
+            {
+                // Hiển thị thông tin người dùng hiện tại
+                if (AuthService.CurrentUser != null)
+                {
+                    this.Text = $"Quản lý phòng ban - {AuthService.CurrentUser.FullName} ({AuthService.GetRoleName(AuthService.CurrentUser.Role)})";
+                }
+
+                // Chỉ Admin và HR mới được quản lý phòng ban
+                bool coTheQuanLy = AuthService.CanManageEmployees();
+                
+                // Ẩn/hiện các nút chức năng dựa trên quyền
+                btnThem.Visible = coTheQuanLy;
+                btnSua.Visible = coTheQuanLy;
+                btnXoa.Visible = coTheQuanLy;
+                
+                // Nếu chỉ có quyền xem, disable các control nhập liệu
+                if (AuthService.IsViewOnly())
+                {
+                    txtTenPhongBan.ReadOnly = true;
+                    
+                    // Hiển thị thông báo
+                    MessageBox.Show("Bạn chỉ có quyền xem thông tin phòng ban!", "Thông báo", 
+                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    // Kích hoạt lại các control nếu có quyền
+                    txtTenPhongBan.ReadOnly = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi kiểm tra phân quyền: {ex.Message}", "Lỗi", 
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

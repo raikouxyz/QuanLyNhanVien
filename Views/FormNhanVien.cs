@@ -12,6 +12,7 @@ using QuanLyNhanVien.Data;
 using QuanLyNhanVien.Database;
 using QuanLyNhanVien.Models;
 using QuanLyNhanVien.Views;
+using QuanLyNhanVien.Services;
 
 namespace QuanLyNhanVien.Views
 {
@@ -62,6 +63,7 @@ namespace QuanLyNhanVien.Views
                 // Load dữ liệu ban đầu
                 LoadDanhSachPhongBan();
                 LoadDanhSachNhanVien();
+                KiemTraPhanQuyen();
                 
                 MessageBox.Show("Tải dữ liệu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -342,7 +344,18 @@ namespace QuanLyNhanVien.Views
                     nv.ChucVu.ToLower().Contains(tuKhoa.ToLower()) ||
                     nv.Id.ToString().Contains(tuKhoa) ||
                     (nv.PhongBan != null && nv.PhongBan.TenPhongBan.ToLower().Contains(tuKhoa.ToLower()))
-                ).ToList();
+                ).Select(nv => new
+                {
+                    nv.Id,
+                    nv.HoTen,
+                    nv.NgaySinh,
+                    nv.GioiTinh,
+                    nv.DiaChi,
+                    nv.SoDT,
+                    PhongBan = nv.PhongBan != null ? nv.PhongBan.TenPhongBan : "",
+                    nv.ChucVu,
+                    nv.NgayVaoLam
+                }).ToList();
 
                 // Hiển thị kết quả tìm kiếm
                 dgvNhanVien.DataSource = ketQuaTimKiem;
@@ -410,6 +423,63 @@ namespace QuanLyNhanVien.Views
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi đóng form: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Kiểm tra phân quyền và ẩn/hiện các chức năng tương ứng
+        /// </summary>
+        private void KiemTraPhanQuyen()
+        {
+            try
+            {
+                // Hiển thị thông tin người dùng hiện tại
+                if (AuthService.CurrentUser != null)
+                {
+                    this.Text = $"Quản lý nhân viên - {AuthService.CurrentUser.FullName} ({AuthService.GetRoleName(AuthService.CurrentUser.Role)})";
+                }
+
+                // Kiểm tra quyền quản lý nhân viên (Thêm/Sửa/Xóa)
+                bool coTheQuanLy = AuthService.CanManageEmployees();
+                
+                // Ẩn/hiện các nút chức năng dựa trên quyền
+                btnThem.Visible = coTheQuanLy;
+                btnSua.Visible = coTheQuanLy;
+                btnXoa.Visible = coTheQuanLy;
+                
+                // Nếu chỉ có quyền xem, disable các control nhập liệu
+                if (AuthService.IsViewOnly())
+                {
+                    txtHoTen.ReadOnly = true;
+                    dtpNgaySinh.Enabled = false;
+                    cmbGioiTinh.Enabled = false;
+                    txtDiaChi.ReadOnly = true;
+                    txtSoDT.ReadOnly = true;
+                    txtChucVu.ReadOnly = true;
+                    dtpNgayVaoLam.Enabled = false;
+                    cmbPhongBan.Enabled = false;
+                    
+                    // Hiển thị thông báo
+                    MessageBox.Show("Bạn chỉ có quyền xem thông tin nhân viên!", "Thông báo", 
+                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    // Kích hoạt lại các control nếu có quyền
+                    txtHoTen.ReadOnly = false;
+                    dtpNgaySinh.Enabled = true;
+                    cmbGioiTinh.Enabled = true;
+                    txtDiaChi.ReadOnly = false;
+                    txtSoDT.ReadOnly = false;
+                    txtChucVu.ReadOnly = false;
+                    dtpNgayVaoLam.Enabled = true;
+                    cmbPhongBan.Enabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi kiểm tra phân quyền: {ex.Message}", "Lỗi", 
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

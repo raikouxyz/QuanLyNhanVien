@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace QuanLyNhanVien.Database
 {
-    internal class AppDbContext : DbContext
+    public class AppDbContext : DbContext
     {
         public DbSet<NhanVien> NhanViens { get; set; }
         public DbSet<PhongBan> PhongBans { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
