@@ -165,6 +165,23 @@ namespace QuanLyNhanVien.Views
         }
 
         /// <summary>
+        /// Sự kiện mở form báo cáo
+        /// </summary>
+        private void btnBaoCao_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var formBaoCao = new FormBaoCao();
+                formBaoCao.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi mở form báo cáo: {ex.Message}", "Lỗi",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
         /// Sự kiện mở form quản lý lương
         /// </summary>
         private void btnLuong_Click(object sender, EventArgs e)

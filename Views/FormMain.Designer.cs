@@ -14,6 +14,7 @@
         private System.Windows.Forms.Button btnLuong;
         private System.Windows.Forms.Button btnChamCong;
         private System.Windows.Forms.Button btnDangXuat; // Nút Đăng xuất góc phải trên
+        private System.Windows.Forms.Button btnBaoCao;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -42,6 +43,7 @@
             btnLuong = new System.Windows.Forms.Button();
             btnChamCong = new System.Windows.Forms.Button();
             btnDangXuat = new System.Windows.Forms.Button();
+            btnBaoCao = new System.Windows.Forms.Button();
             SuspendLayout();
             // 
             // lblTitle
@@ -74,17 +76,12 @@
             // 
             // btnPhongBan
             // 
-            btnPhongBan.BackColor = System.Drawing.Color.FromArgb(129, 199, 132);
-            btnPhongBan.FlatAppearance.BorderSize = 0;
-            btnPhongBan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnPhongBan.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            btnPhongBan.ForeColor = System.Drawing.Color.White;
-            btnPhongBan.Location = new System.Drawing.Point(149, 135);
-            btnPhongBan.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            btnPhongBan.BackColor = System.Drawing.Color.LightBlue;
+            btnPhongBan.Location = new System.Drawing.Point(200, 100);
             btnPhongBan.Name = "btnPhongBan";
-            btnPhongBan.Size = new System.Drawing.Size(228, 41);
-            btnPhongBan.TabIndex = 2;
-            btnPhongBan.Text = "QUẢN LÝ PHÒNG BAN";
+            btnPhongBan.Size = new System.Drawing.Size(150, 40);
+            btnPhongBan.TabIndex = 1;
+            btnPhongBan.Text = "Quản lý phòng ban";
             btnPhongBan.UseVisualStyleBackColor = false;
             btnPhongBan.Click += btnPhongBan_Click;
             // 
@@ -137,12 +134,24 @@
             btnDangXuat.UseVisualStyleBackColor = false;
             btnDangXuat.Click += BtnDangXuat_Click;
             // 
+            // btnBaoCao
+            // 
+            btnBaoCao.BackColor = System.Drawing.Color.LightYellow;
+            btnBaoCao.Location = new System.Drawing.Point(380, 100);
+            btnBaoCao.Name = "btnBaoCao";
+            btnBaoCao.Size = new System.Drawing.Size(150, 40);
+            btnBaoCao.TabIndex = 2;
+            btnBaoCao.Text = "Báo cáo nhân sự";
+            btnBaoCao.UseVisualStyleBackColor = false;
+            btnBaoCao.Click += btnBaoCao_Click;
+            // 
             // FormMain
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(245, 247, 250);
-            ClientSize = new System.Drawing.Size(525, 315);
+            ClientSize = new System.Drawing.Size(600, 450);
+            Controls.Add(btnBaoCao);
             Controls.Add(btnDangXuat);
             Controls.Add(btnChamCong);
             Controls.Add(btnLuong);

@@ -3,6 +3,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Collections.Generic;
 using QuanLyNhanVien.Database;
 using QuanLyNhanVien.Models;
 using QuanLyNhanVien.Services;
@@ -15,6 +16,7 @@ namespace QuanLyNhanVien.Views
     {
         private readonly AppDbContext _context;
         private readonly AuthService _authService;
+        private DataTable dtPhongBan, dtNhanVien, dtGioiTinh, dtDoTuoi;
 
         public FormBaoCao()
         {
@@ -22,6 +24,32 @@ namespace QuanLyNhanVien.Views
             _context = new AppDbContext();
             _authService = new AuthService(_context);
             LoadBaoCao();
+        }
+
+        // Hàm chuyển đổi từ danh sách sang DataTable
+        private DataTable ChuyenSangDataTable<T>(IEnumerable<T> data)
+        {
+            var dt = new DataTable();
+            var properties = typeof(T).GetProperties();
+
+            // Tạo các cột cho DataTable
+            foreach (var prop in properties)
+            {
+                dt.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+            }
+
+            // Thêm dữ liệu vào DataTable
+            foreach (var item in data)
+            {
+                var row = dt.NewRow();
+                foreach (var prop in properties)
+                {
+                    row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
+                }
+                dt.Rows.Add(row);
+            }
+
+            return dt;
         }
 
         private void LoadBaoCao()
@@ -33,57 +61,65 @@ namespace QuanLyNhanVien.Views
                     .Select(pb => new
                     {
                         TenPhongBan = pb.TenPhongBan,
-                        SoLuongNV = _context.NhanViens.Count(nv => nv.PhongBanId == pb.Id && nv.NgayNghiViec == null)
+                        SoLuongNV = _context.NhanViens.Count(nv => nv.PhongBanId == pb.Id)
                     })
                     .ToList();
+                dtPhongBan = ToDataTable(thongKePhongBan);
+                dgvThongKePhongBan.DataSource = dtPhongBan;
 
-                dgvThongKePhongBan.DataSource = thongKePhongBan;
-
-                // 2. Danh sách nhân viên nghỉ việc
-                var danhSachNghiViec = _context.NhanViens
-                    .Where(nv => nv.NgayNghiViec != null)
+                // 2. Danh sách tất cả nhân viên và thông tin cơ bản
+                var danhSachNhanVien = _context.NhanViens
                     .Select(nv => new
                     {
                         HoTen = nv.HoTen,
+                        GioiTinh = nv.GioiTinh,
                         PhongBan = nv.PhongBan.TenPhongBan,
-                        NgayVaoLam = nv.NgayVaoLam,
-                        NgayNghiViec = nv.NgayNghiViec,
-                        ThoiGianLamViec = Math.Round((nv.NgayNghiViec.Value - nv.NgayVaoLam).TotalDays / 365.25, 1)
+                        ChucVu = nv.ChucVu,
+                        NgayVaoLam = nv.NgayVaoLam
                     })
-                    .OrderByDescending(x => x.NgayNghiViec)
+                    .OrderBy(x => x.PhongBan)
+                    .ThenBy(x => x.HoTen)
                     .ToList();
+                dtNhanVien = ToDataTable(danhSachNhanVien);
+                dgvDanhSachNhanVien.DataSource = dtNhanVien;
 
-                dgvNhanVienNghiViec.DataSource = danhSachNghiViec;
-
-                // 3. Thống kê độ tuổi
-                var thongKeDoTuoi = _context.NhanViens
-                    .Where(nv => nv.NgayNghiViec == null)
-                    .GroupBy(nv => new
-                    {
-                        DoTuoi = (DateTime.Now.Year - nv.NgaySinh.Year) / 10 * 10
-                    })
+                // 3. Thống kê theo giới tính
+                var nhanViens = _context.NhanViens.ToList();
+                var thongKeGioiTinh = nhanViens
+                    .GroupBy(nv => nv.GioiTinh)
                     .Select(g => new
                     {
-                        NhomTuoi = $"{g.Key.DoTuoi}-{g.Key.DoTuoi + 9}",
+                        GioiTinh = g.Key,
                         SoLuong = g.Count(),
-                        TiLe = Math.Round((double)g.Count() * 100 / _context.NhanViens.Count(x => x.NgayNghiViec == null), 1)
+                        TiLe = Math.Round((double)g.Count() * 100 / nhanViens.Count, 1)
+                    })
+                    .OrderBy(x => x.GioiTinh)
+                    .ToList();
+                dtGioiTinh = ToDataTable(thongKeGioiTinh);
+                dgvThongKeGioiTinh.DataSource = dtGioiTinh;
+
+                // 4. Thống kê độ tuổi nhân viên
+                var thongKeDoTuoi = nhanViens
+                    .GroupBy(nv => (DateTime.Now.Year - nv.NgaySinh.Year) / 10 * 10)
+                    .Select(g => new
+                    {
+                        NhomTuoi = $"{g.Key}-{g.Key + 9}",
+                        SoLuong = g.Count(),
+                        TiLe = Math.Round((double)g.Count() * 100 / nhanViens.Count, 1)
                     })
                     .OrderBy(x => x.NhomTuoi)
                     .ToList();
+                dtDoTuoi = ToDataTable(thongKeDoTuoi);
+                dgvThongKeDoTuoi.DataSource = dtDoTuoi;
 
-                dgvThongKeDoTuoi.DataSource = thongKeDoTuoi;
-
-                // 4. Hiển thị thông tin tổng quan
-                var tongNhanVien = _context.NhanViens.Count(nv => nv.NgayNghiViec == null);
-                var tuoiTrungBinh = Math.Round(_context.NhanViens
-                    .Where(nv => nv.NgayNghiViec == null)
-                    .Average(nv => DateTime.Now.Year - nv.NgaySinh.Year), 1);
-                var thoiGianLamTrungBinh = Math.Round(_context.NhanViens
-                    .Where(nv => nv.NgayNghiViec == null)
-                    .Average(nv => (DateTime.Now - nv.NgayVaoLam).TotalDays / 365.25), 1);
+                // 5. Hiển thị thông tin tổng quan
+                var tongNhanVien = nhanViens.Count;
+                var tuoiTrungBinh = Math.Round(nhanViens.Average(nv => DateTime.Now.Year - nv.NgaySinh.Year), 1);
+                var thoiGianLamTrungBinh = Math.Round(nhanViens.Average(nv => 
+                    (DateTime.Now - nv.NgayVaoLam).TotalDays / 365.25), 1);
 
                 lblTongQuan.Text = $@"Thông tin tổng quan:
-- Tổng số nhân viên hiện tại: {tongNhanVien} người
+- Tổng số nhân viên: {tongNhanVien} người
 - Độ tuổi trung bình: {tuoiTrungBinh} tuổi
 - Thời gian làm việc trung bình: {thoiGianLamTrungBinh} năm";
             }
@@ -92,6 +128,23 @@ namespace QuanLyNhanVien.Views
                 MessageBox.Show($"Lỗi khi tải báo cáo: {ex.Message}", "Lỗi", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private DataTable ToDataTable<T>(List<T> data)
+        {
+            var dt = new DataTable();
+            var properties = typeof(T).GetProperties();
+            foreach (var prop in properties)
+                dt.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+
+            foreach (var item in data)
+            {
+                var row = dt.NewRow();
+                foreach (var prop in properties)
+                    row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
+                dt.Rows.Add(row);
+            }
+            return dt;
         }
 
         private void btnXuatExcel_Click(object sender, EventArgs e)
@@ -109,17 +162,18 @@ namespace QuanLyNhanVien.Views
                         {
                             // 1. Sheet thống kê theo phòng ban
                             var wsPhongBan = workbook.Worksheets.Add("Thống kê phòng ban");
-                            var dtPhongBan = ((DataTable)dgvThongKePhongBan.DataSource);
                             wsPhongBan.Cell(1, 1).InsertTable(dtPhongBan);
 
-                            // 2. Sheet danh sách nghỉ việc
-                            var wsNghiViec = workbook.Worksheets.Add("Danh sách nghỉ việc");
-                            var dtNghiViec = ((DataTable)dgvNhanVienNghiViec.DataSource);
-                            wsNghiViec.Cell(1, 1).InsertTable(dtNghiViec);
+                            // 2. Sheet danh sách nhân viên
+                            var wsNhanVien = workbook.Worksheets.Add("Danh sách nhân viên");
+                            wsNhanVien.Cell(1, 1).InsertTable(dtNhanVien);
 
-                            // 3. Sheet thống kê độ tuổi
+                            // 3. Sheet thống kê giới tính
+                            var wsGioiTinh = workbook.Worksheets.Add("Thống kê giới tính");
+                            wsGioiTinh.Cell(1, 1).InsertTable(dtGioiTinh);
+
+                            // 4. Sheet thống kê độ tuổi
                             var wsDoTuoi = workbook.Worksheets.Add("Thống kê độ tuổi");
-                            var dtDoTuoi = ((DataTable)dgvThongKeDoTuoi.DataSource);
                             wsDoTuoi.Cell(1, 1).InsertTable(dtDoTuoi);
 
                             // Định dạng các sheet
@@ -130,7 +184,7 @@ namespace QuanLyNhanVien.Views
                                 ws.Style.Font.FontSize = 12;
                             }
 
-                            // Lưu file
+                            // Lưu file Excel
                             workbook.SaveAs(sfd.FileName);
                         }
 
