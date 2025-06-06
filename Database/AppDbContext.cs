@@ -13,6 +13,8 @@ namespace QuanLyNhanVien.Database
         public DbSet<NhanVien> NhanViens { get; set; }
         public DbSet<PhongBan> PhongBans { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Luong> Luongs { get; set; }
+        public DbSet<ChamCong> ChamCongs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

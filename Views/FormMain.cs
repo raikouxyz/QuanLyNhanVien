@@ -25,7 +25,7 @@ namespace QuanLyNhanVien.Views
                 Application.Exit();
                 return;
             }
-            
+
             InitializeComponent();
             KiemTraPhanQuyen();
         }
@@ -54,7 +54,7 @@ namespace QuanLyNhanVien.Views
                 if (AuthService.CurrentUser != null)
                 {
                     this.Text = $"Hệ thống quản lý nhân viên - {AuthService.CurrentUser.FullName} ({AuthService.GetRoleName(AuthService.CurrentUser.Role)})";
-                    
+
                     // Thêm nút đăng xuất nếu chưa có
                     ThemNutDangXuat();
                 }
@@ -70,7 +70,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi kiểm tra phân quyền: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi kiểm tra phân quyền: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -92,7 +92,7 @@ namespace QuanLyNhanVien.Views
                     Anchor = AnchorStyles.Top | AnchorStyles.Right,
                     BackColor = Color.LightCoral
                 };
-                
+
                 btnDangXuat.Click += BtnDangXuat_Click;
                 this.Controls.Add(btnDangXuat);
             }
@@ -103,18 +103,18 @@ namespace QuanLyNhanVien.Views
         /// </summary>
         private void BtnDangXuat_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất?", "Xác nhận", 
+            var result = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất?", "Xác nhận",
                                         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            
+
             if (result == DialogResult.Yes)
             {
                 // Đăng xuất và hiển thị lại form đăng nhập
                 var authService = new AuthService(new AppDbContext());
                 authService.Logout();
-                
+
                 // Ẩn form hiện tại
                 this.Hide();
-                
+
                 // Hiển thị form đăng nhập
                 if (DangNhap())
                 {
@@ -142,7 +142,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi mở form nhân viên: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi mở form nhân viên: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -159,8 +159,39 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi mở form phòng ban: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi mở form phòng ban: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Sự kiện mở form quản lý lương
+        /// </summary>
+        private void btnLuong_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var formLuong = new FormLuong();
+                formLuong.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi mở form lương: {ex.Message}", "Lỗi",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnChamCong_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var formChamCong = new FormChamCong();
+                formChamCong.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở form quản lý chấm công: {ex.Message}",
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

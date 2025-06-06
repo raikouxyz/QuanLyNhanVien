@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuanLyNhanVien.Database;
 
@@ -11,9 +12,11 @@ using QuanLyNhanVien.Database;
 namespace QuanLyNhanVien.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250605150122_AddLuongTable")]
+    partial class AddLuongTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,43 +24,6 @@ namespace QuanLyNhanVien.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("QuanLyNhanVien.Models.ChamCong", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("GhiChu")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<TimeSpan>("GioRa")
-                        .HasColumnType("time");
-
-                    b.Property<TimeSpan>("GioVao")
-                        .HasColumnType("time");
-
-                    b.Property<DateTime>("Ngay")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("NgayCapNhat")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("NgayTao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("NhanVienId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NhanVienId");
-
-                    b.ToTable("ChamCongs");
-                });
 
             modelBuilder.Entity("QuanLyNhanVien.Models.Luong", b =>
                 {
@@ -207,17 +173,6 @@ namespace QuanLyNhanVien.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("QuanLyNhanVien.Models.ChamCong", b =>
-                {
-                    b.HasOne("QuanLyNhanVien.Models.NhanVien", "NhanVien")
-                        .WithMany()
-                        .HasForeignKey("NhanVienId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("NhanVien");
                 });
 
             modelBuilder.Entity("QuanLyNhanVien.Models.Luong", b =>

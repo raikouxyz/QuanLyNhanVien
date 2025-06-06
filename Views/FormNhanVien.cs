@@ -28,7 +28,7 @@ namespace QuanLyNhanVien.Views
             try
             {
                 // Khởi tạo giao diện
-                InitializeComponent();
+            InitializeComponent();
                 
                 // Khởi tạo database context
                 _context = new AppDbContext();
@@ -41,12 +41,12 @@ namespace QuanLyNhanVien.Views
                 
                 // Khởi tạo repository và controller
                 var repo = new NhanVienRepo(_context);
-                _controller = new NhanVienController(repo);
+            _controller = new NhanVienController(repo);
                 
                 MessageBox.Show("Khởi tạo form thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+        }
             catch (Exception ex)
-            {
+        {
                 MessageBox.Show($"Lỗi khởi tạo: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -265,14 +265,14 @@ namespace QuanLyNhanVien.Views
                 {
                     Id = selectedNhanVienId.Value,
                     HoTen = txtHoTen.Text.Trim(),
-                    NgaySinh = dtpNgaySinh.Value,
+                NgaySinh = dtpNgaySinh.Value,
                     GioiTinh = cmbGioiTinh.Text.Trim(),
                     DiaChi = txtDiaChi.Text.Trim(),
                     SoDT = txtSoDT.Text.Trim(),
                     PhongBanId = (int)cmbPhongBan.SelectedValue,
                     ChucVu = txtChucVu.Text.Trim(),
-                    NgayVaoLam = dtpNgayVaoLam.Value
-                };
+                NgayVaoLam = dtpNgayVaoLam.Value
+            };
 
                 // Cập nhật thông tin nhân viên
                 _controller.UpdateNhanVien(nhanVienSua);
