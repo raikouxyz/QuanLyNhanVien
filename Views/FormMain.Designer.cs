@@ -15,6 +15,7 @@
         private System.Windows.Forms.Button btnChamCong;
         private System.Windows.Forms.Button btnDangXuat; // Nút Đăng xuất góc phải trên
         private System.Windows.Forms.Button btnBaoCao;
+        private System.Windows.Forms.Button btnLichSuNhanVien;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -44,6 +45,7 @@
             btnChamCong = new System.Windows.Forms.Button();
             btnDangXuat = new System.Windows.Forms.Button();
             btnBaoCao = new System.Windows.Forms.Button();
+            btnLichSuNhanVien = new System.Windows.Forms.Button();
             SuspendLayout();
             // 
             // lblTitle
@@ -145,12 +147,29 @@
             btnBaoCao.UseVisualStyleBackColor = false;
             btnBaoCao.Click += btnBaoCao_Click;
             // 
+            // btnLichSuNhanVien
+            // 
+            btnLichSuNhanVien.BackColor = System.Drawing.Color.FromArgb(156, 204, 101);
+            btnLichSuNhanVien.FlatAppearance.BorderSize = 0;
+            btnLichSuNhanVien.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnLichSuNhanVien.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            btnLichSuNhanVien.ForeColor = System.Drawing.Color.White;
+            btnLichSuNhanVien.Location = new System.Drawing.Point(149, 292);
+            btnLichSuNhanVien.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            btnLichSuNhanVien.Name = "btnLichSuNhanVien";
+            btnLichSuNhanVien.Size = new System.Drawing.Size(228, 41);
+            btnLichSuNhanVien.TabIndex = 5;
+            btnLichSuNhanVien.Text = "LỊCH SỬ NHÂN VIÊN";
+            btnLichSuNhanVien.UseVisualStyleBackColor = false;
+            btnLichSuNhanVien.Click += btnLichSuNhanVien_Click;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(245, 247, 250);
             ClientSize = new System.Drawing.Size(600, 450);
+            Controls.Add(btnLichSuNhanVien);
             Controls.Add(btnBaoCao);
             Controls.Add(btnDangXuat);
             Controls.Add(btnChamCong);

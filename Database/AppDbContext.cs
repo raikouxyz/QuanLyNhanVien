@@ -15,6 +15,7 @@ namespace QuanLyNhanVien.Database
         public DbSet<User> Users { get; set; }
         public DbSet<Luong> Luongs { get; set; }
         public DbSet<ChamCong> ChamCongs { get; set; }
+        public DbSet<NhanVienLog> NhanVienLogs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -28,6 +29,26 @@ namespace QuanLyNhanVien.Database
                 .HasOne(nv => nv.PhongBan)
                 .WithMany()
                 .HasForeignKey(nv => nv.PhongBanId);
+
+            // Cấu hình cho bảng NhanVienLog
+            modelBuilder.Entity<NhanVienLog>()
+                .Property(l => l.LoaiThaoTac)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            modelBuilder.Entity<NhanVienLog>()
+                .Property(l => l.TenNhanVien)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            modelBuilder.Entity<NhanVienLog>()
+                .Property(l => l.NguoiThucHien)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            modelBuilder.Entity<NhanVienLog>()
+                .Property(l => l.NoiDungThayDoi)
+                .IsRequired();
 
             base.OnModelCreating(modelBuilder);
         }

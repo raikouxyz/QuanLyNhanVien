@@ -211,5 +211,22 @@ namespace QuanLyNhanVien.Views
                     "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        /// <summary>
+        /// Sự kiện mở form xem lịch sử thay đổi nhân viên
+        /// </summary>
+        private void btnLichSuNhanVien_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var formLichSuNhanVien = new FormLichSuNhanVien();
+                formLichSuNhanVien.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi mở form lịch sử nhân viên: {ex.Message}",
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 } 

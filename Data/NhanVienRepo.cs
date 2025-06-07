@@ -23,6 +23,15 @@ namespace QuanLyNhanVien.Data
             return _context.NhanViens.Include(nv => nv.PhongBan).ToList();
         }
 
+        /// <summary>
+        /// Lấy thông tin nhân viên dựa trên ID
+        /// </summary>
+        public NhanVien GetById(int id)
+        {
+            // Trả về nhân viên có ID tương ứng, đảm bảo load cả thông tin PhongBan
+            return _context.NhanViens.Include(nv => nv.PhongBan).FirstOrDefault(nv => nv.Id == id);
+        }
+
         public void Add(NhanVien nv)
         {
             _context.NhanViens.Add(nv);
