@@ -129,8 +129,7 @@ namespace QuanLyNhanVien.Views
         /// </summary>
         private void btnExit_Click(object sender, EventArgs e)
         {
-            // Đóng form và trả về kết quả hủy
-            this.DialogResult = DialogResult.Cancel;
+            // Đóng form
             this.Close();
         }
 
@@ -157,6 +156,21 @@ namespace QuanLyNhanVien.Views
             // Hiển thị thông tin tài khoản mặc định
             lblThongTin.Text = "Tài khoản mặc định:\n" +
                               "Admin: admin/123456";
+        }
+
+        /// <summary>
+        /// Sự kiện khi form đang được đóng (bấm X hoặc Alt+F4)
+        /// </summary>
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            // Nếu chưa đăng nhập thành công (DialogResult không phải OK)
+            if (this.DialogResult != DialogResult.OK)
+            {
+                // Thoát ứng dụng hoàn toàn
+                Application.Exit();
+            }
+            
+            base.OnFormClosing(e);
         }
     }
 }
