@@ -55,79 +55,42 @@ namespace QuanLyNhanVien.Views
                 if (AuthService.CurrentUser != null)
                 {
                     this.Text = $"Hệ thống quản lý nhân viên - {AuthService.CurrentUser.FullName} ({AuthService.GetRoleName(AuthService.CurrentUser.Role)})";
-
-                    // Thêm nút đăng xuất nếu chưa có
-                    ThemNutDangXuat();
+                    
+                    // Debug thông tin user hiện tại
+                    System.Diagnostics.Debug.WriteLine($"Current User: {AuthService.CurrentUser.Username}");
+                    System.Diagnostics.Debug.WriteLine($"Current Role: {AuthService.CurrentUser.Role}");
+                    System.Diagnostics.Debug.WriteLine($"Is Admin: {AuthService.IsAdmin()}");
+                    System.Diagnostics.Debug.WriteLine($"Is Active: {AuthService.CurrentUser.IsActive}");
                 }
 
                 // Kiểm tra quyền truy cập các chức năng
                 // (Tất cả vai trò đều có thể xem nhân viên và phòng ban)
-                // Chỉ Admin mới có thể quản lý tài khoản người dùng
-                if (AuthService.IsAdmin())
+                
+                // Chỉ Admin mới có thể sử dụng các chức năng đặc biệt
+                if (!AuthService.IsAdmin())
                 {
-                    // Admin có thể làm tất cả
-                    // Có thể thêm menu quản lý tài khoản người dùng ở đây
+                    // Ẩn nút sao lưu dữ liệu cho non-admin
+                    btnSaoLuuPhucHoi.Enabled = false;
+                    btnSaoLuuPhucHoi.BackColor = Color.Gray;
+                    
+                    // Ẩn nút quản lý người dùng cho non-admin
+                    btnQuanLyNguoiDung.Enabled = false;
+                    btnQuanLyNguoiDung.BackColor = Color.Gray;
+                }
+                else
+                {
+                    // Kích hoạt lại các nút cho admin
+                    btnSaoLuuPhucHoi.Enabled = true;
+                    btnSaoLuuPhucHoi.BackColor = Color.FromArgb(52, 152, 219);
+                    
+                    btnQuanLyNguoiDung.Enabled = true;
+                    btnQuanLyNguoiDung.BackColor = Color.FromArgb(192, 57, 43);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi kiểm tra phân quyền: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
-        /// Thêm nút đăng xuất vào menu
-        /// </summary>
-        private void ThemNutDangXuat()
-        {
-            // Tạo nút đăng xuất nếu chưa có
-            if (Controls.OfType<Button>().FirstOrDefault(b => b.Name == "btnDangXuat") == null)
-            {
-                var btnDangXuat = new Button
-                {
-                    Name = "btnDangXuat",
-                    Text = "Đăng xuất",
-                    Size = new Size(100, 30),
-                    Location = new Point(this.Width - 120, 10),
-                    Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                    BackColor = Color.LightCoral
-                };
-
-                btnDangXuat.Click += BtnDangXuat_Click;
-                this.Controls.Add(btnDangXuat);
-            }
-        }
-
-        /// <summary>
-        /// Sự kiện đăng xuất
-        /// </summary>
-        private void BtnDangXuat_Click(object sender, EventArgs e)
-        {
-            var result = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất?", "Xác nhận",
-                                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
-            {
-                // Đăng xuất và hiển thị lại form đăng nhập
-                var authService = new AuthService(new AppDbContext());
-                authService.Logout();
-
-                // Ẩn form hiện tại
-                this.Hide();
-
-                // Hiển thị form đăng nhập
-                if (DangNhap())
-                {
-                    // Nếu đăng nhập thành công, cập nhật lại phân quyền
-                    KiemTraPhanQuyen();
-                    this.Show();
-                }
-                else
-                {
-                    // Nếu không đăng nhập thành công, thoát ứng dụng
-                    Application.Exit();
-                }
             }
         }
 
@@ -246,5 +209,78 @@ namespace QuanLyNhanVien.Views
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        /// <summary>
+        /// Mở form quản lý người dùng (chỉ Admin)
+        /// </summary>
+        private void btnQuanLyNguoiDung_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Kiểm tra quyền Admin
+                if (!AuthService.IsAdmin())
+                {
+                    MessageBox.Show("Chỉ có Admin mới được phép quản lý người dùng!", "Không có quyền",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var formDangKy = new FormDangKy();
+                formDangKy.ShowDialog();
+                
+                // Reload thông tin user hiện tại sau khi đóng form quản lý người dùng
+                var authService = new AuthService(new AppDbContext());
+                authService.ReloadCurrentUser();
+                
+                // Cập nhật lại phân quyền
+                KiemTraPhanQuyen();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi mở form quản lý người dùng: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Sự kiện đăng xuất
+        /// </summary>
+        private void BtnDangXuat_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất?", "Xác nhận",
+                                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                // Đăng xuất và hiển thị lại form đăng nhập
+                var authService = new AuthService(new AppDbContext());
+                authService.Logout();
+
+                // Ẩn form hiện tại
+                this.Hide();
+
+                // Hiển thị form đăng nhập
+                if (DangNhap())
+                {
+                    // Nếu đăng nhập thành công, cập nhật lại phân quyền
+                    KiemTraPhanQuyen();
+                    this.Show();
+                }
+                else
+                {
+                    // Nếu không đăng nhập thành công, thoát ứng dụng
+                    Application.Exit();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sự kiện load form chính
+        /// </summary>
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            // Gọi lại kiểm tra phân quyền khi form load
+            KiemTraPhanQuyen();
+        }
     }
-} 
+}

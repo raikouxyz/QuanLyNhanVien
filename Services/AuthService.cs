@@ -84,6 +84,21 @@ namespace QuanLyNhanVien.Services
         }
 
         /// <summary>
+        /// Reload thông tin user hiện tại từ database
+        /// </summary>
+        public void ReloadCurrentUser()
+        {
+            if (CurrentUser != null)
+            {
+                var updatedUser = _context.Users.FirstOrDefault(u => u.Id == CurrentUser.Id);
+                if (updatedUser != null)
+                {
+                    CurrentUser = updatedUser;
+                }
+            }
+        }
+
+        /// <summary>
         /// Kiểm tra xem người dùng hiện tại có quyền Admin không
         /// </summary>
         /// <returns>true nếu là Admin, false nếu không</returns>

@@ -51,11 +51,11 @@
             // lblTitle
             // 
             lblTitle.AutoSize = true;
-            lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold);
             lblTitle.ForeColor = System.Drawing.Color.DarkBlue;
-            lblTitle.Location = new System.Drawing.Point(80, 30);
+            lblTitle.Location = new System.Drawing.Point(50, 30);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new System.Drawing.Size(240, 26);
+            lblTitle.Size = new System.Drawing.Size(400, 32);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "HỆ THỐNG QUẢN LÝ NHÂN VIÊN";
             lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -63,7 +63,7 @@
             // lblUsername
             // 
             lblUsername.AutoSize = true;
-            lblUsername.Location = new System.Drawing.Point(50, 80);
+            lblUsername.Location = new System.Drawing.Point(80, 90);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new System.Drawing.Size(85, 15);
             lblUsername.TabIndex = 1;
@@ -71,15 +71,15 @@
             // 
             // txtUsername
             // 
-            txtUsername.Location = new System.Drawing.Point(150, 77);
+            txtUsername.Location = new System.Drawing.Point(200, 87);
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new System.Drawing.Size(200, 23);
+            txtUsername.Size = new System.Drawing.Size(220, 23);
             txtUsername.TabIndex = 2;
             // 
             // lblPassword
             // 
             lblPassword.AutoSize = true;
-            lblPassword.Location = new System.Drawing.Point(50, 110);
+            lblPassword.Location = new System.Drawing.Point(80, 130);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new System.Drawing.Size(60, 15);
             lblPassword.TabIndex = 3;
@@ -87,20 +87,20 @@
             // 
             // txtPassword
             // 
-            txtPassword.Location = new System.Drawing.Point(150, 107);
+            txtPassword.Location = new System.Drawing.Point(200, 127);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
-            txtPassword.Size = new System.Drawing.Size(200, 23);
+            txtPassword.Size = new System.Drawing.Size(220, 23);
             txtPassword.TabIndex = 4;
             txtPassword.KeyPress += txtPassword_KeyPress;
             // 
             // btnLogin
             // 
             btnLogin.BackColor = System.Drawing.Color.LightBlue;
-            btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            btnLogin.Location = new System.Drawing.Point(150, 150);
+            btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            btnLogin.Location = new System.Drawing.Point(160, 175);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new System.Drawing.Size(90, 30);
+            btnLogin.Size = new System.Drawing.Size(110, 35);
             btnLogin.TabIndex = 5;
             btnLogin.Text = "Đăng nhập";
             btnLogin.UseVisualStyleBackColor = false;
@@ -109,10 +109,10 @@
             // btnExit
             // 
             btnExit.BackColor = System.Drawing.Color.LightCoral;
-            btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            btnExit.Location = new System.Drawing.Point(260, 150);
+            btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            btnExit.Location = new System.Drawing.Point(290, 175);
             btnExit.Name = "btnExit";
-            btnExit.Size = new System.Drawing.Size(90, 30);
+            btnExit.Size = new System.Drawing.Size(110, 35);
             btnExit.TabIndex = 6;
             btnExit.Text = "Thoát";
             btnExit.UseVisualStyleBackColor = false;
@@ -120,20 +120,21 @@
             // 
             // lblThongTin
             // 
-            lblThongTin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            lblThongTin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             lblThongTin.ForeColor = System.Drawing.Color.Gray;
-            lblThongTin.Location = new System.Drawing.Point(50, 200);
+            lblThongTin.Location = new System.Drawing.Point(80, 230);
             lblThongTin.Name = "lblThongTin";
-            lblThongTin.Size = new System.Drawing.Size(300, 80);
+            lblThongTin.Size = new System.Drawing.Size(340, 80);
             lblThongTin.TabIndex = 7;
             lblThongTin.Text = "Thông tin tài khoản...";
+            lblThongTin.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // FormLogin
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.White;
-            ClientSize = new System.Drawing.Size(400, 300);
+            ClientSize = new System.Drawing.Size(500, 340);
             Controls.Add(lblThongTin);
             Controls.Add(btnExit);
             Controls.Add(btnLogin);

@@ -24,6 +24,11 @@ namespace QuanLyNhanVien.Views
             _context = new AppDbContext();
             _authService = new AuthService(_context);
             LoadBaoCao();
+            
+            // Thêm sự kiện click cho các DataGridView thống kê
+            dgvThongKePhongBan.CellClick += DgvThongKePhongBan_CellClick;
+            dgvThongKeGioiTinh.CellClick += DgvThongKeGioiTinh_CellClick;
+            dgvThongKeDoTuoi.CellClick += DgvThongKeDoTuoi_CellClick;
         }
 
         // Hàm chuyển đổi từ danh sách sang DataTable
@@ -68,20 +73,7 @@ namespace QuanLyNhanVien.Views
                 dgvThongKePhongBan.DataSource = dtPhongBan;
 
                 // 2. Danh sách tất cả nhân viên và thông tin cơ bản
-                var danhSachNhanVien = _context.NhanViens
-                    .Select(nv => new
-                    {
-                        HoTen = nv.HoTen,
-                        GioiTinh = nv.GioiTinh,
-                        PhongBan = nv.PhongBan.TenPhongBan,
-                        ChucVu = nv.ChucVu,
-                        NgayVaoLam = nv.NgayVaoLam
-                    })
-                    .OrderBy(x => x.PhongBan)
-                    .ThenBy(x => x.HoTen)
-                    .ToList();
-                dtNhanVien = ToDataTable(danhSachNhanVien);
-                dgvDanhSachNhanVien.DataSource = dtNhanVien;
+                LoadDanhSachNhanVien(); // Tách thành method riêng để có thể gọi lại
 
                 // 3. Thống kê theo giới tính
                 var nhanViens = _context.NhanViens.ToList();
@@ -126,6 +118,175 @@ namespace QuanLyNhanVien.Views
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi tải báo cáo: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Load danh sách tất cả nhân viên
+        /// </summary>
+        private void LoadDanhSachNhanVien()
+        {
+            var danhSachNhanVien = _context.NhanViens
+                .Select(nv => new
+                {
+                    HoTen = nv.HoTen,
+                    GioiTinh = nv.GioiTinh,
+                    PhongBan = nv.PhongBan.TenPhongBan,
+                    ChucVu = nv.ChucVu,
+                    NgayVaoLam = nv.NgayVaoLam,
+                    NgaySinh = nv.NgaySinh
+                })
+                .OrderBy(x => x.PhongBan)
+                .ThenBy(x => x.HoTen)
+                .ToList();
+            dtNhanVien = ToDataTable(danhSachNhanVien);
+            dgvDanhSachNhanVien.DataSource = dtNhanVien;
+        }
+
+        /// <summary>
+        /// Sự kiện click vào bảng thống kê phòng ban
+        /// </summary>
+        private void DgvThongKePhongBan_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (e.RowIndex >= 0)
+                {
+                    // Lấy tên phòng ban được chọn
+                    var tenPhongBan = dgvThongKePhongBan.Rows[e.RowIndex].Cells["TenPhongBan"].Value?.ToString();
+                    
+                    if (!string.IsNullOrEmpty(tenPhongBan))
+                    {
+                        // Lọc nhân viên theo phòng ban
+                        var nhanVienTheoPhongBan = _context.NhanViens
+                            .Where(nv => nv.PhongBan.TenPhongBan == tenPhongBan)
+                            .Select(nv => new
+                            {
+                                HoTen = nv.HoTen,
+                                GioiTinh = nv.GioiTinh,
+                                PhongBan = nv.PhongBan.TenPhongBan,
+                                ChucVu = nv.ChucVu,
+                                NgayVaoLam = nv.NgayVaoLam,
+                                NgaySinh = nv.NgaySinh
+                            })
+                            .OrderBy(x => x.HoTen)
+                            .ToList();
+
+                        dtNhanVien = ToDataTable(nhanVienTheoPhongBan);
+                        dgvDanhSachNhanVien.DataSource = dtNhanVien;
+                        
+                        // Cập nhật tiêu đề group box
+                        grpDanhSachNhanVien.Text = $"Danh sách nhân viên - {tenPhongBan} ({nhanVienTheoPhongBan.Count} người)";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi lọc theo phòng ban: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Sự kiện click vào bảng thống kê giới tính
+        /// </summary>
+        private void DgvThongKeGioiTinh_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (e.RowIndex >= 0)
+                {
+                    // Lấy giới tính được chọn
+                    var gioiTinh = dgvThongKeGioiTinh.Rows[e.RowIndex].Cells["GioiTinh"].Value?.ToString();
+                    
+                    if (!string.IsNullOrEmpty(gioiTinh))
+                    {
+                        // Lọc nhân viên theo giới tính
+                        var nhanVienTheoGioiTinh = _context.NhanViens
+                            .Where(nv => nv.GioiTinh == gioiTinh)
+                            .Select(nv => new
+                            {
+                                HoTen = nv.HoTen,
+                                GioiTinh = nv.GioiTinh,
+                                PhongBan = nv.PhongBan.TenPhongBan,
+                                ChucVu = nv.ChucVu,
+                                NgayVaoLam = nv.NgayVaoLam,
+                                NgaySinh = nv.NgaySinh
+                            })
+                            .OrderBy(x => x.PhongBan)
+                            .ThenBy(x => x.HoTen)
+                            .ToList();
+
+                        dtNhanVien = ToDataTable(nhanVienTheoGioiTinh);
+                        dgvDanhSachNhanVien.DataSource = dtNhanVien;
+                        
+                        // Cập nhật tiêu đề group box
+                        grpDanhSachNhanVien.Text = $"Danh sách nhân viên - {gioiTinh} ({nhanVienTheoGioiTinh.Count} người)";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi lọc theo giới tính: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Sự kiện click vào bảng thống kê độ tuổi
+        /// </summary>
+        private void DgvThongKeDoTuoi_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (e.RowIndex >= 0)
+                {
+                    // Lấy nhóm tuổi được chọn
+                    var nhomTuoi = dgvThongKeDoTuoi.Rows[e.RowIndex].Cells["NhomTuoi"].Value?.ToString();
+                    
+                    if (!string.IsNullOrEmpty(nhomTuoi))
+                    {
+                        // Phân tích nhóm tuổi (ví dụ: "20-29")
+                        var tuoiParts = nhomTuoi.Split('-');
+                        if (tuoiParts.Length == 2 && 
+                            int.TryParse(tuoiParts[0], out int tuoiMin) && 
+                            int.TryParse(tuoiParts[1], out int tuoiMax))
+                        {
+                            // Lọc nhân viên theo độ tuổi
+                            var nhanVienTheoDoTuoi = _context.NhanViens
+                                .ToList() // Chuyển về memory để tính toán tuổi
+                                .Where(nv => 
+                                {
+                                    var tuoi = DateTime.Now.Year - nv.NgaySinh.Year;
+                                    return tuoi >= tuoiMin && tuoi <= tuoiMax;
+                                })
+                                .Select(nv => new
+                                {
+                                    HoTen = nv.HoTen,
+                                    GioiTinh = nv.GioiTinh,
+                                    PhongBan = nv.PhongBan?.TenPhongBan ?? "Chưa phân công",
+                                    ChucVu = nv.ChucVu,
+                                    NgayVaoLam = nv.NgayVaoLam,
+                                    NgaySinh = nv.NgaySinh,
+                                    Tuoi = DateTime.Now.Year - nv.NgaySinh.Year
+                                })
+                                .OrderBy(x => x.Tuoi)
+                                .ThenBy(x => x.HoTen)
+                                .ToList();
+
+                            dtNhanVien = ToDataTable(nhanVienTheoDoTuoi);
+                            dgvDanhSachNhanVien.DataSource = dtNhanVien;
+                            
+                            // Cập nhật tiêu đề group box
+                            grpDanhSachNhanVien.Text = $"Danh sách nhân viên - Độ tuổi {nhomTuoi} ({nhanVienTheoDoTuoi.Count} người)";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi lọc theo độ tuổi: {ex.Message}", "Lỗi", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -203,6 +364,11 @@ namespace QuanLyNhanVien.Views
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
             LoadBaoCao();
+            LoadDanhSachNhanVien();
+            grpDanhSachNhanVien.Text = "Danh sách nhân viên";
+            dgvThongKePhongBan.ClearSelection();
+            dgvThongKeGioiTinh.ClearSelection();
+            dgvThongKeDoTuoi.ClearSelection();
         }
     }
 } 

@@ -54,31 +54,7 @@ namespace QuanLyNhanVien.Views
                             CreatedDate = DateTime.Now
                         };
 
-                        // Tạo tài khoản HR mặc định
-                        var hrUser = new Models.User
-                        {
-                            Username = "hr",
-                            Password = AuthService.HashPassword("123456"), // Mật khẩu: 123456
-                            FullName = "Nhân viên Nhân sự",
-                            Email = "hr@company.com",
-                            Role = Models.UserRole.HR,
-                            IsActive = true,
-                            CreatedDate = DateTime.Now
-                        };
-
-                        // Tạo tài khoản View Only mặc định
-                        var viewUser = new Models.User
-                        {
-                            Username = "viewer",
-                            Password = AuthService.HashPassword("123456"), // Mật khẩu: 123456
-                            FullName = "Người xem",
-                            Email = "viewer@company.com",
-                            Role = Models.UserRole.ViewOnly,
-                            IsActive = true,
-                            CreatedDate = DateTime.Now
-                        };
-
-                        context.Users.AddRange(adminUser, hrUser, viewUser);
+                        context.Users.Add(adminUser);
                         context.SaveChanges();
                     }
                 }
@@ -180,9 +156,7 @@ namespace QuanLyNhanVien.Views
             
             // Hiển thị thông tin tài khoản mặc định
             lblThongTin.Text = "Tài khoản mặc định:\n" +
-                              "Admin: admin/123456\n" +
-                              "HR: hr/123456\n" +
-                              "Viewer: viewer/123456";
+                              "Admin: admin/123456";
         }
     }
 }
