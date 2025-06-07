@@ -16,6 +16,7 @@
         private System.Windows.Forms.Button btnDangXuat; // Nút Đăng xuất góc phải trên
         private System.Windows.Forms.Button btnBaoCao;
         private System.Windows.Forms.Button btnLichSuNhanVien;
+        private System.Windows.Forms.Button btnSaoLuuPhucHoi;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -46,6 +47,7 @@
             btnDangXuat = new System.Windows.Forms.Button();
             btnBaoCao = new System.Windows.Forms.Button();
             btnLichSuNhanVien = new System.Windows.Forms.Button();
+            btnSaoLuuPhucHoi = new System.Windows.Forms.Button();
             SuspendLayout();
             // 
             // lblTitle
@@ -163,12 +165,29 @@
             btnLichSuNhanVien.UseVisualStyleBackColor = false;
             btnLichSuNhanVien.Click += btnLichSuNhanVien_Click;
             // 
+            // btnSaoLuuPhucHoi
+            // 
+            btnSaoLuuPhucHoi.BackColor = System.Drawing.Color.FromArgb(33, 150, 243);
+            btnSaoLuuPhucHoi.FlatAppearance.BorderSize = 0;
+            btnSaoLuuPhucHoi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnSaoLuuPhucHoi.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            btnSaoLuuPhucHoi.ForeColor = System.Drawing.Color.White;
+            btnSaoLuuPhucHoi.Location = new System.Drawing.Point(149, 344);
+            btnSaoLuuPhucHoi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            btnSaoLuuPhucHoi.Name = "btnSaoLuuPhucHoi";
+            btnSaoLuuPhucHoi.Size = new System.Drawing.Size(228, 41);
+            btnSaoLuuPhucHoi.TabIndex = 6;
+            btnSaoLuuPhucHoi.Text = "SAO LƯU & PHỤC HỒI";
+            btnSaoLuuPhucHoi.UseVisualStyleBackColor = false;
+            btnSaoLuuPhucHoi.Click += btnSaoLuuPhucHoi_Click;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.FromArgb(245, 247, 250);
             ClientSize = new System.Drawing.Size(600, 450);
+            Controls.Add(btnSaoLuuPhucHoi);
             Controls.Add(btnLichSuNhanVien);
             Controls.Add(btnBaoCao);
             Controls.Add(btnDangXuat);

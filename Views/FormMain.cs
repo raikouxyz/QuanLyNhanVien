@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using QuanLyNhanVien.Database;
 using QuanLyNhanVien.Services;
+using QuanLyNhanVien.Views;
 
 namespace QuanLyNhanVien.Views
 {
@@ -226,6 +227,23 @@ namespace QuanLyNhanVien.Views
             {
                 MessageBox.Show($"Lỗi khi mở form lịch sử nhân viên: {ex.Message}",
                     "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Mở form sao lưu và phục hồi dữ liệu
+        /// </summary>
+        private void btnSaoLuuPhucHoi_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var formSaoLuu = new FormSaoLuu();
+                formSaoLuu.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi mở form sao lưu và phục hồi: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

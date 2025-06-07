@@ -66,6 +66,11 @@ namespace QuanLyNhanVien.Views
                     dgvPhongBan.DataSource = null;
                     dgvPhongBan.DataSource = phongBans;
                     
+                    // Ẩn cột NhanViens nếu tồn tại
+                    if (dgvPhongBan.Columns["NhanViens"] != null)
+                    {
+                        dgvPhongBan.Columns["NhanViens"].Visible = false;
+                    }
                     // Xóa lựa chọn hiện tại trong DataGridView
                     dgvPhongBan.ClearSelection();
                     ClearInput();
