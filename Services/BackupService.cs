@@ -44,8 +44,12 @@ namespace QuanLyNhanVien.Services
                 // Danh sách các bảng cần xuất theo thứ tự (để tránh lỗi foreign key)
                 var tables = new List<string>
                 {
-                    "PhongBans",    // Xuất PhongBans trước
-                    "NhanViens"     // Xuất NhanViens sau (vì có foreign key tới PhongBans)
+                    "PhongBans",     // Xuất PhongBans trước (không có foreign key)
+                    "NhanViens",     // Xuất NhanViens sau (có foreign key tới PhongBans)
+                    "Users",         // Xuất Users (không có foreign key)
+                    "ChamCongs",     // Xuất ChamCongs (có foreign key tới NhanViens)
+                    "Luongs",        // Xuất Luongs (có foreign key tới NhanViens)
+                    "NhanVienLogs"   // Xuất NhanVienLogs cuối cùng (có foreign key tới NhanViens)
                 };
 
                 using (var writer = new StreamWriter(filePath, false, System.Text.Encoding.UTF8))
@@ -144,6 +148,11 @@ namespace QuanLyNhanVien.Services
                         {
                             values.Add($"'{dateValue:yyyy-MM-dd HH:mm:ss}'");
                         }
+                        else if (value is TimeSpan timeValue)
+                        {
+                            // Xử lý TimeSpan cho các trường GioVao, GioRa
+                            values.Add($"'{timeValue:hh\\:mm\\:ss}'");
+                        }
                         else if (value is bool boolValue)
                         {
                             values.Add(boolValue ? "1" : "0");
@@ -152,9 +161,14 @@ namespace QuanLyNhanVien.Services
                         {
                             values.Add(value.ToString().Replace(",", "."));
                         }
+                        else if (value is Enum enumValue)
+                        {
+                            // Xử lý enum (như UserRole) - lưu dạng số
+                            values.Add(((int)value).ToString());
+                        }
                         else
                         {
-                            values.Add($"'{value.ToString().Replace("'", "''")}'");
+                            values.Add($"N'{value.ToString().Replace("'", "''")}'");
                         }
                     }
 

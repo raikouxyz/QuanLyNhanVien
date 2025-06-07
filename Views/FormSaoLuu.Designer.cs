@@ -45,9 +45,9 @@
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(57)))), ((int)(((byte)(93)))));
             this.lblTitle.Location = new System.Drawing.Point(12, 9);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(200, 30);
+            this.lblTitle.Size = new System.Drawing.Size(320, 30);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "SAO LƯU DỮ LIỆU";
+            this.lblTitle.Text = "XUẤT DỮ LIỆU TOÀN HỆ THỐNG";
 
             // grpSaoLuu
             this.grpSaoLuu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
@@ -61,7 +61,7 @@
             this.grpSaoLuu.Size = new System.Drawing.Size(560, 120);
             this.grpSaoLuu.TabIndex = 1;
             this.grpSaoLuu.TabStop = false;
-            this.grpSaoLuu.Text = "Xuất dữ liệu thành file SQL";
+            this.grpSaoLuu.Text = "Xuất tất cả dữ liệu thành file SQL (6 bảng)";
 
             // lblDuongDanSaoLuu
             this.lblDuongDanSaoLuu.AutoSize = true;
