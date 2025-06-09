@@ -1,52 +1,58 @@
 HỆ THỐNG QUẢN LÝ NHÂN VIÊN
 
-Mục lục
+Dự án này là một phần mềm quản lý nhân sự dành cho doanh nghiệp vừa và nhỏ, được phát triển trên nền tảng .NET 8 và Windows Forms. Hệ thống hỗ trợ quản lý toàn diện các nghiệp vụ nhân sự như: quản lý thông tin nhân viên, phòng ban, chấm công, tính lương, phân quyền người dùng, xuất báo cáo và sao lưu dữ liệu. Phần mềm hướng tới sự dễ sử dụng, bảo mật cao, giao diện thân thiện và khả năng mở rộng linh hoạt cho nhiều mô hình doanh nghiệp.
 
-- Tính năng
-- Công nghệ
-- Cấu trúc dữ liệu
-- Cài đặt
-- Hướng dẫn sử dụng
-- Phân quyền
-- Cấu hình
-- Giao diện
-- Testing
-- Đóng góp
-- License
-- Credits
 
-Tính năng
+Tính năng chính
 
+Đăng nhập và bảo mật:
 - Đăng nhập an toàn với SHA256 hash
 - Phân quyền 3 cấp độ (Admin, HR, ViewOnly)
-- Session management
-- Audit trail đầy đủ
-- Bảo vệ tài khoản Admin
-- CRUD nhân viên hoàn chỉnh
-- Quản lý theo phòng ban
-- Lịch sử thay đổi chi tiết
-- Tìm kiếm dữ liệu
-- Export dữ liệu
-- Tạo và cấu trúc phòng ban
-- Phân bổ nhân viên
-- Thống kê theo phòng ban
-- Báo cáo cơ cấu tổ chức
-- Ghi nhận giờ vào/ra
+- Session management và bảo vệ tài khoản
+
+Quản lý nhân viên:
+- Thêm, xóa, sửa thông tin nhân viên
+- Tìm kiếm và lọc dữ liệu nhân viên
+
+Quản lý phòng ban:
+- Thêm, xóa, chỉnh sửa phòng ban
+
+Báo cáo nhân sự:
+- Hiển thị danh sách tất cả nhân viên trong công ty
+- Thống kê danh sách nhân viên theo phòng ban, giới tính, độ tuổi
+- Xuất file excel báo cáo nhân sự
+
+Quản lý chấm công:
+- Ghi nhận giờ vào/ra hàng ngày
+- Sửa, xóa ngày làm việc
 - Tính toán giờ làm việc tự động
-- Quản lý theo chu kỳ
-- Báo cáo chấm công chi tiết
-- Xử lý nghỉ phép và làm thêm
-- Tính lương cơ bản + phụ cấp - khấu trừ
+- Hiển thị danh sách chấm công
+
+Quản lý lương:
+- Thêm, xóa, sửa lương nhân viên
+- Tính lương tự động (cơ bản * số ngày làm việc) + phụ cấp - khấu trừ
 - Lương theo ngày làm việc thực tế
-- Hệ số lương và thưởng
-- Báo cáo lương chi tiết
-- Xuất bảng lương Excel
-- Báo cáo nhân viên theo phòng ban
-- Báo cáo chấm công theo kỳ
-- Báo cáo lương tổng hợp
-- Thống kê tình hình nhân sự
-- Xuất Excel
-- Export toàn bộ bảng dữ liệu
+
+Quản lý người dùng:
+- Tạo, chỉnh sửa, xóa tài khoản người dùng
+- Phân quyền theo vai trò
+- Quản lý trạng thái tài khoản
+
+Báo cáo nhân sự:
+- Báo cáo nhân viên, chấm công, lương
+- Xuất Excel cho các báo cáo
+- Export toàn bộ dữ liệu hệ thống
+
+Sao lưu dữ liệu:
+- Backup SQL tự động
+- Export dữ liệu an toàn
+- Khôi phục dữ liệu khi cần thiết
+
+Lịch sử nhân viên:
+- Xem lịch sử thay đổi (thêm, xóa, sửa, đăng ký người dùng mới) lên từng nhân viên trong hệ thống
+- Lọc dữ liệu theo ngày và tìm kiếm theo từ khóa
+- Xóa dữ liệu
+- Xuất file excel báo cáo lịch sử nhân viên
 
 Công nghệ
 
@@ -56,7 +62,6 @@ UI Components: Custom controls
 Backend: Entity Framework Core 9.0.5
 Database: SQL Server 2019+
 Authentication: SHA256 Hashing
-Architecture: Service-Repository Pattern
 
 Dependencies:
 - Microsoft.EntityFrameworkCore.SqlServer 9.0.5
@@ -66,16 +71,6 @@ Dependencies:
 - Microsoft.Office.Interop.Excel 15.0.4795.1001
 - Microsoft.Extensions.DependencyInjection 9.0.5
 - Microsoft.Extensions.Logging 9.0.5
-
-Cấu trúc dữ liệu
-
-PhongBans: Id, TenPhongBan
-NhanViens: Id, HoTen, NgaySinh, GioiTinh, DiaChi, SoDT, PhongBanId, ChucVu, NgayVaoLam
-Users: Id, Username, Password, FullName, Email, Role, IsActive, CreatedDate, LastLoginDate
-ChamCongs: Id, NhanVienId, Ngay, GioVao, GioRa, SoGioLam, GhiChu
-Luongs: Id, NhanVienId, Thang, Nam, LuongCoBan, PhuCap, KhauTru, TongLuong, SoNgayLamViec
-NhanVienLogs: Id, LoaiThaoTac, NhanVienId, NguoiThucHien, ThoiGian, NoiDungThayDoi
-
 
 
 Cài đặt từ Source Code:
@@ -133,3 +128,4 @@ ViewOnly (Level 1):
 - Không truy cập quản lý
 
 Công nghệ sử dụng: .NET 8.0, Entity Framework Core, SQL Server, ClosedXML, BCrypt.Net
+

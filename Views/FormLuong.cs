@@ -115,7 +115,7 @@ namespace QuanLyNhanVien.Views
                         LuongCoBan = l.LuongCoBan.ToString("N0") + " VND",
                         PhuCap = l.PhuCap.ToString("N0") + " VND",
                         KhauTru = l.KhauTru.ToString("N0") + " VND",
-                        TongLuong = (l.LuongCoBan + l.PhuCap - l.KhauTru).ToString("N0") + " VND",
+                        TongLuong = ((l.LuongCoBan * l.SoNgayLamViec) + l.PhuCap - l.KhauTru).ToString("N0") + " VND",
                         l.SoNgayLamViec,
                         l.NgayTao
                     })
@@ -162,9 +162,10 @@ namespace QuanLyNhanVien.Views
                 decimal luongCoBan = nudLuongCoBan.Value;
                 decimal phuCap = nudPhuCap.Value;
                 decimal khauTru = nudKhauTru.Value;
+                int soNgayLamViec = (int)nudSoNgayLamViec.Value;
 
-                // Tính tổng lương theo công thức: Lương cơ bản + Phụ cấp - Khấu trừ
-                decimal tongLuong = luongCoBan + phuCap - khauTru;
+                // Tính tổng lương theo công thức: (Lương cơ bản * Số ngày làm việc) + Phụ cấp - Khấu trừ
+                decimal tongLuong = (luongCoBan * soNgayLamViec) + phuCap - khauTru;
 
                 // Hiển thị kết quả
                 lblTongLuong.Text = tongLuong.ToString("N0") + " VND";
