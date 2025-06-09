@@ -38,10 +38,6 @@ Quản lý người dùng:
 - Phân quyền theo vai trò
 - Quản lý trạng thái tài khoản
 
-Báo cáo nhân sự:
-- Báo cáo nhân viên, chấm công, lương
-- Xuất Excel cho các báo cáo
-- Export toàn bộ dữ liệu hệ thống
 
 Sao lưu dữ liệu:
 - Backup SQL tự động
