@@ -25,6 +25,13 @@ namespace QuanLyNhanVien.Models
         public int NhanVienId { get; set; }
 
         /// <summary>
+        /// Tháng chấm công (format: MM/yyyy)
+        /// </summary>
+        [Required]
+        [Column(TypeName = "date")]
+        public DateTime Thang { get; set; }
+
+        /// <summary>
         /// Ngày chấm công
         /// </summary>
         [Required]

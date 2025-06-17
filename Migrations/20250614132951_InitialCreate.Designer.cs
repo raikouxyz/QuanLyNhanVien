@@ -12,8 +12,8 @@ using QuanLyNhanVien.Database;
 namespace QuanLyNhanVien.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250606062728_AddChamCongTable")]
-    partial class AddChamCongTable
+    [Migration("20250614132951_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,8 +55,8 @@ namespace QuanLyNhanVien.Migrations
                     b.Property<int>("NhanVienId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TrangThai")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("Thang")
+                        .HasColumnType("date");
 
                     b.HasKey("Id");
 
@@ -153,6 +153,47 @@ namespace QuanLyNhanVien.Migrations
                     b.HasIndex("PhongBanId1");
 
                     b.ToTable("NhanViens");
+                });
+
+            modelBuilder.Entity("QuanLyNhanVien.Models.NhanVienLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("GhiChu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LoaiThaoTac")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("NguoiThucHien")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("NhanVienId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NoiDungThayDoi")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TenNhanVien")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("ThoiGian")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NhanVienLogs");
                 });
 
             modelBuilder.Entity("QuanLyNhanVien.Models.PhongBan", b =>

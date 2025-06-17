@@ -182,6 +182,7 @@
             nudNam.Size = new System.Drawing.Size(80, 21);
             nudNam.TabIndex = 5;
             nudNam.Value = new decimal(new int[] { 2024, 0, 0, 0 });
+            nudNam.Enabled = false;
             // 
             // lblLuongCoBan
             // 
@@ -260,6 +261,7 @@
             nudSoNgayLamViec.Size = new System.Drawing.Size(60, 21);
             nudSoNgayLamViec.TabIndex = 13;
             nudSoNgayLamViec.Value = new decimal(new int[] { 22, 0, 0, 0 });
+            nudSoNgayLamViec.Enabled = false;
             // 
             // lblTongLuongText
             // 

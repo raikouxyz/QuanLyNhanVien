@@ -1,4 +1,4 @@
-namespace QuanLyNhanVien.Views
+﻿namespace QuanLyNhanVien.Views
 {
     partial class FormChamCong
     {
@@ -28,224 +28,317 @@ namespace QuanLyNhanVien.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.grpThongTin = new System.Windows.Forms.GroupBox();
-            this.dtpGioRa = new System.Windows.Forms.DateTimePicker();
-            this.lblGioRa = new System.Windows.Forms.Label();
-            this.dtpGioVao = new System.Windows.Forms.DateTimePicker();
-            this.lblGioVao = new System.Windows.Forms.Label();
-            this.dtpNgay = new System.Windows.Forms.DateTimePicker();
-            this.lblNgay = new System.Windows.Forms.Label();
-            this.cboNhanVien = new System.Windows.Forms.ComboBox();
-            this.lblNhanVien = new System.Windows.Forms.Label();
-            this.txtGhiChu = new System.Windows.Forms.TextBox();
-            this.lblGhiChu = new System.Windows.Forms.Label();
-            this.grpChucNang = new System.Windows.Forms.GroupBox();
-            this.btnLamMoi = new System.Windows.Forms.Button();
-            this.btnXoa = new System.Windows.Forms.Button();
-            this.btnSua = new System.Windows.Forms.Button();
-            this.btnThem = new System.Windows.Forms.Button();
-            this.dgvChamCong = new System.Windows.Forms.DataGridView();
-            
+            lblTitle = new System.Windows.Forms.Label();
+            grpThongTin = new System.Windows.Forms.GroupBox();
+            dtpGioRa = new System.Windows.Forms.DateTimePicker();
+            lblGioRa = new System.Windows.Forms.Label();
+            dtpGioVao = new System.Windows.Forms.DateTimePicker();
+            lblGioVao = new System.Windows.Forms.Label();
+            cboNgay = new System.Windows.Forms.ComboBox();
+            lblNgay = new System.Windows.Forms.Label();
+            cboNhanVien = new System.Windows.Forms.ComboBox();
+            lblNhanVien = new System.Windows.Forms.Label();
+            txtGhiChu = new System.Windows.Forms.TextBox();
+            lblGhiChu = new System.Windows.Forms.Label();
+            dtpThang = new System.Windows.Forms.DateTimePicker();
+            lblThang = new System.Windows.Forms.Label();
+            txtTimKiem = new System.Windows.Forms.TextBox();
+            lblTimKiem = new System.Windows.Forms.Label();
+            btnTimKiem = new System.Windows.Forms.Button();
+            grpChucNang = new System.Windows.Forms.GroupBox();
+            btnLamMoi = new System.Windows.Forms.Button();
+            btnXoa = new System.Windows.Forms.Button();
+            btnSua = new System.Windows.Forms.Button();
+            btnThem = new System.Windows.Forms.Button();
+            btnXoaHet = new System.Windows.Forms.Button();
+            dgvChamCong = new System.Windows.Forms.DataGridView();
+            grpThongTin.SuspendLayout();
+            grpChucNang.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvChamCong).BeginInit();
+            SuspendLayout();
+            // 
             // lblTitle
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.ForeColor = System.Drawing.Color.Blue;
-            this.lblTitle.Location = new System.Drawing.Point(300, 20);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(400, 31);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "QUẢN LÝ CHẤM CÔNG";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-
+            // 
+            lblTitle.AutoSize = true;
+            lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lblTitle.ForeColor = System.Drawing.Color.Blue;
+            lblTitle.Location = new System.Drawing.Point(262, 19);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new System.Drawing.Size(270, 26);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "QUẢN LÝ CHẤM CÔNG";
+            lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // grpThongTin
-            this.grpThongTin.Controls.Add(this.dtpGioRa);
-            this.grpThongTin.Controls.Add(this.lblGioRa);
-            this.grpThongTin.Controls.Add(this.dtpGioVao);
-            this.grpThongTin.Controls.Add(this.lblGioVao);
-            this.grpThongTin.Controls.Add(this.dtpNgay);
-            this.grpThongTin.Controls.Add(this.lblNgay);
-            this.grpThongTin.Controls.Add(this.cboNhanVien);
-            this.grpThongTin.Controls.Add(this.lblNhanVien);
-            this.grpThongTin.Controls.Add(this.txtGhiChu);
-            this.grpThongTin.Controls.Add(this.lblGhiChu);
-            this.grpThongTin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpThongTin.Location = new System.Drawing.Point(12, 70);
-            this.grpThongTin.Name = "grpThongTin";
-            this.grpThongTin.Size = new System.Drawing.Size(976, 200);
-            this.grpThongTin.TabIndex = 1;
-            this.grpThongTin.Text = "Thông tin chấm công";
-
-            // lblNhanVien
-            this.lblNhanVien.AutoSize = true;
-            this.lblNhanVien.Location = new System.Drawing.Point(20, 40);
-            this.lblNhanVien.Name = "lblNhanVien";
-            this.lblNhanVien.Size = new System.Drawing.Size(100, 20);
-            this.lblNhanVien.TabIndex = 0;
-            this.lblNhanVien.Text = "Nhân viên:";
-
-            // cboNhanVien
-            this.cboNhanVien.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboNhanVien.FormattingEnabled = true;
-            this.cboNhanVien.Location = new System.Drawing.Point(130, 37);
-            this.cboNhanVien.Name = "cboNhanVien";
-            this.cboNhanVien.Size = new System.Drawing.Size(300, 28);
-            this.cboNhanVien.TabIndex = 1;
-
-            // lblNgay
-            this.lblNgay.AutoSize = true;
-            this.lblNgay.Location = new System.Drawing.Point(20, 80);
-            this.lblNgay.Name = "lblNgay";
-            this.lblNgay.Size = new System.Drawing.Size(100, 20);
-            this.lblNgay.TabIndex = 2;
-            this.lblNgay.Text = "Ngày:";
-
-            // dtpNgay
-            this.dtpNgay.CustomFormat = "dd/MM/yyyy";
-            this.dtpNgay.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpNgay.Location = new System.Drawing.Point(130, 77);
-            this.dtpNgay.Name = "dtpNgay";
-            this.dtpNgay.Size = new System.Drawing.Size(300, 26);
-            this.dtpNgay.TabIndex = 3;
-
-            // lblGioVao
-            this.lblGioVao.AutoSize = true;
-            this.lblGioVao.Location = new System.Drawing.Point(20, 120);
-            this.lblGioVao.Name = "lblGioVao";
-            this.lblGioVao.Size = new System.Drawing.Size(100, 20);
-            this.lblGioVao.TabIndex = 4;
-            this.lblGioVao.Text = "Giờ vào:";
-
-            // dtpGioVao
-            this.dtpGioVao.CustomFormat = "HH:mm";
-            this.dtpGioVao.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpGioVao.Location = new System.Drawing.Point(130, 117);
-            this.dtpGioVao.Name = "dtpGioVao";
-            this.dtpGioVao.ShowUpDown = true;
-            this.dtpGioVao.Size = new System.Drawing.Size(300, 26);
-            this.dtpGioVao.TabIndex = 5;
-
-            // lblGioRa
-            this.lblGioRa.AutoSize = true;
-            this.lblGioRa.Location = new System.Drawing.Point(500, 40);
-            this.lblGioRa.Name = "lblGioRa";
-            this.lblGioRa.Size = new System.Drawing.Size(100, 20);
-            this.lblGioRa.TabIndex = 6;
-            this.lblGioRa.Text = "Giờ ra:";
-
+            // 
+            grpThongTin.Controls.Add(dtpGioRa);
+            grpThongTin.Controls.Add(lblGioRa);
+            grpThongTin.Controls.Add(dtpGioVao);
+            grpThongTin.Controls.Add(lblGioVao);
+            grpThongTin.Controls.Add(cboNgay);
+            grpThongTin.Controls.Add(lblNgay);
+            grpThongTin.Controls.Add(cboNhanVien);
+            grpThongTin.Controls.Add(lblNhanVien);
+            grpThongTin.Controls.Add(txtGhiChu);
+            grpThongTin.Controls.Add(lblGhiChu);
+            grpThongTin.Controls.Add(dtpThang);
+            grpThongTin.Controls.Add(lblThang);
+            grpThongTin.Controls.Add(txtTimKiem);
+            grpThongTin.Controls.Add(lblTimKiem);
+            grpThongTin.Controls.Add(btnTimKiem);
+            grpThongTin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            grpThongTin.Location = new System.Drawing.Point(10, 66);
+            grpThongTin.Name = "grpThongTin";
+            grpThongTin.Size = new System.Drawing.Size(854, 188);
+            grpThongTin.TabIndex = 1;
+            grpThongTin.TabStop = false;
+            grpThongTin.Text = "Thông tin chấm công";
+            // 
             // dtpGioRa
-            this.dtpGioRa.CustomFormat = "HH:mm";
-            this.dtpGioRa.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpGioRa.Location = new System.Drawing.Point(610, 37);
-            this.dtpGioRa.Name = "dtpGioRa";
-            this.dtpGioRa.ShowUpDown = true;
-            this.dtpGioRa.Size = new System.Drawing.Size(300, 26);
-            this.dtpGioRa.TabIndex = 7;
-
-            // lblGhiChu
-            this.lblGhiChu.AutoSize = true;
-            this.lblGhiChu.Location = new System.Drawing.Point(500, 120);
-            this.lblGhiChu.Name = "lblGhiChu";
-            this.lblGhiChu.Size = new System.Drawing.Size(100, 20);
-            this.lblGhiChu.TabIndex = 10;
-            this.lblGhiChu.Text = "Ghi chú:";
-
+            // 
+            dtpGioRa.CustomFormat = "HH:mm";
+            dtpGioRa.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            dtpGioRa.Location = new System.Drawing.Point(534, 35);
+            dtpGioRa.Name = "dtpGioRa";
+            dtpGioRa.ShowUpDown = true;
+            dtpGioRa.Size = new System.Drawing.Size(263, 23);
+            dtpGioRa.TabIndex = 9;
+            // 
+            // lblGioRa
+            // 
+            lblGioRa.AutoSize = true;
+            lblGioRa.Location = new System.Drawing.Point(438, 38);
+            lblGioRa.Name = "lblGioRa";
+            lblGioRa.Size = new System.Drawing.Size(51, 17);
+            lblGioRa.TabIndex = 8;
+            lblGioRa.Text = "Giờ ra:";
+            // 
+            // dtpGioVao
+            // 
+            dtpGioVao.CustomFormat = "HH:mm";
+            dtpGioVao.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            dtpGioVao.Location = new System.Drawing.Point(114, 110);
+            dtpGioVao.Name = "dtpGioVao";
+            dtpGioVao.ShowUpDown = true;
+            dtpGioVao.Size = new System.Drawing.Size(263, 23);
+            dtpGioVao.TabIndex = 7;
+            // 
+            // lblGioVao
+            // 
+            lblGioVao.AutoSize = true;
+            lblGioVao.Location = new System.Drawing.Point(18, 112);
+            lblGioVao.Name = "lblGioVao";
+            lblGioVao.Size = new System.Drawing.Size(61, 17);
+            lblGioVao.TabIndex = 6;
+            lblGioVao.Text = "Giờ vào:";
+            // 
+            // cboNgay
+            // 
+            cboNgay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboNgay.FormattingEnabled = true;
+            cboNgay.Location = new System.Drawing.Point(114, 110);
+            cboNgay.Name = "cboNgay";
+            cboNgay.Size = new System.Drawing.Size(263, 24);
+            cboNgay.TabIndex = 5;
+            // 
+            // lblNgay
+            // 
+            lblNgay.AutoSize = true;
+            lblNgay.Location = new System.Drawing.Point(18, 112);
+            lblNgay.Name = "lblNgay";
+            lblNgay.Size = new System.Drawing.Size(45, 17);
+            lblNgay.TabIndex = 4;
+            lblNgay.Text = "Ngày:";
+            // 
+            // cboNhanVien
+            // 
+            cboNhanVien.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            cboNhanVien.FormattingEnabled = true;
+            cboNhanVien.Location = new System.Drawing.Point(114, 72);
+            cboNhanVien.Name = "cboNhanVien";
+            cboNhanVien.Size = new System.Drawing.Size(263, 24);
+            cboNhanVien.TabIndex = 1;
+            // 
+            // lblNhanVien
+            // 
+            lblNhanVien.AutoSize = true;
+            lblNhanVien.Location = new System.Drawing.Point(18, 75);
+            lblNhanVien.Name = "lblNhanVien";
+            lblNhanVien.Size = new System.Drawing.Size(76, 17);
+            lblNhanVien.TabIndex = 2;
+            lblNhanVien.Text = "Nhân viên:";
+            // 
             // txtGhiChu
-            this.txtGhiChu.Location = new System.Drawing.Point(610, 117);
-            this.txtGhiChu.Multiline = true;
-            this.txtGhiChu.Name = "txtGhiChu";
-            this.txtGhiChu.Size = new System.Drawing.Size(300, 60);
-            this.txtGhiChu.TabIndex = 11;
-
+            // 
+            txtGhiChu.Location = new System.Drawing.Point(534, 110);
+            txtGhiChu.Multiline = true;
+            txtGhiChu.Name = "txtGhiChu";
+            txtGhiChu.Size = new System.Drawing.Size(263, 56);
+            txtGhiChu.TabIndex = 13;
+            // 
+            // lblGhiChu
+            // 
+            lblGhiChu.AutoSize = true;
+            lblGhiChu.Location = new System.Drawing.Point(438, 112);
+            lblGhiChu.Name = "lblGhiChu";
+            lblGhiChu.Size = new System.Drawing.Size(61, 17);
+            lblGhiChu.TabIndex = 12;
+            lblGhiChu.Text = "Ghi chú:";
+            // 
+            // dtpThang
+            // 
+            dtpThang.CustomFormat = "MM/yyyy";
+            dtpThang.Enabled = false;
+            dtpThang.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            dtpThang.Location = new System.Drawing.Point(114, 35);
+            dtpThang.Name = "dtpThang";
+            dtpThang.Size = new System.Drawing.Size(176, 23);
+            dtpThang.TabIndex = 1;
+            // 
+            // lblThang
+            // 
+            lblThang.AutoSize = true;
+            lblThang.Location = new System.Drawing.Point(18, 38);
+            lblThang.Name = "lblThang";
+            lblThang.Size = new System.Drawing.Size(86, 17);
+            lblThang.TabIndex = 0;
+            lblThang.Text = "Tháng/Năm:";
+            // 
+            // txtTimKiem
+            // 
+            txtTimKiem.Location = new System.Drawing.Point(534, 72);
+            txtTimKiem.Name = "txtTimKiem";
+            txtTimKiem.PlaceholderText = "Nhập tên nhân viên...";
+            txtTimKiem.Size = new System.Drawing.Size(176, 23);
+            txtTimKiem.TabIndex = 11;
+            // 
+            // lblTimKiem
+            // 
+            lblTimKiem.AutoSize = true;
+            lblTimKiem.Location = new System.Drawing.Point(438, 75);
+            lblTimKiem.Name = "lblTimKiem";
+            lblTimKiem.Size = new System.Drawing.Size(68, 17);
+            lblTimKiem.TabIndex = 10;
+            lblTimKiem.Text = "Tìm kiếm:";
+            // 
+            // btnTimKiem
+            // 
+            btnTimKiem.Location = new System.Drawing.Point(718, 70);
+            btnTimKiem.Name = "btnTimKiem";
+            btnTimKiem.Size = new System.Drawing.Size(79, 28);
+            btnTimKiem.TabIndex = 12;
+            btnTimKiem.Text = "Tìm";
+            btnTimKiem.UseVisualStyleBackColor = true;
+            btnTimKiem.Click += btnTimKiem_Click;
+            // 
             // grpChucNang
-            this.grpChucNang.Controls.Add(this.btnLamMoi);
-            this.grpChucNang.Controls.Add(this.btnXoa);
-            this.grpChucNang.Controls.Add(this.btnSua);
-            this.grpChucNang.Controls.Add(this.btnThem);
-            this.grpChucNang.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpChucNang.Location = new System.Drawing.Point(12, 280);
-            this.grpChucNang.Name = "grpChucNang";
-            this.grpChucNang.Size = new System.Drawing.Size(976, 80);
-            this.grpChucNang.TabIndex = 2;
-            this.grpChucNang.Text = "Chức năng";
-
-            // btnThem
-            this.btnThem.BackColor = System.Drawing.Color.LightGreen;
-            this.btnThem.Location = new System.Drawing.Point(130, 30);
-            this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(150, 35);
-            this.btnThem.TabIndex = 0;
-            this.btnThem.Text = "Thêm";
-            this.btnThem.UseVisualStyleBackColor = false;
-            this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
-
-            // btnSua
-            this.btnSua.BackColor = System.Drawing.Color.LightBlue;
-            this.btnSua.Location = new System.Drawing.Point(330, 30);
-            this.btnSua.Name = "btnSua";
-            this.btnSua.Size = new System.Drawing.Size(150, 35);
-            this.btnSua.TabIndex = 1;
-            this.btnSua.Text = "Sửa";
-            this.btnSua.UseVisualStyleBackColor = false;
-            this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
-
-            // btnXoa
-            this.btnXoa.BackColor = System.Drawing.Color.LightCoral;
-            this.btnXoa.Location = new System.Drawing.Point(530, 30);
-            this.btnXoa.Name = "btnXoa";
-            this.btnXoa.Size = new System.Drawing.Size(150, 35);
-            this.btnXoa.TabIndex = 2;
-            this.btnXoa.Text = "Xóa";
-            this.btnXoa.UseVisualStyleBackColor = false;
-            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
-
+            // 
+            grpChucNang.Controls.Add(btnLamMoi);
+            grpChucNang.Controls.Add(btnXoa);
+            grpChucNang.Controls.Add(btnSua);
+            grpChucNang.Controls.Add(btnThem);
+            grpChucNang.Controls.Add(btnXoaHet);
+            grpChucNang.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            grpChucNang.Location = new System.Drawing.Point(10, 262);
+            grpChucNang.Name = "grpChucNang";
+            grpChucNang.Size = new System.Drawing.Size(854, 75);
+            grpChucNang.TabIndex = 2;
+            grpChucNang.TabStop = false;
+            grpChucNang.Text = "Chức năng";
+            // 
             // btnLamMoi
-            this.btnLamMoi.BackColor = System.Drawing.Color.LightGray;
-            this.btnLamMoi.Location = new System.Drawing.Point(730, 30);
-            this.btnLamMoi.Name = "btnLamMoi";
-            this.btnLamMoi.Size = new System.Drawing.Size(150, 35);
-            this.btnLamMoi.TabIndex = 3;
-            this.btnLamMoi.Text = "Làm mới";
-            this.btnLamMoi.UseVisualStyleBackColor = false;
-            this.btnLamMoi.Click += new System.EventHandler(this.btnLamMoi_Click);
-
+            // 
+            btnLamMoi.BackColor = System.Drawing.Color.LightGray;
+            btnLamMoi.Location = new System.Drawing.Point(681, 28);
+            btnLamMoi.Name = "btnLamMoi";
+            btnLamMoi.Size = new System.Drawing.Size(131, 33);
+            btnLamMoi.TabIndex = 3;
+            btnLamMoi.Text = "Làm mới";
+            btnLamMoi.UseVisualStyleBackColor = false;
+            btnLamMoi.Click += btnLamMoi_Click;
+            // 
+            // btnXoa
+            // 
+            btnXoa.BackColor = System.Drawing.Color.LightCoral;
+            btnXoa.Location = new System.Drawing.Point(368, 28);
+            btnXoa.Name = "btnXoa";
+            btnXoa.Size = new System.Drawing.Size(131, 33);
+            btnXoa.TabIndex = 2;
+            btnXoa.Text = "Xóa";
+            btnXoa.UseVisualStyleBackColor = false;
+            btnXoa.Click += btnXoa_Click;
+            // 
+            // btnSua
+            // 
+            btnSua.BackColor = System.Drawing.Color.LightBlue;
+            btnSua.Location = new System.Drawing.Point(208, 28);
+            btnSua.Name = "btnSua";
+            btnSua.Size = new System.Drawing.Size(131, 33);
+            btnSua.TabIndex = 1;
+            btnSua.Text = "Sửa";
+            btnSua.UseVisualStyleBackColor = false;
+            btnSua.Click += btnSua_Click;
+            // 
+            // btnThem
+            // 
+            btnThem.BackColor = System.Drawing.Color.LightGreen;
+            btnThem.Location = new System.Drawing.Point(40, 28);
+            btnThem.Name = "btnThem";
+            btnThem.Size = new System.Drawing.Size(131, 33);
+            btnThem.TabIndex = 0;
+            btnThem.Text = "Thêm";
+            btnThem.UseVisualStyleBackColor = false;
+            btnThem.Click += btnThem_Click;
+            // 
+            // btnXoaHet
+            // 
+            btnXoaHet.BackColor = System.Drawing.Color.OrangeRed;
+            btnXoaHet.Location = new System.Drawing.Point(523, 28);
+            btnXoaHet.Name = "btnXoaHet";
+            btnXoaHet.Size = new System.Drawing.Size(131, 33);
+            btnXoaHet.TabIndex = 4;
+            btnXoaHet.Text = "Xóa hết";
+            btnXoaHet.UseVisualStyleBackColor = false;
+            btnXoaHet.Click += btnXoaHet_Click;
+            // 
             // dgvChamCong
-            this.dgvChamCong.AllowUserToAddRows = false;
-            this.dgvChamCong.AllowUserToDeleteRows = false;
-            this.dgvChamCong.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvChamCong.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.dgvChamCong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvChamCong.Location = new System.Drawing.Point(12, 370);
-            this.dgvChamCong.MultiSelect = false;
-            this.dgvChamCong.Name = "dgvChamCong";
-            this.dgvChamCong.ReadOnly = true;
-            this.dgvChamCong.RowHeadersWidth = 51;
-            this.dgvChamCong.RowTemplate.Height = 24;
-            this.dgvChamCong.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvChamCong.Size = new System.Drawing.Size(976, 300);
-            this.dgvChamCong.TabIndex = 3;
-            this.dgvChamCong.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvChamCong_CellClick);
-
+            // 
+            dgvChamCong.AllowUserToAddRows = false;
+            dgvChamCong.AllowUserToDeleteRows = false;
+            dgvChamCong.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dgvChamCong.BackgroundColor = System.Drawing.SystemColors.Window;
+            dgvChamCong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvChamCong.Location = new System.Drawing.Point(10, 347);
+            dgvChamCong.MultiSelect = false;
+            dgvChamCong.Name = "dgvChamCong";
+            dgvChamCong.ReadOnly = true;
+            dgvChamCong.RowHeadersWidth = 51;
+            dgvChamCong.RowTemplate.Height = 24;
+            dgvChamCong.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            dgvChamCong.Size = new System.Drawing.Size(854, 281);
+            dgvChamCong.TabIndex = 3;
+            dgvChamCong.CellClick += dgvChamCong_CellClick;
+            // 
             // FormChamCong
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1000, 700);
-            this.Controls.Add(this.dgvChamCong);
-            this.Controls.Add(this.grpChucNang);
-            this.Controls.Add(this.grpThongTin);
-            this.Controls.Add(this.lblTitle);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.Name = "FormChamCong";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Quản lý chấm công";
-            this.grpThongTin.ResumeLayout(false);
-            this.grpThongTin.PerformLayout();
-            this.grpChucNang.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvChamCong)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(875, 656);
+            Controls.Add(dgvChamCong);
+            Controls.Add(grpChucNang);
+            Controls.Add(grpThongTin);
+            Controls.Add(lblTitle);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            Name = "FormChamCong";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "Quản lý chấm công";
+            grpThongTin.ResumeLayout(false);
+            grpThongTin.PerformLayout();
+            grpChucNang.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvChamCong).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -256,7 +349,7 @@ namespace QuanLyNhanVien.Views
         private System.Windows.Forms.Label lblGioRa;
         private System.Windows.Forms.DateTimePicker dtpGioVao;
         private System.Windows.Forms.Label lblGioVao;
-        private System.Windows.Forms.DateTimePicker dtpNgay;
+        private System.Windows.Forms.ComboBox cboNgay;
         private System.Windows.Forms.Label lblNgay;
         private System.Windows.Forms.ComboBox cboNhanVien;
         private System.Windows.Forms.Label lblNhanVien;
@@ -268,5 +361,11 @@ namespace QuanLyNhanVien.Views
         private System.Windows.Forms.Button btnSua;
         private System.Windows.Forms.Button btnThem;
         private System.Windows.Forms.DataGridView dgvChamCong;
+        private System.Windows.Forms.DateTimePicker dtpThang;
+        private System.Windows.Forms.Label lblThang;
+        private System.Windows.Forms.TextBox txtTimKiem;
+        private System.Windows.Forms.Label lblTimKiem;
+        private System.Windows.Forms.Button btnTimKiem;
+        private System.Windows.Forms.Button btnXoaHet;
     }
 } 

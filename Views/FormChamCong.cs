@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -12,16 +12,50 @@ namespace QuanLyNhanVien.Views
     {
         private readonly AppDbContext _context;
         // Biến dịch vụ xác thực, dùng để kiểm tra quyền người dùng, đăng nhập, đăng xuất, v.v.
-private readonly AuthService _authService;
+        private readonly AuthService _authService;
+        private DateTime _thangHienTai;
 
         public FormChamCong()
         {
             InitializeComponent();
             _context = new AppDbContext();
             _authService = new AuthService(_context);
+            
+            // Khởi tạo tháng hiện tại (ngày 1 của tháng)
+            _thangHienTai = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            
+            // Hiển thị tháng hiện tại
+            dtpThang.Value = _thangHienTai;
+            
+            // Load danh sách ngày trong tháng
+            LoadDanhSachNgay();
+            
             LoadNhanVien();
             LoadChamCong();
             KiemTraPhanQuyen();
+        }
+
+        // Load danh sách ngày trong tháng vào ComboBox
+        private void LoadDanhSachNgay()
+        {
+            cboNgay.Items.Clear();
+            int daysInMonth = DateTime.DaysInMonth(_thangHienTai.Year, _thangHienTai.Month);
+            
+            for (int i = 1; i <= daysInMonth; i++)
+            {
+                var date = new DateTime(_thangHienTai.Year, _thangHienTai.Month, i);
+                cboNgay.Items.Add($"{i:D2}/{_thangHienTai.Month:D2}/{_thangHienTai.Year}");
+            }
+            
+            // Chọn ngày hiện tại nếu nằm trong tháng hiện tại
+            if (DateTime.Now.Year == _thangHienTai.Year && DateTime.Now.Month == _thangHienTai.Month)
+            {
+                cboNgay.SelectedIndex = DateTime.Now.Day - 1;
+            }
+            else
+            {
+                cboNgay.SelectedIndex = 0;
+            }
         }
 
         // Load danh sách nhân viên vào combobox
@@ -41,29 +75,43 @@ private readonly AuthService _authService;
         }
 
         // Load dữ liệu chấm công vào DataGridView
-        private void LoadChamCong()
+        private void LoadChamCong(string searchText = "")
         {
             try
             {
                 var chamCongs = _context.ChamCongs
+                    .Where(cc => cc.Thang.Year == _thangHienTai.Year && 
+                                cc.Thang.Month == _thangHienTai.Month &&
+                                (string.IsNullOrEmpty(searchText) || 
+                                 cc.NhanVien.HoTen.Contains(searchText)))
+                    .OrderByDescending(cc => cc.Ngay)
                     .Select(cc => new
                     {
                         cc.Id,
                         NhanVien = cc.NhanVien.HoTen,
-                        cc.Ngay,
-                        cc.GioVao,
-                        cc.GioRa,
+                        Ngay = cc.Ngay.ToString("dd/MM/yyyy"),
+                        GioVao = cc.GioVao.ToString(@"hh\:mm"),
+                        GioRa = cc.GioRa.ToString(@"hh\:mm"),
                         cc.SoGioLam,
                         cc.GhiChu
                     })
-                    .OrderByDescending(cc => cc.Ngay)
                     .ToList();
 
                 dgvChamCong.DataSource = chamCongs;
+
+                // Định dạng lại tiêu đề cột
+                dgvChamCong.Columns["Id"].HeaderText = "Mã";
+                dgvChamCong.Columns["NhanVien"].HeaderText = "Nhân viên";
+                dgvChamCong.Columns["Ngay"].HeaderText = "Ngày";
+                dgvChamCong.Columns["GioVao"].HeaderText = "Giờ vào";
+                dgvChamCong.Columns["GioRa"].HeaderText = "Giờ ra";
+                dgvChamCong.Columns["SoGioLam"].HeaderText = "Số giờ làm";
+                dgvChamCong.Columns["GhiChu"].HeaderText = "Ghi chú";
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tải dữ liệu chấm công: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi tải dữ liệu chấm công: {ex.Message}", 
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -81,7 +129,6 @@ private readonly AuthService _authService;
             btnXoa.Enabled = isAdmin || isHR;
 
             // Các control nhập liệu
-            dtpNgay.Enabled = isAdmin || isHR;
             dtpGioVao.Enabled = isAdmin || isHR;
             dtpGioRa.Enabled = isAdmin || isHR;
             txtGhiChu.ReadOnly = !(isAdmin || isHR);
@@ -94,10 +141,19 @@ private readonly AuthService _authService;
             {
                 if (!ValidateInput()) return;
 
+                // Lấy ngày từ ComboBox
+                string[] dateParts = cboNgay.SelectedItem.ToString().Split('/');
+                var ngayChon = new DateTime(
+                    int.Parse(dateParts[2]), // năm
+                    int.Parse(dateParts[1]), // tháng
+                    int.Parse(dateParts[0])  // ngày
+                );
+
                 var chamCong = new ChamCong
                 {
                     NhanVienId = (int)cboNhanVien.SelectedValue,
-                    Ngay = dtpNgay.Value.Date,
+                    Thang = _thangHienTai,
+                    Ngay = ngayChon,
                     GioVao = dtpGioVao.Value.TimeOfDay,
                     GioRa = dtpGioRa.Value.TimeOfDay,
                     GhiChu = txtGhiChu.Text,
@@ -119,8 +175,8 @@ private readonly AuthService _authService;
                 _context.ChamCongs.Add(chamCong);
                 _context.SaveChanges();
 
-                MessageBox.Show("Thêm dữ liệu chấm công thành công!", "Thông báo", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Thêm dữ liệu chấm công thành công!", 
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 LoadChamCong();
                 ResetForm();
@@ -146,6 +202,14 @@ private readonly AuthService _authService;
 
                 if (!ValidateInput()) return;
 
+                // Lấy ngày từ ComboBox
+                string[] dateParts = cboNgay.SelectedItem.ToString().Split('/');
+                var ngayChon = new DateTime(
+                    int.Parse(dateParts[2]), // năm
+                    int.Parse(dateParts[1]), // tháng
+                    int.Parse(dateParts[0])  // ngày
+                );
+
                 int id = (int)dgvChamCong.SelectedRows[0].Cells["Id"].Value;
                 var chamCong = _context.ChamCongs.Find(id);
 
@@ -157,7 +221,7 @@ private readonly AuthService _authService;
                 }
 
                 chamCong.NhanVienId = (int)cboNhanVien.SelectedValue;
-                chamCong.Ngay = dtpNgay.Value.Date;
+                chamCong.Ngay = ngayChon;
                 chamCong.GioVao = dtpGioVao.Value.TimeOfDay;
                 chamCong.GioRa = dtpGioRa.Value.TimeOfDay;
                 chamCong.GhiChu = txtGhiChu.Text;
@@ -228,9 +292,17 @@ private readonly AuthService _authService;
             }
         }
 
+        // Xử lý sự kiện click nút Tìm kiếm
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            string searchText = txtTimKiem.Text.Trim();
+            LoadChamCong(searchText);
+        }
+
         // Xử lý sự kiện click nút Làm mới
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
+            txtTimKiem.Clear();
             ResetForm();
             LoadChamCong();
         }
@@ -239,9 +311,17 @@ private readonly AuthService _authService;
         private void ResetForm()
         {
             cboNhanVien.SelectedIndex = -1;
-            dtpNgay.Value = DateTime.Today;
-            dtpGioVao.Value = DateTime.Today.AddHours(8); // 8:00 AM
-            dtpGioRa.Value = DateTime.Today.AddHours(17); // 5:00 PM
+            // Reset về ngày hiện tại nếu nằm trong tháng hiện tại
+            if (DateTime.Now.Year == _thangHienTai.Year && DateTime.Now.Month == _thangHienTai.Month)
+            {
+                cboNgay.SelectedIndex = DateTime.Now.Day - 1;
+            }
+            else
+            {
+                cboNgay.SelectedIndex = 0;
+            }
+            dtpGioVao.Value = DateTime.Today.AddHours(8);
+            dtpGioRa.Value = DateTime.Today.AddHours(17);
             txtGhiChu.Clear();
         }
 
@@ -277,10 +357,43 @@ private readonly AuthService _authService;
                 if (chamCong != null)
                 {
                     cboNhanVien.SelectedValue = chamCong.NhanVienId;
-                    dtpNgay.Value = chamCong.Ngay;
+                    // Chọn ngày trong ComboBox
+                    cboNgay.SelectedIndex = chamCong.Ngay.Day - 1;
                     dtpGioVao.Value = DateTime.Today.Add(chamCong.GioVao);
                     dtpGioRa.Value = DateTime.Today.Add(chamCong.GioRa);
                     txtGhiChu.Text = chamCong.GhiChu;
+                }
+            }
+        }
+
+        // Xử lý sự kiện click nút Xóa hết
+        private void btnXoaHet_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show(
+                "Bạn có chắc chắn muốn xóa toàn bộ dữ liệu chấm công của tháng này không?",
+                "Xác nhận xóa hết",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    var chamCongs = _context.ChamCongs.Where(cc => cc.Thang.Year == _thangHienTai.Year && cc.Thang.Month == _thangHienTai.Month).ToList();
+                    if (chamCongs.Count == 0)
+                    {
+                        MessageBox.Show("Không có dữ liệu để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    _context.ChamCongs.RemoveRange(chamCongs);
+                    _context.SaveChanges();
+                    MessageBox.Show("Đã xóa toàn bộ dữ liệu chấm công của tháng này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadChamCong();
+                    ResetForm();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi xóa dữ liệu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

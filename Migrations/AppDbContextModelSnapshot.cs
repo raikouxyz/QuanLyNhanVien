@@ -52,6 +52,9 @@ namespace QuanLyNhanVien.Migrations
                     b.Property<int>("NhanVienId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("Thang")
+                        .HasColumnType("date");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NhanVienId");
