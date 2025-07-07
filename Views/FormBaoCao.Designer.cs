@@ -62,47 +62,47 @@ namespace QuanLyNhanVien.Views
             ((System.ComponentModel.ISupportInitialize)(this.dgvThongKeDoTuoi)).BeginInit();
             this.SuspendLayout();
 
-            // pnlHeader - Thiết kế header với gradient
-            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(41, 128, 185);
+            // pnlHeader - Header chuyên nghiệp
+            this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
             this.pnlHeader.Controls.Add(this.lblSubtitle);
             this.pnlHeader.Controls.Add(this.lblTitle);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1400, 100);
+            this.pnlHeader.Size = new System.Drawing.Size(1200, 100);
             this.pnlHeader.TabIndex = 0;
 
             // lblTitle - Tiêu đề chính
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
             this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(480, 20);
+            this.lblTitle.Location = new System.Drawing.Point(430, 25);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(440, 45);
+            this.lblTitle.Size = new System.Drawing.Size(340, 37);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "📊 BÁO CÁO & THỐNG KÊ";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 
             // lblSubtitle - Phụ đề
             this.lblSubtitle.AutoSize = true;
-            this.lblSubtitle.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.lblSubtitle.ForeColor = System.Drawing.Color.FromArgb(236, 240, 241);
-            this.lblSubtitle.Location = new System.Drawing.Point(580, 65);
+            this.lblSubtitle.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.lblSubtitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(225)))));
+            this.lblSubtitle.Location = new System.Drawing.Point(480, 65);
             this.lblSubtitle.Name = "lblSubtitle";
-            this.lblSubtitle.Size = new System.Drawing.Size(240, 21);
+            this.lblSubtitle.Size = new System.Drawing.Size(240, 20);
             this.lblSubtitle.TabIndex = 1;
-            this.lblSubtitle.Text = "Hệ thống quản lý nhân sự hiện đại";
+            this.lblSubtitle.Text = "Phân tích dữ liệu nhân sự toàn diện";
             this.lblSubtitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 
             // pnlContent - Container chính
-            this.pnlContent.BackColor = System.Drawing.Color.FromArgb(248, 249, 250);
+            this.pnlContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.pnlContent.Controls.Add(this.pnlRightContent);
             this.pnlContent.Controls.Add(this.pnlLeftStats);
             this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContent.Location = new System.Drawing.Point(0, 100);
             this.pnlContent.Name = "pnlContent";
             this.pnlContent.Padding = new System.Windows.Forms.Padding(25);
-            this.pnlContent.Size = new System.Drawing.Size(1400, 650);
+            this.pnlContent.Size = new System.Drawing.Size(1200, 620);
             this.pnlContent.TabIndex = 1;
 
             // pnlLeftStats - Panel bên trái chứa các thống kê
@@ -112,7 +112,7 @@ namespace QuanLyNhanVien.Views
             this.pnlLeftStats.Controls.Add(this.grpThongKeDoTuoi);
             this.pnlLeftStats.Location = new System.Drawing.Point(35, 35);
             this.pnlLeftStats.Name = "pnlLeftStats";
-            this.pnlLeftStats.Size = new System.Drawing.Size(420, 580);
+            this.pnlLeftStats.Size = new System.Drawing.Size(420, 470);
             this.pnlLeftStats.TabIndex = 0;
 
             // pnlRightContent - Panel bên phải chứa danh sách và tổng quan
@@ -121,23 +121,23 @@ namespace QuanLyNhanVien.Views
             this.pnlRightContent.Controls.Add(this.lblTongQuan);
             this.pnlRightContent.Location = new System.Drawing.Point(475, 35);
             this.pnlRightContent.Name = "pnlRightContent";
-            this.pnlRightContent.Size = new System.Drawing.Size(890, 580);
+            this.pnlRightContent.Size = new System.Drawing.Size(690, 470);
             this.pnlRightContent.TabIndex = 1;
 
-            // grpThongKePhongBan - Card style với shadow
+            // grpThongKePhongBan - Card style
             this.grpThongKePhongBan.BackColor = System.Drawing.Color.White;
             this.grpThongKePhongBan.Controls.Add(this.dgvThongKePhongBan);
             this.grpThongKePhongBan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.grpThongKePhongBan.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.grpThongKePhongBan.ForeColor = System.Drawing.Color.FromArgb(52, 73, 94);
+            this.grpThongKePhongBan.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
             this.grpThongKePhongBan.Location = new System.Drawing.Point(10, 10);
             this.grpThongKePhongBan.Name = "grpThongKePhongBan";
             this.grpThongKePhongBan.Padding = new System.Windows.Forms.Padding(15);
-            this.grpThongKePhongBan.Size = new System.Drawing.Size(400, 180);
+            this.grpThongKePhongBan.Size = new System.Drawing.Size(400, 140);
             this.grpThongKePhongBan.TabIndex = 1;
             this.grpThongKePhongBan.Text = "🏢 Thống kê phòng ban";
 
-            // dgvThongKePhongBan - Styled DataGridView
+            // dgvThongKePhongBan - DataGridView chuyên nghiệp
             this.dgvThongKePhongBan.AllowUserToAddRows = false;
             this.dgvThongKePhongBan.AllowUserToDeleteRows = false;
             this.dgvThongKePhongBan.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -145,27 +145,27 @@ namespace QuanLyNhanVien.Views
             this.dgvThongKePhongBan.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvThongKePhongBan.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvThongKePhongBan.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dgvThongKePhongBan.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
+            this.dgvThongKePhongBan.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
             this.dgvThongKePhongBan.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.dgvThongKePhongBan.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
-            this.dgvThongKePhongBan.ColumnHeadersDefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(41, 128, 185);
+            this.dgvThongKePhongBan.ColumnHeadersDefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
             this.dgvThongKePhongBan.ColumnHeadersHeight = 35;
             this.dgvThongKePhongBan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvThongKePhongBan.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvThongKePhongBan.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.dgvThongKePhongBan.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80);
-            this.dgvThongKePhongBan.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(174, 214, 241);
-            this.dgvThongKePhongBan.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(44, 62, 80);
+            this.dgvThongKePhongBan.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.dgvThongKePhongBan.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
+            this.dgvThongKePhongBan.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.dgvThongKePhongBan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvThongKePhongBan.EnableHeadersVisualStyles = false;
-            this.dgvThongKePhongBan.GridColor = System.Drawing.Color.FromArgb(230, 230, 230);
+            this.dgvThongKePhongBan.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(226)))), ((int)(((byte)(230)))));
             this.dgvThongKePhongBan.Location = new System.Drawing.Point(15, 40);
             this.dgvThongKePhongBan.Name = "dgvThongKePhongBan";
             this.dgvThongKePhongBan.ReadOnly = true;
             this.dgvThongKePhongBan.RowHeadersVisible = false;
             this.dgvThongKePhongBan.RowTemplate.Height = 30;
             this.dgvThongKePhongBan.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvThongKePhongBan.Size = new System.Drawing.Size(370, 125);
+            this.dgvThongKePhongBan.Size = new System.Drawing.Size(370, 85);
             this.dgvThongKePhongBan.TabIndex = 0;
 
             // grpThongKeGioiTinh
@@ -173,11 +173,11 @@ namespace QuanLyNhanVien.Views
             this.grpThongKeGioiTinh.Controls.Add(this.dgvThongKeGioiTinh);
             this.grpThongKeGioiTinh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.grpThongKeGioiTinh.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.grpThongKeGioiTinh.ForeColor = System.Drawing.Color.FromArgb(52, 73, 94);
-            this.grpThongKeGioiTinh.Location = new System.Drawing.Point(10, 210);
+            this.grpThongKeGioiTinh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.grpThongKeGioiTinh.Location = new System.Drawing.Point(10, 170);
             this.grpThongKeGioiTinh.Name = "grpThongKeGioiTinh";
             this.grpThongKeGioiTinh.Padding = new System.Windows.Forms.Padding(15);
-            this.grpThongKeGioiTinh.Size = new System.Drawing.Size(400, 180);
+            this.grpThongKeGioiTinh.Size = new System.Drawing.Size(400, 140);
             this.grpThongKeGioiTinh.TabIndex = 2;
             this.grpThongKeGioiTinh.Text = "⚧ Thống kê giới tính";
 
@@ -189,27 +189,27 @@ namespace QuanLyNhanVien.Views
             this.dgvThongKeGioiTinh.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvThongKeGioiTinh.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvThongKeGioiTinh.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dgvThongKeGioiTinh.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(155, 89, 182);
+            this.dgvThongKeGioiTinh.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.dgvThongKeGioiTinh.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.dgvThongKeGioiTinh.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
-            this.dgvThongKeGioiTinh.ColumnHeadersDefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(142, 68, 173);
+            this.dgvThongKeGioiTinh.ColumnHeadersDefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(80)))), ((int)(((byte)(87)))));
             this.dgvThongKeGioiTinh.ColumnHeadersHeight = 35;
             this.dgvThongKeGioiTinh.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvThongKeGioiTinh.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvThongKeGioiTinh.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.dgvThongKeGioiTinh.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80);
-            this.dgvThongKeGioiTinh.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(210, 180, 222);
-            this.dgvThongKeGioiTinh.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(44, 62, 80);
+            this.dgvThongKeGioiTinh.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.dgvThongKeGioiTinh.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
+            this.dgvThongKeGioiTinh.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.dgvThongKeGioiTinh.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvThongKeGioiTinh.EnableHeadersVisualStyles = false;
-            this.dgvThongKeGioiTinh.GridColor = System.Drawing.Color.FromArgb(230, 230, 230);
+            this.dgvThongKeGioiTinh.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(226)))), ((int)(((byte)(230)))));
             this.dgvThongKeGioiTinh.Location = new System.Drawing.Point(15, 40);
             this.dgvThongKeGioiTinh.Name = "dgvThongKeGioiTinh";
             this.dgvThongKeGioiTinh.ReadOnly = true;
             this.dgvThongKeGioiTinh.RowHeadersVisible = false;
             this.dgvThongKeGioiTinh.RowTemplate.Height = 30;
             this.dgvThongKeGioiTinh.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvThongKeGioiTinh.Size = new System.Drawing.Size(370, 125);
+            this.dgvThongKeGioiTinh.Size = new System.Drawing.Size(370, 85);
             this.dgvThongKeGioiTinh.TabIndex = 0;
 
             // grpThongKeDoTuoi
@@ -217,11 +217,11 @@ namespace QuanLyNhanVien.Views
             this.grpThongKeDoTuoi.Controls.Add(this.dgvThongKeDoTuoi);
             this.grpThongKeDoTuoi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.grpThongKeDoTuoi.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.grpThongKeDoTuoi.ForeColor = System.Drawing.Color.FromArgb(52, 73, 94);
-            this.grpThongKeDoTuoi.Location = new System.Drawing.Point(10, 410);
+            this.grpThongKeDoTuoi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.grpThongKeDoTuoi.Location = new System.Drawing.Point(10, 330);
             this.grpThongKeDoTuoi.Name = "grpThongKeDoTuoi";
             this.grpThongKeDoTuoi.Padding = new System.Windows.Forms.Padding(15);
-            this.grpThongKeDoTuoi.Size = new System.Drawing.Size(400, 160);
+            this.grpThongKeDoTuoi.Size = new System.Drawing.Size(400, 130);
             this.grpThongKeDoTuoi.TabIndex = 3;
             this.grpThongKeDoTuoi.Text = "🎂 Thống kê độ tuổi";
 
@@ -233,39 +233,39 @@ namespace QuanLyNhanVien.Views
             this.dgvThongKeDoTuoi.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvThongKeDoTuoi.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvThongKeDoTuoi.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dgvThongKeDoTuoi.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(230, 126, 34);
+            this.dgvThongKeDoTuoi.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(80)))), ((int)(((byte)(87)))));
             this.dgvThongKeDoTuoi.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.dgvThongKeDoTuoi.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
-            this.dgvThongKeDoTuoi.ColumnHeadersDefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(211, 84, 0);
+            this.dgvThongKeDoTuoi.ColumnHeadersDefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(58)))), ((int)(((byte)(64)))));
             this.dgvThongKeDoTuoi.ColumnHeadersHeight = 35;
             this.dgvThongKeDoTuoi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvThongKeDoTuoi.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvThongKeDoTuoi.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.dgvThongKeDoTuoi.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80);
-            this.dgvThongKeDoTuoi.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(250, 215, 160);
-            this.dgvThongKeDoTuoi.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(44, 62, 80);
+            this.dgvThongKeDoTuoi.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.dgvThongKeDoTuoi.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
+            this.dgvThongKeDoTuoi.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.dgvThongKeDoTuoi.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvThongKeDoTuoi.EnableHeadersVisualStyles = false;
-            this.dgvThongKeDoTuoi.GridColor = System.Drawing.Color.FromArgb(230, 230, 230);
+            this.dgvThongKeDoTuoi.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(226)))), ((int)(((byte)(230)))));
             this.dgvThongKeDoTuoi.Location = new System.Drawing.Point(15, 40);
             this.dgvThongKeDoTuoi.Name = "dgvThongKeDoTuoi";
             this.dgvThongKeDoTuoi.ReadOnly = true;
             this.dgvThongKeDoTuoi.RowHeadersVisible = false;
             this.dgvThongKeDoTuoi.RowTemplate.Height = 30;
             this.dgvThongKeDoTuoi.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvThongKeDoTuoi.Size = new System.Drawing.Size(370, 105);
+            this.dgvThongKeDoTuoi.Size = new System.Drawing.Size(370, 75);
             this.dgvThongKeDoTuoi.TabIndex = 0;
 
-            // grpDanhSachNhanVien - Danh sách nhân viên với thiết kế card
+            // grpDanhSachNhanVien - Danh sách nhân viên
             this.grpDanhSachNhanVien.BackColor = System.Drawing.Color.White;
             this.grpDanhSachNhanVien.Controls.Add(this.dgvDanhSachNhanVien);
             this.grpDanhSachNhanVien.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.grpDanhSachNhanVien.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.grpDanhSachNhanVien.ForeColor = System.Drawing.Color.FromArgb(52, 73, 94);
+            this.grpDanhSachNhanVien.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
             this.grpDanhSachNhanVien.Location = new System.Drawing.Point(10, 10);
             this.grpDanhSachNhanVien.Name = "grpDanhSachNhanVien";
             this.grpDanhSachNhanVien.Padding = new System.Windows.Forms.Padding(15);
-            this.grpDanhSachNhanVien.Size = new System.Drawing.Size(870, 350);
+            this.grpDanhSachNhanVien.Size = new System.Drawing.Size(670, 280);
             this.grpDanhSachNhanVien.TabIndex = 0;
             this.grpDanhSachNhanVien.Text = "👥 Danh sách nhân viên chi tiết";
 
@@ -277,85 +277,85 @@ namespace QuanLyNhanVien.Views
             this.dgvDanhSachNhanVien.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvDanhSachNhanVien.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvDanhSachNhanVien.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dgvDanhSachNhanVien.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(39, 174, 96);
+            this.dgvDanhSachNhanVien.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
             this.dgvDanhSachNhanVien.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.dgvDanhSachNhanVien.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
-            this.dgvDanhSachNhanVien.ColumnHeadersDefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(34, 153, 84);
+            this.dgvDanhSachNhanVien.ColumnHeadersDefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(135)))), ((int)(((byte)(84)))));
             this.dgvDanhSachNhanVien.ColumnHeadersHeight = 40;
             this.dgvDanhSachNhanVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvDanhSachNhanVien.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvDanhSachNhanVien.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.dgvDanhSachNhanVien.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80);
-            this.dgvDanhSachNhanVien.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(187, 231, 206);
-            this.dgvDanhSachNhanVien.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(44, 62, 80);
+            this.dgvDanhSachNhanVien.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.dgvDanhSachNhanVien.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
+            this.dgvDanhSachNhanVien.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.dgvDanhSachNhanVien.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvDanhSachNhanVien.EnableHeadersVisualStyles = false;
-            this.dgvDanhSachNhanVien.GridColor = System.Drawing.Color.FromArgb(230, 230, 230);
+            this.dgvDanhSachNhanVien.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(226)))), ((int)(((byte)(230)))));
             this.dgvDanhSachNhanVien.Location = new System.Drawing.Point(15, 40);
             this.dgvDanhSachNhanVien.Name = "dgvDanhSachNhanVien";
             this.dgvDanhSachNhanVien.ReadOnly = true;
             this.dgvDanhSachNhanVien.RowHeadersVisible = false;
             this.dgvDanhSachNhanVien.RowTemplate.Height = 35;
             this.dgvDanhSachNhanVien.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDanhSachNhanVien.Size = new System.Drawing.Size(840, 295);
+            this.dgvDanhSachNhanVien.Size = new System.Drawing.Size(640, 225);
             this.dgvDanhSachNhanVien.TabIndex = 0;
 
-            // lblTongQuan - Panel thông tin tổng quan với thiết kế hiện đại
+            // lblTongQuan - Panel thông tin tổng quan
             this.lblTongQuan.BackColor = System.Drawing.Color.White;
             this.lblTongQuan.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTongQuan.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.lblTongQuan.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80);
-            this.lblTongQuan.Location = new System.Drawing.Point(10, 380);
+            this.lblTongQuan.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.lblTongQuan.Location = new System.Drawing.Point(10, 310);
             this.lblTongQuan.Name = "lblTongQuan";
             this.lblTongQuan.Padding = new System.Windows.Forms.Padding(20);
-            this.lblTongQuan.Size = new System.Drawing.Size(870, 190);
+            this.lblTongQuan.Size = new System.Drawing.Size(670, 150);
             this.lblTongQuan.TabIndex = 1;
             this.lblTongQuan.Text = "📈 THÔNG TIN TỔNG QUAN NHÂN SỰ\r\n\r\n🔄 Đang tải dữ liệu thống kê...";
 
-            // pnlButtons - Panel buttons với thiết kế hiện đại
-            this.pnlButtons.BackColor = System.Drawing.Color.FromArgb(236, 240, 241);
+            // pnlButtons - Panel buttons
+            this.pnlButtons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(236)))), ((int)(((byte)(239)))));
             this.pnlButtons.Controls.Add(this.btnXuatExcel);
             this.pnlButtons.Controls.Add(this.btnLamMoi);
             this.pnlButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlButtons.Location = new System.Drawing.Point(0, 750);
+            this.pnlButtons.Location = new System.Drawing.Point(0, 720);
             this.pnlButtons.Name = "pnlButtons";
             this.pnlButtons.Padding = new System.Windows.Forms.Padding(25);
-            this.pnlButtons.Size = new System.Drawing.Size(1400, 80);
+            this.pnlButtons.Size = new System.Drawing.Size(1200, 80);
             this.pnlButtons.TabIndex = 2;
 
-            // btnXuatExcel - Button xuất Excel với gradient
-            this.btnXuatExcel.BackColor = System.Drawing.Color.FromArgb(39, 174, 96);
+            // btnXuatExcel - Button xuất Excel
+            this.btnXuatExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
             this.btnXuatExcel.FlatAppearance.BorderSize = 0;
             this.btnXuatExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnXuatExcel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnXuatExcel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnXuatExcel.ForeColor = System.Drawing.Color.White;
-            this.btnXuatExcel.Location = new System.Drawing.Point(580, 20);
+            this.btnXuatExcel.Location = new System.Drawing.Point(480, 20);
             this.btnXuatExcel.Name = "btnXuatExcel";
-            this.btnXuatExcel.Size = new System.Drawing.Size(200, 45);
+            this.btnXuatExcel.Size = new System.Drawing.Size(160, 40);
             this.btnXuatExcel.TabIndex = 0;
-            this.btnXuatExcel.Text = "📄 Xuất báo cáo Excel";
+            this.btnXuatExcel.Text = "📄 Xuất Excel";
             this.btnXuatExcel.UseVisualStyleBackColor = false;
             this.btnXuatExcel.Click += new System.EventHandler(this.btnXuatExcel_Click);
 
             // btnLamMoi - Button làm mới
-            this.btnLamMoi.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
+            this.btnLamMoi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.btnLamMoi.FlatAppearance.BorderSize = 0;
             this.btnLamMoi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLamMoi.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnLamMoi.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnLamMoi.ForeColor = System.Drawing.Color.White;
-            this.btnLamMoi.Location = new System.Drawing.Point(800, 20);
+            this.btnLamMoi.Location = new System.Drawing.Point(660, 20);
             this.btnLamMoi.Name = "btnLamMoi";
-            this.btnLamMoi.Size = new System.Drawing.Size(200, 45);
+            this.btnLamMoi.Size = new System.Drawing.Size(160, 40);
             this.btnLamMoi.TabIndex = 1;
-            this.btnLamMoi.Text = "🔄 Cập nhật dữ liệu";
+            this.btnLamMoi.Text = "🔄 Cập nhật";
             this.btnLamMoi.UseVisualStyleBackColor = false;
             this.btnLamMoi.Click += new System.EventHandler(this.btnLamMoi_Click);
 
             // FormBaoCao - Thiết lập form chính
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(248, 249, 250);
-            this.ClientSize = new System.Drawing.Size(1400, 830);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
+            this.ClientSize = new System.Drawing.Size(1200, 800);
             this.Controls.Add(this.pnlContent);
             this.Controls.Add(this.pnlButtons);
             this.Controls.Add(this.pnlHeader);

@@ -56,10 +56,6 @@ namespace QuanLyNhanVien.Views
         {
             try
             {
-                // Ẩn textbox phòng ban vì ta dùng combobox
-                if (txtPhongBan != null)
-                    txtPhongBan.Visible = false;
-                
                 // Load dữ liệu ban đầu
                 LoadDanhSachPhongBan();
                 LoadDanhSachNhanVien();
@@ -480,6 +476,30 @@ namespace QuanLyNhanVien.Views
             {
                 MessageBox.Show($"Lỗi kiểm tra phân quyền: {ex.Message}", "Lỗi", 
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Event handler cho nút Làm mới - xóa trắng form và tải lại dữ liệu
+        /// </summary>
+        private void btnLamMoi_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Xóa trắng form
+                XoaTrangForm();
+                
+                // Tải lại danh sách nhân viên
+                LoadDanhSachNhanVien();
+                
+                // Tải lại danh sách phòng ban
+                LoadDanhSachPhongBan();
+                
+                MessageBox.Show("Đã làm mới dữ liệu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi làm mới: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

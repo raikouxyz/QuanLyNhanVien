@@ -28,130 +28,238 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.grpSaoLuu = new System.Windows.Forms.GroupBox();
-            this.btnChonViTriSaoLuu = new System.Windows.Forms.Button();
-            this.txtDuongDanSaoLuu = new System.Windows.Forms.TextBox();
-            this.lblDuongDanSaoLuu = new System.Windows.Forms.Label();
-            this.btnSaoLuu = new System.Windows.Forms.Button();
-            this.progressBar = new System.Windows.Forms.ProgressBar();
-            this.lblTrangThai = new System.Windows.Forms.Label();
-            this.grpSaoLuu.SuspendLayout();
-            this.SuspendLayout();
-
+            pnlHeader = new System.Windows.Forms.Panel();
+            lblSubtitle = new System.Windows.Forms.Label();
+            lblTitle = new System.Windows.Forms.Label();
+            pnlContent = new System.Windows.Forms.Panel();
+            grpSaoLuu = new System.Windows.Forms.GroupBox();
+            pnlButtons = new System.Windows.Forms.Panel();
+            btnSaoLuu = new System.Windows.Forms.Button();
+            pnlInput = new System.Windows.Forms.Panel();
+            btnChonViTriSaoLuu = new System.Windows.Forms.Button();
+            txtDuongDanSaoLuu = new System.Windows.Forms.TextBox();
+            lblDuongDanSaoLuu = new System.Windows.Forms.Label();
+            pnlProgress = new System.Windows.Forms.Panel();
+            lblTrangThai = new System.Windows.Forms.Label();
+            progressBar = new System.Windows.Forms.ProgressBar();
+            pnlHeader.SuspendLayout();
+            pnlContent.SuspendLayout();
+            grpSaoLuu.SuspendLayout();
+            pnlButtons.SuspendLayout();
+            pnlInput.SuspendLayout();
+            pnlProgress.SuspendLayout();
+            SuspendLayout();
+            // 
+            // pnlHeader
+            // 
+            pnlHeader.BackColor = System.Drawing.Color.FromArgb(52, 73, 94);
+            pnlHeader.Controls.Add(lblSubtitle);
+            pnlHeader.Controls.Add(lblTitle);
+            pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            pnlHeader.Location = new System.Drawing.Point(0, 0);
+            pnlHeader.Name = "pnlHeader";
+            pnlHeader.Padding = new System.Windows.Forms.Padding(30, 20, 30, 20);
+            pnlHeader.Size = new System.Drawing.Size(1200, 120);
+            pnlHeader.TabIndex = 0;
+            // 
+            // lblSubtitle
+            // 
+            lblSubtitle.AutoSize = true;
+            lblSubtitle.Font = new System.Drawing.Font("Segoe UI", 11F);
+            lblSubtitle.ForeColor = System.Drawing.Color.FromArgb(220, 220, 220);
+            lblSubtitle.Location = new System.Drawing.Point(33, 65);
+            lblSubtitle.Name = "lblSubtitle";
+            lblSubtitle.Size = new System.Drawing.Size(282, 20);
+            lblSubtitle.TabIndex = 1;
+            lblSubtitle.Text = "Xuất dữ liệu toàn hệ thống thành file SQL";
+            // 
             // lblTitle
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(57)))), ((int)(((byte)(93)))));
-            this.lblTitle.Location = new System.Drawing.Point(12, 9);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(320, 30);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "XUẤT DỮ LIỆU TOÀN HỆ THỐNG";
-
+            // 
+            lblTitle.AutoSize = true;
+            lblTitle.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
+            lblTitle.ForeColor = System.Drawing.Color.White;
+            lblTitle.Location = new System.Drawing.Point(30, 20);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new System.Drawing.Size(290, 37);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "📂 SAO LƯU DỮ LIỆU";
+            // 
+            // pnlContent
+            // 
+            pnlContent.BackColor = System.Drawing.Color.FromArgb(248, 249, 250);
+            pnlContent.Controls.Add(grpSaoLuu);
+            pnlContent.Controls.Add(pnlProgress);
+            pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            pnlContent.Location = new System.Drawing.Point(0, 120);
+            pnlContent.Name = "pnlContent";
+            pnlContent.Padding = new System.Windows.Forms.Padding(30);
+            pnlContent.Size = new System.Drawing.Size(1200, 680);
+            pnlContent.TabIndex = 1;
+            // 
             // grpSaoLuu
-            this.grpSaoLuu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpSaoLuu.Controls.Add(this.btnChonViTriSaoLuu);
-            this.grpSaoLuu.Controls.Add(this.txtDuongDanSaoLuu);
-            this.grpSaoLuu.Controls.Add(this.lblDuongDanSaoLuu);
-            this.grpSaoLuu.Controls.Add(this.btnSaoLuu);
-            this.grpSaoLuu.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.grpSaoLuu.Location = new System.Drawing.Point(12, 52);
-            this.grpSaoLuu.Name = "grpSaoLuu";
-            this.grpSaoLuu.Size = new System.Drawing.Size(560, 120);
-            this.grpSaoLuu.TabIndex = 1;
-            this.grpSaoLuu.TabStop = false;
-            this.grpSaoLuu.Text = "Xuất tất cả dữ liệu thành file SQL (6 bảng)";
-
-            // lblDuongDanSaoLuu
-            this.lblDuongDanSaoLuu.AutoSize = true;
-            this.lblDuongDanSaoLuu.Location = new System.Drawing.Point(15, 30);
-            this.lblDuongDanSaoLuu.Name = "lblDuongDanSaoLuu";
-            this.lblDuongDanSaoLuu.Size = new System.Drawing.Size(120, 19);
-            this.lblDuongDanSaoLuu.TabIndex = 0;
-            this.lblDuongDanSaoLuu.Text = "Vị trí lưu file SQL:";
-
-            // txtDuongDanSaoLuu
-            this.txtDuongDanSaoLuu.Location = new System.Drawing.Point(15, 55);
-            this.txtDuongDanSaoLuu.Name = "txtDuongDanSaoLuu";
-            this.txtDuongDanSaoLuu.ReadOnly = true;
-            this.txtDuongDanSaoLuu.Size = new System.Drawing.Size(400, 25);
-            this.txtDuongDanSaoLuu.TabIndex = 1;
-
-            // btnChonViTriSaoLuu
-            this.btnChonViTriSaoLuu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(181)))), ((int)(((byte)(246)))));
-            this.btnChonViTriSaoLuu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnChonViTriSaoLuu.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnChonViTriSaoLuu.ForeColor = System.Drawing.Color.White;
-            this.btnChonViTriSaoLuu.Location = new System.Drawing.Point(425, 55);
-            this.btnChonViTriSaoLuu.Name = "btnChonViTriSaoLuu";
-            this.btnChonViTriSaoLuu.Size = new System.Drawing.Size(80, 25);
-            this.btnChonViTriSaoLuu.TabIndex = 2;
-            this.btnChonViTriSaoLuu.Text = "Chọn";
-            this.btnChonViTriSaoLuu.UseVisualStyleBackColor = false;
-            this.btnChonViTriSaoLuu.Click += new System.EventHandler(this.btnChonViTriSaoLuu_Click);
-
+            // 
+            grpSaoLuu.BackColor = System.Drawing.Color.White;
+            grpSaoLuu.Controls.Add(pnlButtons);
+            grpSaoLuu.Controls.Add(pnlInput);
+            grpSaoLuu.Dock = System.Windows.Forms.DockStyle.Top;
+            grpSaoLuu.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            grpSaoLuu.ForeColor = System.Drawing.Color.FromArgb(52, 73, 94);
+            grpSaoLuu.Location = new System.Drawing.Point(30, 30);
+            grpSaoLuu.Name = "grpSaoLuu";
+            grpSaoLuu.Padding = new System.Windows.Forms.Padding(25, 20, 25, 25);
+            grpSaoLuu.Size = new System.Drawing.Size(1140, 280);
+            grpSaoLuu.TabIndex = 0;
+            grpSaoLuu.TabStop = false;
+            grpSaoLuu.Text = "🗃️ Xuất dữ liệu hệ thống";
+            // 
+            // pnlButtons
+            // 
+            pnlButtons.Controls.Add(btnSaoLuu);
+            pnlButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
+            pnlButtons.Location = new System.Drawing.Point(25, 200);
+            pnlButtons.Name = "pnlButtons";
+            pnlButtons.Size = new System.Drawing.Size(1090, 55);
+            pnlButtons.TabIndex = 1;
+            // 
             // btnSaoLuu
-            this.btnSaoLuu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(125)))), ((int)(((byte)(50)))));
-            this.btnSaoLuu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSaoLuu.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnSaoLuu.ForeColor = System.Drawing.Color.White;
-            this.btnSaoLuu.Location = new System.Drawing.Point(425, 85);
-            this.btnSaoLuu.Name = "btnSaoLuu";
-            this.btnSaoLuu.Size = new System.Drawing.Size(120, 30);
-            this.btnSaoLuu.TabIndex = 3;
-            this.btnSaoLuu.Text = "Xuất SQL ngay";
-            this.btnSaoLuu.UseVisualStyleBackColor = false;
-            this.btnSaoLuu.Click += new System.EventHandler(this.btnSaoLuu_Click);
-
-            // progressBar
-            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar.Location = new System.Drawing.Point(12, 220);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(560, 23);
-            this.progressBar.TabIndex = 3;
-            this.progressBar.Visible = false;
-
+            // 
+            btnSaoLuu.BackColor = System.Drawing.Color.FromArgb(40, 167, 69);
+            btnSaoLuu.FlatAppearance.BorderSize = 0;
+            btnSaoLuu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnSaoLuu.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            btnSaoLuu.ForeColor = System.Drawing.Color.White;
+            btnSaoLuu.Location = new System.Drawing.Point(10, 3);
+            btnSaoLuu.Name = "btnSaoLuu";
+            btnSaoLuu.Size = new System.Drawing.Size(200, 45);
+            btnSaoLuu.TabIndex = 0;
+            btnSaoLuu.Text = "💾 Xuất dữ liệu ngay";
+            btnSaoLuu.UseVisualStyleBackColor = false;
+            btnSaoLuu.Click += btnSaoLuu_Click;
+            // 
+            // pnlInput
+            // 
+            pnlInput.Controls.Add(btnChonViTriSaoLuu);
+            pnlInput.Controls.Add(txtDuongDanSaoLuu);
+            pnlInput.Controls.Add(lblDuongDanSaoLuu);
+            pnlInput.Dock = System.Windows.Forms.DockStyle.Top;
+            pnlInput.Location = new System.Drawing.Point(25, 42);
+            pnlInput.Name = "pnlInput";
+            pnlInput.Size = new System.Drawing.Size(1090, 120);
+            pnlInput.TabIndex = 0;
+            // 
+            // btnChonViTriSaoLuu
+            // 
+            btnChonViTriSaoLuu.BackColor = System.Drawing.Color.FromArgb(108, 117, 125);
+            btnChonViTriSaoLuu.FlatAppearance.BorderSize = 0;
+            btnChonViTriSaoLuu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnChonViTriSaoLuu.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnChonViTriSaoLuu.ForeColor = System.Drawing.Color.White;
+            btnChonViTriSaoLuu.Location = new System.Drawing.Point(611, 50);
+            btnChonViTriSaoLuu.Name = "btnChonViTriSaoLuu";
+            btnChonViTriSaoLuu.Size = new System.Drawing.Size(134, 35);
+            btnChonViTriSaoLuu.TabIndex = 2;
+            btnChonViTriSaoLuu.Text = "📂 Chọn thư mục";
+            btnChonViTriSaoLuu.UseVisualStyleBackColor = false;
+            btnChonViTriSaoLuu.Click += btnChonViTriSaoLuu_Click;
+            // 
+            // txtDuongDanSaoLuu
+            // 
+            txtDuongDanSaoLuu.BackColor = System.Drawing.Color.White;
+            txtDuongDanSaoLuu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txtDuongDanSaoLuu.Font = new System.Drawing.Font("Segoe UI", 11F);
+            txtDuongDanSaoLuu.ForeColor = System.Drawing.Color.FromArgb(70, 70, 70);
+            txtDuongDanSaoLuu.Location = new System.Drawing.Point(10, 50);
+            txtDuongDanSaoLuu.Multiline = true;
+            txtDuongDanSaoLuu.Name = "txtDuongDanSaoLuu";
+            txtDuongDanSaoLuu.ReadOnly = true;
+            txtDuongDanSaoLuu.Size = new System.Drawing.Size(580, 35);
+            txtDuongDanSaoLuu.TabIndex = 1;
+            // 
+            // lblDuongDanSaoLuu
+            // 
+            lblDuongDanSaoLuu.AutoSize = true;
+            lblDuongDanSaoLuu.Font = new System.Drawing.Font("Segoe UI", 11F);
+            lblDuongDanSaoLuu.ForeColor = System.Drawing.Color.FromArgb(70, 70, 70);
+            lblDuongDanSaoLuu.Location = new System.Drawing.Point(10, 20);
+            lblDuongDanSaoLuu.Name = "lblDuongDanSaoLuu";
+            lblDuongDanSaoLuu.Size = new System.Drawing.Size(148, 20);
+            lblDuongDanSaoLuu.TabIndex = 0;
+            lblDuongDanSaoLuu.Text = "📁 Vị trí lưu file SQL:";
+            // 
+            // pnlProgress
+            // 
+            pnlProgress.BackColor = System.Drawing.Color.White;
+            pnlProgress.Controls.Add(lblTrangThai);
+            pnlProgress.Controls.Add(progressBar);
+            pnlProgress.Dock = System.Windows.Forms.DockStyle.Bottom;
+            pnlProgress.Location = new System.Drawing.Point(30, 550);
+            pnlProgress.Name = "pnlProgress";
+            pnlProgress.Padding = new System.Windows.Forms.Padding(25);
+            pnlProgress.Size = new System.Drawing.Size(1140, 100);
+            pnlProgress.TabIndex = 1;
+            // 
             // lblTrangThai
-            this.lblTrangThai.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTrangThai.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblTrangThai.Location = new System.Drawing.Point(12, 190);
-            this.lblTrangThai.Name = "lblTrangThai";
-            this.lblTrangThai.Size = new System.Drawing.Size(560, 20);
-            this.lblTrangThai.TabIndex = 4;
-            this.lblTrangThai.Text = "Sẵn sàng xuất dữ liệu thành file SQL";
-            this.lblTrangThai.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-
+            // 
+            lblTrangThai.Dock = System.Windows.Forms.DockStyle.Top;
+            lblTrangThai.Font = new System.Drawing.Font("Segoe UI", 11F);
+            lblTrangThai.ForeColor = System.Drawing.Color.FromArgb(70, 70, 70);
+            lblTrangThai.Location = new System.Drawing.Point(25, 25);
+            lblTrangThai.Name = "lblTrangThai";
+            lblTrangThai.Size = new System.Drawing.Size(1090, 25);
+            lblTrangThai.TabIndex = 0;
+            lblTrangThai.Text = "✅ Sẵn sàng xuất dữ liệu hệ thống";
+            lblTrangThai.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // progressBar
+            // 
+            progressBar.Dock = System.Windows.Forms.DockStyle.Bottom;
+            progressBar.Location = new System.Drawing.Point(25, 60);
+            progressBar.Name = "progressBar";
+            progressBar.Size = new System.Drawing.Size(1090, 15);
+            progressBar.TabIndex = 1;
+            progressBar.Visible = false;
+            // 
             // FormSaoLuu
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
-            this.ClientSize = new System.Drawing.Size(1200, 800);
-            this.Controls.Add(this.lblTrangThai);
-            this.Controls.Add(this.progressBar);
-            this.Controls.Add(this.grpSaoLuu);
-            this.Controls.Add(this.lblTitle);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.Name = "FormSaoLuu";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Sao lưu và phục hồi dữ liệu";
-            this.Load += new System.EventHandler(this.FormSaoLuu_Load);
-            this.grpSaoLuu.ResumeLayout(false);
-            this.grpSaoLuu.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(248, 249, 250);
+            ClientSize = new System.Drawing.Size(1200, 800);
+            Controls.Add(pnlContent);
+            Controls.Add(pnlHeader);
+            Font = new System.Drawing.Font("Segoe UI", 9F);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            Name = "FormSaoLuu";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "Sao lưu dữ liệu - HRM Professional";
+            Load += FormSaoLuu_Load;
+            pnlHeader.ResumeLayout(false);
+            pnlHeader.PerformLayout();
+            pnlContent.ResumeLayout(false);
+            grpSaoLuu.ResumeLayout(false);
+            pnlButtons.ResumeLayout(false);
+            pnlInput.ResumeLayout(false);
+            pnlInput.PerformLayout();
+            pnlProgress.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion
 
+        private System.Windows.Forms.Panel pnlHeader;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Label lblSubtitle;
+        private System.Windows.Forms.Panel pnlContent;
         private System.Windows.Forms.GroupBox grpSaoLuu;
+        private System.Windows.Forms.Panel pnlInput;
         private System.Windows.Forms.Button btnChonViTriSaoLuu;
         private System.Windows.Forms.TextBox txtDuongDanSaoLuu;
         private System.Windows.Forms.Label lblDuongDanSaoLuu;
+        private System.Windows.Forms.Panel pnlButtons;
         private System.Windows.Forms.Button btnSaoLuu;
+        private System.Windows.Forms.Panel pnlProgress;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Label lblTrangThai;
     }
-} 
+}
