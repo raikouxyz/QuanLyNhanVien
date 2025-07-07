@@ -33,6 +33,8 @@
         private System.Windows.Forms.Button btnXoa;
         private System.Windows.Forms.Button btnLamMoi;
         private System.Windows.Forms.DataGridView dgvLuong;
+        private System.Windows.Forms.Panel pnlHeader;
+        private System.Windows.Forms.Panel pnlButtons;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -80,6 +82,8 @@
             btnXoa = new System.Windows.Forms.Button();
             btnLamMoi = new System.Windows.Forms.Button();
             dgvLuong = new System.Windows.Forms.DataGridView();
+            pnlHeader = new System.Windows.Forms.Panel();
+            pnlButtons = new System.Windows.Forms.Panel();
             gbThongTinLuong.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNam).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudLuongCoBan).BeginInit();
@@ -92,13 +96,13 @@
             // lblTitle
             // 
             lblTitle.AutoSize = true;
-            lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
-            lblTitle.ForeColor = System.Drawing.Color.DarkBlue;
-            lblTitle.Location = new System.Drawing.Point(350, 20);
+            lblTitle.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
+            lblTitle.ForeColor = System.Drawing.Color.White;
+            lblTitle.Location = new System.Drawing.Point(450, 25);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new System.Drawing.Size(207, 26);
+            lblTitle.Size = new System.Drawing.Size(300, 37);
             lblTitle.TabIndex = 0;
-            lblTitle.Text = "QUẢN LÝ LƯƠNG";
+            lblTitle.Text = "💰 QUẢN LÝ LƯƠNG";
             lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // gbThongTinLuong
@@ -122,7 +126,9 @@
             gbThongTinLuong.Controls.Add(lblGhiChu);
             gbThongTinLuong.Controls.Add(txtGhiChu);
             gbThongTinLuong.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            gbThongTinLuong.Location = new System.Drawing.Point(20, 60);
+            gbThongTinLuong.BackColor = System.Drawing.Color.White;
+            gbThongTinLuong.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80);
+            gbThongTinLuong.Location = new System.Drawing.Point(30, 100);
             gbThongTinLuong.Name = "gbThongTinLuong";
             gbThongTinLuong.Size = new System.Drawing.Size(860, 200);
             gbThongTinLuong.TabIndex = 1;
@@ -304,49 +310,53 @@
             // 
             // btnThem
             // 
-            btnThem.BackColor = System.Drawing.Color.LightGreen;
-            btnThem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            btnThem.Location = new System.Drawing.Point(200, 280);
-            btnThem.Name = "btnThem";
-            btnThem.Size = new System.Drawing.Size(100, 35);
-            btnThem.TabIndex = 2;
-            btnThem.Text = "Thêm";
+            btnThem.BackColor = System.Drawing.Color.FromArgb(39, 174, 96);
+            btnThem.FlatAppearance.BorderSize = 0;
+            btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnThem.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            btnThem.ForeColor = System.Drawing.Color.White;
+            btnThem.Location = new System.Drawing.Point(350, 15);
+            btnThem.Size = new System.Drawing.Size(120, 40);
+            btnThem.Text = "➕ Thêm";
             btnThem.UseVisualStyleBackColor = false;
             btnThem.Click += btnThem_Click;
             // 
             // btnSua
             // 
-            btnSua.BackColor = System.Drawing.Color.LightBlue;
-            btnSua.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            btnSua.Location = new System.Drawing.Point(320, 280);
-            btnSua.Name = "btnSua";
-            btnSua.Size = new System.Drawing.Size(100, 35);
-            btnSua.TabIndex = 3;
-            btnSua.Text = "Sửa";
+            btnSua.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
+            btnSua.FlatAppearance.BorderSize = 0;
+            btnSua.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnSua.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            btnSua.ForeColor = System.Drawing.Color.White;
+            btnSua.Location = new System.Drawing.Point(490, 15);
+            btnSua.Size = new System.Drawing.Size(120, 40);
+            btnSua.Text = "✏️ Sửa";
             btnSua.UseVisualStyleBackColor = false;
             btnSua.Click += btnSua_Click;
             // 
             // btnXoa
             // 
-            btnXoa.BackColor = System.Drawing.Color.LightCoral;
-            btnXoa.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            btnXoa.Location = new System.Drawing.Point(440, 280);
-            btnXoa.Name = "btnXoa";
-            btnXoa.Size = new System.Drawing.Size(100, 35);
-            btnXoa.TabIndex = 4;
-            btnXoa.Text = "Xóa";
+            btnXoa.BackColor = System.Drawing.Color.FromArgb(231, 76, 60);
+            btnXoa.FlatAppearance.BorderSize = 0;
+            btnXoa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnXoa.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            btnXoa.ForeColor = System.Drawing.Color.White;
+            btnXoa.Location = new System.Drawing.Point(630, 15);
+            btnXoa.Size = new System.Drawing.Size(120, 40);
+            btnXoa.Text = "🗑️ Xóa";
             btnXoa.UseVisualStyleBackColor = false;
             btnXoa.Click += btnXoa_Click;
             // 
             // btnLamMoi
             // 
-            btnLamMoi.BackColor = System.Drawing.Color.LightYellow;
-            btnLamMoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            btnLamMoi.Location = new System.Drawing.Point(560, 280);
-            btnLamMoi.Name = "btnLamMoi";
-            btnLamMoi.Size = new System.Drawing.Size(100, 35);
-            btnLamMoi.TabIndex = 5;
-            btnLamMoi.Text = "Làm mới";
+            btnLamMoi.BackColor = System.Drawing.Color.FromArgb(142, 68, 173);
+            btnLamMoi.FlatAppearance.BorderSize = 0;
+            btnLamMoi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnLamMoi.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            btnLamMoi.ForeColor = System.Drawing.Color.White;
+            btnLamMoi.Location = new System.Drawing.Point(770, 15);
+            btnLamMoi.Size = new System.Drawing.Size(120, 40);
+            btnLamMoi.Text = "🔄 Làm mới";
             btnLamMoi.UseVisualStyleBackColor = false;
             btnLamMoi.Click += btnLamMoi_Click;
             // 
@@ -356,22 +366,27 @@
             dgvLuong.AllowUserToDeleteRows = false;
             dgvLuong.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dgvLuong.BackgroundColor = System.Drawing.Color.White;
-            dgvLuong.Location = new System.Drawing.Point(20, 330);
+            dgvLuong.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dgvLuong.ColumnHeadersHeight = 45;
+            dgvLuong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgvLuong.GridColor = System.Drawing.Color.FromArgb(230, 230, 230);
+            dgvLuong.Location = new System.Drawing.Point(30, 330);
             dgvLuong.MultiSelect = false;
             dgvLuong.Name = "dgvLuong";
             dgvLuong.ReadOnly = true;
             dgvLuong.RowHeadersVisible = false;
+            dgvLuong.RowTemplate.Height = 40;
             dgvLuong.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            dgvLuong.Size = new System.Drawing.Size(860, 300);
+            dgvLuong.Size = new System.Drawing.Size(1140, 300);
             dgvLuong.TabIndex = 6;
             dgvLuong.SelectionChanged += dgvLuong_SelectionChanged;
             // 
-            // FormLuong
+            // pnlHeader
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.Color.White;
-            ClientSize = new System.Drawing.Size(900, 650);
+            ClientSize = new System.Drawing.Size(1200, 800);
             Controls.Add(dgvLuong);
             Controls.Add(btnLamMoi);
             Controls.Add(btnXoa);
@@ -379,7 +394,7 @@
             Controls.Add(btnThem);
             Controls.Add(gbThongTinLuong);
             Controls.Add(lblTitle);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FormLuong";

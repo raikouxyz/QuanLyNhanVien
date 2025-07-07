@@ -199,9 +199,6 @@ namespace QuanLyNhanVien.Views
                 int thang = int.Parse(cmbThang.Text);
                 int nam = (int)nudNam.Value;
 
-                // Lấy số ngày làm việc từ chấm công
-                int soNgayLamViec = _context.ChamCongs.Count(cc => cc.NhanVienId == nhanVienId && cc.Ngay.Month == thang && cc.Ngay.Year == nam);
-
                 var existing = _context.Luongs.FirstOrDefault(l => 
                     l.NhanVienId == nhanVienId && l.Thang == thang && l.Nam == nam);
 
@@ -222,7 +219,7 @@ namespace QuanLyNhanVien.Views
                     LuongCoBan = nudLuongCoBan.Value,
                     PhuCap = nudPhuCap.Value,
                     KhauTru = nudKhauTru.Value,
-                    SoNgayLamViec = soNgayLamViec,
+                    SoNgayLamViec = (int)nudSoNgayLamViec.Value,
                     GhiChu = txtGhiChu.Text.Trim(),
                     NgayTao = DateTime.Now
                 };
@@ -407,9 +404,6 @@ namespace QuanLyNhanVien.Views
                 int thang = int.Parse(cmbThang.Text);
                 int nam = (int)nudNam.Value;
 
-                // Lấy số ngày làm việc từ chấm công
-                int soNgayLamViec = _context.ChamCongs.Count(cc => cc.NhanVienId == nhanVienId && cc.Ngay.Month == thang && cc.Ngay.Year == nam);
-
                 var existing = _context.Luongs.FirstOrDefault(l => 
                     l.NhanVienId == nhanVienId && l.Thang == thang && l.Nam == nam && l.Id != selectedLuongId);
 
@@ -435,7 +429,7 @@ namespace QuanLyNhanVien.Views
                 luong.LuongCoBan = nudLuongCoBan.Value;
                 luong.PhuCap = nudPhuCap.Value;
                 luong.KhauTru = nudKhauTru.Value;
-                luong.SoNgayLamViec = soNgayLamViec;
+                luong.SoNgayLamViec = (int)nudSoNgayLamViec.Value;
                 luong.GhiChu = txtGhiChu.Text.Trim();
 
                 // Lưu thay đổi
@@ -544,17 +538,12 @@ namespace QuanLyNhanVien.Views
         }
 
         /// <summary>
-        /// Hàm cập nhật số ngày làm việc từ chấm công
+        /// Hàm cập nhật số ngày làm việc thủ công
         /// </summary>
         private void CapNhatSoNgayLamViec(object sender, EventArgs e)
         {
-            if (cmbNhanVien.SelectedValue == null || string.IsNullOrEmpty(cmbThang.Text)) return;
-            int nhanVienId = (int)cmbNhanVien.SelectedValue;
-            int thang = int.Parse(cmbThang.Text);
-            int nam = (int)nudNam.Value;
-            // Đếm số ngày làm việc từ bảng chấm công
-            int soNgayLamViec = _context.ChamCongs.Count(cc => cc.NhanVienId == nhanVienId && cc.Ngay.Month == thang && cc.Ngay.Year == nam);
-            nudSoNgayLamViec.Value = soNgayLamViec;
+            // Không cần logic tự động từ chấm công nữa
+            // Số ngày làm việc sẽ được nhập thủ công
             TinhTongLuong();
         }
     }

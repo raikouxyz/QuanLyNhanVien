@@ -274,18 +274,10 @@ namespace QuanLyNhanVien.Views
                 NgayVaoLam = dtpNgayVaoLam.Value
             };
 
-                // Test: Kiểm tra số lượng log trước khi cập nhật
-                var logCountBefore = _context.NhanVienLogs.Count();
-                System.Diagnostics.Debug.WriteLine($"=== LOG COUNT BEFORE UPDATE: {logCountBefore} ===");
-
                 // Cập nhật thông tin nhân viên
                 _controller.UpdateNhanVien(nhanVienSua);
-
-                // Test: Kiểm tra số lượng log sau khi cập nhật
-                var logCountAfter = _context.NhanVienLogs.Count();
-                System.Diagnostics.Debug.WriteLine($"=== LOG COUNT AFTER UPDATE: {logCountAfter} ===");
                 
-                MessageBox.Show($"Cập nhật thông tin nhân viên thành công!\nLog trước: {logCountBefore}, Log sau: {logCountAfter}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Cập nhật thông tin nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
                 // Refresh lại danh sách
                 LoadDanhSachNhanVien();
@@ -343,13 +335,6 @@ namespace QuanLyNhanVien.Views
                     return;
                 }
 
-                // Test chức năng log nếu từ khóa là "testlog"
-                if (tuKhoa.ToLower() == "testlog")
-                {
-                    TestLogFunction();
-                    return;
-                }
-
                 // Lấy tất cả nhân viên
                 var tatCaNhanVien = _controller.GetAllNhanViens();
                 
@@ -383,55 +368,6 @@ namespace QuanLyNhanVien.Views
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi tìm kiếm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        // Phương thức test chức năng log
-        private void TestLogFunction()
-        {
-            try
-            {
-                // Tạo một nhân viên test
-                var nhanVienCu = new NhanVien
-                {
-                    Id = 999,
-                    HoTen = "Test User Cũ",
-                    NgaySinh = DateTime.Parse("1990-01-01"),
-                    GioiTinh = "Nam",
-                    DiaChi = "Hà Nội",
-                    SoDT = "0123456789",
-                    PhongBanId = 1,
-                    ChucVu = "Nhân viên",
-                    NgayVaoLam = DateTime.Parse("2020-01-01")
-                };
-
-                var nhanVienMoi = new NhanVien
-                {
-                    Id = 999,
-                    HoTen = "Test User Mới",
-                    NgaySinh = DateTime.Parse("1990-01-01"),
-                    GioiTinh = "Nam",
-                    DiaChi = "TP.HCM",
-                    SoDT = "0987654321",
-                    PhongBanId = 2,
-                    ChucVu = "Trưởng phòng",
-                    NgayVaoLam = DateTime.Parse("2020-01-01")
-                };
-
-                // Tạo log service và test
-                var logService = new NhanVienLogService(_context);
-                var logCountBefore = _context.NhanVienLogs.Count();
-                
-                logService.LogChinhSua(nhanVienCu, nhanVienMoi);
-                
-                var logCountAfter = _context.NhanVienLogs.Count();
-                
-                MessageBox.Show($"Test log thành công!\nLog trước: {logCountBefore}\nLog sau: {logCountAfter}", 
-                    "Test Log", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi test log: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

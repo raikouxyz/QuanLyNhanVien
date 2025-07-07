@@ -8,16 +8,19 @@
         private System.ComponentModel.IContainer components = null;
 
         // Khai báo các control
-        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Panel pnlSidebar;
+        private System.Windows.Forms.Panel pnlHeader;
+        private System.Windows.Forms.Label lblLogo;
+        private System.Windows.Forms.Label lblAppName;
         private System.Windows.Forms.Button btnNhanVien;
         private System.Windows.Forms.Button btnPhongBan;
         private System.Windows.Forms.Button btnLuong;
-        private System.Windows.Forms.Button btnChamCong;
-        private System.Windows.Forms.Button btnDangXuat; // Nút Đăng xuất góc phải trên
         private System.Windows.Forms.Button btnBaoCao;
-        private System.Windows.Forms.Button btnLichSuNhanVien;
         private System.Windows.Forms.Button btnSaoLuuPhucHoi;
-        private System.Windows.Forms.Button btnQuanLyNguoiDung; // Nút quản lý người dùng
+        private System.Windows.Forms.Button btnQuanLyNguoiDung;
+        private System.Windows.Forms.Button btnDangXuat;
+        private System.Windows.Forms.Label lblWelcome;
+        private System.Windows.Forms.Label lblDescription;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -40,188 +43,279 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lblTitle = new System.Windows.Forms.Label();
+            pnlSidebar = new System.Windows.Forms.Panel();
+            pnlHeader = new System.Windows.Forms.Panel();
+            pnlContent = new System.Windows.Forms.Panel();
+            lblLogo = new System.Windows.Forms.Label();
+            lblAppName = new System.Windows.Forms.Label();
+            lblUserInfo = new System.Windows.Forms.Label();
             btnNhanVien = new System.Windows.Forms.Button();
             btnPhongBan = new System.Windows.Forms.Button();
             btnLuong = new System.Windows.Forms.Button();
-            btnChamCong = new System.Windows.Forms.Button();
-            btnDangXuat = new System.Windows.Forms.Button();
             btnBaoCao = new System.Windows.Forms.Button();
-            btnLichSuNhanVien = new System.Windows.Forms.Button();
             btnSaoLuuPhucHoi = new System.Windows.Forms.Button();
             btnQuanLyNguoiDung = new System.Windows.Forms.Button();
+            btnDangXuat = new System.Windows.Forms.Button();
+            lblWelcome = new System.Windows.Forms.Label();
+            lblDescription = new System.Windows.Forms.Label();
+            pnlSidebar.SuspendLayout();
+            pnlHeader.SuspendLayout();
+            pnlContent.SuspendLayout();
             SuspendLayout();
             // 
-            // lblTitle
+            // pnlSidebar
             // 
-            lblTitle.BackColor = System.Drawing.Color.Transparent;
-            lblTitle.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold);
-            lblTitle.ForeColor = System.Drawing.Color.FromArgb(35, 57, 93);
-            lblTitle.Location = new System.Drawing.Point(123, 34);
-            lblTitle.Name = "lblTitle";
-            lblTitle.Size = new System.Drawing.Size(525, 47);
-            lblTitle.TabIndex = 0;
-            lblTitle.Text = "HỆ THỐNG QUẢN LÝ NHÂN VIÊN";
-            lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            pnlSidebar.BackColor = System.Drawing.Color.FromArgb(44, 62, 80);
+            pnlSidebar.Controls.Add(btnDangXuat);
+            pnlSidebar.Controls.Add(btnQuanLyNguoiDung);
+            pnlSidebar.Controls.Add(btnSaoLuuPhucHoi);
+            pnlSidebar.Controls.Add(btnBaoCao);
+            pnlSidebar.Controls.Add(btnLuong);
+            pnlSidebar.Controls.Add(btnPhongBan);
+            pnlSidebar.Controls.Add(btnNhanVien);
+            pnlSidebar.Controls.Add(lblAppName);
+            pnlSidebar.Controls.Add(lblLogo);
+            pnlSidebar.Dock = System.Windows.Forms.DockStyle.Left;
+            pnlSidebar.Location = new System.Drawing.Point(0, 0);
+            pnlSidebar.Name = "pnlSidebar";
+            pnlSidebar.Size = new System.Drawing.Size(280, 800);
+            pnlSidebar.TabIndex = 0;
+            // 
+            // pnlHeader
+            // 
+            pnlHeader.BackColor = System.Drawing.Color.White;
+            pnlHeader.Controls.Add(lblUserInfo);
+            pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            pnlHeader.Location = new System.Drawing.Point(280, 0);
+            pnlHeader.Name = "pnlHeader";
+            pnlHeader.Size = new System.Drawing.Size(920, 80);
+            pnlHeader.TabIndex = 1;
+            // 
+            // pnlContent
+            // 
+            pnlContent.BackColor = System.Drawing.Color.FromArgb(248, 249, 250);
+            pnlContent.Controls.Add(lblDescription);
+            pnlContent.Controls.Add(lblWelcome);
+            pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            pnlContent.Location = new System.Drawing.Point(280, 80);
+            pnlContent.Name = "pnlContent";
+            pnlContent.Size = new System.Drawing.Size(920, 720);
+            pnlContent.TabIndex = 2;
+            // 
+            // lblLogo
+            // 
+            lblLogo.BackColor = System.Drawing.Color.FromArgb(52, 73, 94);
+            lblLogo.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold);
+            lblLogo.ForeColor = System.Drawing.Color.FromArgb(52, 152, 219);
+            lblLogo.Location = new System.Drawing.Point(0, 20);
+            lblLogo.Name = "lblLogo";
+            lblLogo.Size = new System.Drawing.Size(280, 60);
+            lblLogo.TabIndex = 0;
+            lblLogo.Text = "HRM";
+            lblLogo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblAppName
+            // 
+            lblAppName.Font = new System.Drawing.Font("Segoe UI", 10F);
+            lblAppName.ForeColor = System.Drawing.Color.FromArgb(149, 165, 166);
+            lblAppName.Location = new System.Drawing.Point(0, 80);
+            lblAppName.Name = "lblAppName";
+            lblAppName.Size = new System.Drawing.Size(280, 30);
+            lblAppName.TabIndex = 1;
+            lblAppName.Text = "Hệ thống quản lý nhân viên";
+            lblAppName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblUserInfo
+            // 
+            lblUserInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            lblUserInfo.Font = new System.Drawing.Font("Segoe UI", 11F);
+            lblUserInfo.ForeColor = System.Drawing.Color.FromArgb(52, 73, 94);
+            lblUserInfo.Location = new System.Drawing.Point(420, 25);
+            lblUserInfo.Name = "lblUserInfo";
+            lblUserInfo.Size = new System.Drawing.Size(280, 30);
+            lblUserInfo.TabIndex = 0;
+            lblUserInfo.Text = "Chào mừng, Admin";
+            lblUserInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnNhanVien
             // 
-            btnNhanVien.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
+            btnNhanVien.BackColor = System.Drawing.Color.Transparent;
             btnNhanVien.FlatAppearance.BorderSize = 0;
+            btnNhanVien.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(52, 73, 94);
+            btnNhanVien.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(52, 73, 94);
             btnNhanVien.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnNhanVien.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            btnNhanVien.Font = new System.Drawing.Font("Segoe UI", 11F);
             btnNhanVien.ForeColor = System.Drawing.Color.White;
-            btnNhanVien.Location = new System.Drawing.Point(70, 112);
+            btnNhanVien.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            btnNhanVien.Location = new System.Drawing.Point(0, 150);
             btnNhanVien.Name = "btnNhanVien";
-            btnNhanVien.Size = new System.Drawing.Size(175, 56);
-            btnNhanVien.TabIndex = 1;
-            btnNhanVien.Text = "QUẢN LÝ NHÂN VIÊN";
+            btnNhanVien.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            btnNhanVien.Size = new System.Drawing.Size(280, 50);
+            btnNhanVien.TabIndex = 2;
+            btnNhanVien.Text = "👥  Quản lý nhân viên";
+            btnNhanVien.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnNhanVien.UseVisualStyleBackColor = false;
             btnNhanVien.Click += btnNhanVien_Click;
             // 
             // btnPhongBan
             // 
-            btnPhongBan.BackColor = System.Drawing.Color.FromArgb(46, 204, 113);
+            btnPhongBan.BackColor = System.Drawing.Color.Transparent;
             btnPhongBan.FlatAppearance.BorderSize = 0;
+            btnPhongBan.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(52, 73, 94);
+            btnPhongBan.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(52, 73, 94);
             btnPhongBan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnPhongBan.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            btnPhongBan.Font = new System.Drawing.Font("Segoe UI", 11F);
             btnPhongBan.ForeColor = System.Drawing.Color.White;
-            btnPhongBan.Location = new System.Drawing.Point(280, 112);
+            btnPhongBan.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            btnPhongBan.Location = new System.Drawing.Point(0, 200);
             btnPhongBan.Name = "btnPhongBan";
-            btnPhongBan.Size = new System.Drawing.Size(175, 56);
-            btnPhongBan.TabIndex = 2;
-            btnPhongBan.Text = "QUẢN LÝ PHÒNG BAN";
+            btnPhongBan.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            btnPhongBan.Size = new System.Drawing.Size(280, 50);
+            btnPhongBan.TabIndex = 3;
+            btnPhongBan.Text = "🏢  Quản lý phòng ban";
+            btnPhongBan.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnPhongBan.UseVisualStyleBackColor = false;
             btnPhongBan.Click += btnPhongBan_Click;
             // 
             // btnLuong
             // 
-            btnLuong.BackColor = System.Drawing.Color.FromArgb(241, 196, 15);
+            btnLuong.BackColor = System.Drawing.Color.Transparent;
             btnLuong.FlatAppearance.BorderSize = 0;
+            btnLuong.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(52, 73, 94);
+            btnLuong.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(52, 73, 94);
             btnLuong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnLuong.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            btnLuong.Font = new System.Drawing.Font("Segoe UI", 11F);
             btnLuong.ForeColor = System.Drawing.Color.White;
-            btnLuong.Location = new System.Drawing.Point(70, 206);
+            btnLuong.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            btnLuong.Location = new System.Drawing.Point(0, 250);
             btnLuong.Name = "btnLuong";
-            btnLuong.Size = new System.Drawing.Size(175, 56);
+            btnLuong.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            btnLuong.Size = new System.Drawing.Size(280, 50);
             btnLuong.TabIndex = 4;
-            btnLuong.Text = "QUẢN LÝ LƯƠNG";
+            btnLuong.Text = "💰  Quản lý lương";
+            btnLuong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnLuong.UseVisualStyleBackColor = false;
             btnLuong.Click += btnLuong_Click;
             // 
-            // btnChamCong
-            // 
-            btnChamCong.BackColor = System.Drawing.Color.FromArgb(230, 126, 34);
-            btnChamCong.FlatAppearance.BorderSize = 0;
-            btnChamCong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnChamCong.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            btnChamCong.ForeColor = System.Drawing.Color.White;
-            btnChamCong.Location = new System.Drawing.Point(280, 206);
-            btnChamCong.Name = "btnChamCong";
-            btnChamCong.Size = new System.Drawing.Size(175, 56);
-            btnChamCong.TabIndex = 5;
-            btnChamCong.Text = "QUẢN LÝ CHẤM CÔNG";
-            btnChamCong.UseVisualStyleBackColor = false;
-            btnChamCong.Click += btnChamCong_Click;
-            // 
-            // btnDangXuat
-            // 
-            btnDangXuat.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnDangXuat.BackColor = System.Drawing.Color.FromArgb(231, 76, 60);
-            btnDangXuat.FlatAppearance.BorderSize = 0;
-            btnDangXuat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnDangXuat.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            btnDangXuat.ForeColor = System.Drawing.Color.White;
-            btnDangXuat.Location = new System.Drawing.Point(490, 299);
-            btnDangXuat.Name = "btnDangXuat";
-            btnDangXuat.Size = new System.Drawing.Size(175, 56);
-            btnDangXuat.TabIndex = 8;
-            btnDangXuat.Text = "ĐĂNG XUẤT";
-            btnDangXuat.UseVisualStyleBackColor = false;
-            btnDangXuat.Click += BtnDangXuat_Click;
-            // 
             // btnBaoCao
             // 
-            btnBaoCao.BackColor = System.Drawing.Color.FromArgb(155, 89, 182);
+            btnBaoCao.BackColor = System.Drawing.Color.Transparent;
             btnBaoCao.FlatAppearance.BorderSize = 0;
+            btnBaoCao.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(52, 73, 94);
+            btnBaoCao.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(52, 73, 94);
             btnBaoCao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnBaoCao.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            btnBaoCao.Font = new System.Drawing.Font("Segoe UI", 11F);
             btnBaoCao.ForeColor = System.Drawing.Color.White;
-            btnBaoCao.Location = new System.Drawing.Point(490, 112);
+            btnBaoCao.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            btnBaoCao.Location = new System.Drawing.Point(0, 300);
             btnBaoCao.Name = "btnBaoCao";
-            btnBaoCao.Size = new System.Drawing.Size(175, 56);
-            btnBaoCao.TabIndex = 3;
-            btnBaoCao.Text = "BÁO CÁO NHÂN SỰ";
+            btnBaoCao.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            btnBaoCao.Size = new System.Drawing.Size(280, 50);
+            btnBaoCao.TabIndex = 5;
+            btnBaoCao.Text = "📊  Báo cáo thống kê";
+            btnBaoCao.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnBaoCao.UseVisualStyleBackColor = false;
             btnBaoCao.Click += btnBaoCao_Click;
             // 
-            // btnLichSuNhanVien
-            // 
-            btnLichSuNhanVien.BackColor = System.Drawing.Color.FromArgb(26, 188, 156);
-            btnLichSuNhanVien.FlatAppearance.BorderSize = 0;
-            btnLichSuNhanVien.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnLichSuNhanVien.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            btnLichSuNhanVien.ForeColor = System.Drawing.Color.White;
-            btnLichSuNhanVien.Location = new System.Drawing.Point(490, 206);
-            btnLichSuNhanVien.Name = "btnLichSuNhanVien";
-            btnLichSuNhanVien.Size = new System.Drawing.Size(175, 56);
-            btnLichSuNhanVien.TabIndex = 6;
-            btnLichSuNhanVien.Text = "LỊCH SỬ NHÂN VIÊN";
-            btnLichSuNhanVien.UseVisualStyleBackColor = false;
-            btnLichSuNhanVien.Click += btnLichSuNhanVien_Click;
-            // 
             // btnSaoLuuPhucHoi
             // 
-            btnSaoLuuPhucHoi.BackColor = System.Drawing.Color.FromArgb(52, 73, 94);
+            btnSaoLuuPhucHoi.BackColor = System.Drawing.Color.Transparent;
             btnSaoLuuPhucHoi.FlatAppearance.BorderSize = 0;
+            btnSaoLuuPhucHoi.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(52, 73, 94);
+            btnSaoLuuPhucHoi.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(52, 73, 94);
             btnSaoLuuPhucHoi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnSaoLuuPhucHoi.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            btnSaoLuuPhucHoi.Font = new System.Drawing.Font("Segoe UI", 11F);
             btnSaoLuuPhucHoi.ForeColor = System.Drawing.Color.White;
-            btnSaoLuuPhucHoi.Location = new System.Drawing.Point(70, 299);
+            btnSaoLuuPhucHoi.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            btnSaoLuuPhucHoi.Location = new System.Drawing.Point(0, 350);
             btnSaoLuuPhucHoi.Name = "btnSaoLuuPhucHoi";
-            btnSaoLuuPhucHoi.Size = new System.Drawing.Size(175, 56);
-            btnSaoLuuPhucHoi.TabIndex = 7;
-            btnSaoLuuPhucHoi.Text = "XUẤT DỮ LIỆU SQL";
+            btnSaoLuuPhucHoi.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            btnSaoLuuPhucHoi.Size = new System.Drawing.Size(280, 50);
+            btnSaoLuuPhucHoi.TabIndex = 6;
+            btnSaoLuuPhucHoi.Text = "💾  Sao lưu & phục hồi";
+            btnSaoLuuPhucHoi.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnSaoLuuPhucHoi.UseVisualStyleBackColor = false;
             btnSaoLuuPhucHoi.Click += btnSaoLuuPhucHoi_Click;
             // 
             // btnQuanLyNguoiDung
             // 
-            btnQuanLyNguoiDung.BackColor = System.Drawing.Color.FromArgb(192, 57, 43);
+            btnQuanLyNguoiDung.BackColor = System.Drawing.Color.Transparent;
             btnQuanLyNguoiDung.FlatAppearance.BorderSize = 0;
+            btnQuanLyNguoiDung.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(52, 73, 94);
+            btnQuanLyNguoiDung.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(52, 73, 94);
             btnQuanLyNguoiDung.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnQuanLyNguoiDung.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            btnQuanLyNguoiDung.Font = new System.Drawing.Font("Segoe UI", 11F);
             btnQuanLyNguoiDung.ForeColor = System.Drawing.Color.White;
-            btnQuanLyNguoiDung.Location = new System.Drawing.Point(280, 299);
+            btnQuanLyNguoiDung.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            btnQuanLyNguoiDung.Location = new System.Drawing.Point(0, 400);
             btnQuanLyNguoiDung.Name = "btnQuanLyNguoiDung";
-            btnQuanLyNguoiDung.Size = new System.Drawing.Size(175, 56);
-            btnQuanLyNguoiDung.TabIndex = 9;
-            btnQuanLyNguoiDung.Text = "QUẢN LÝ NGƯỜI DÙNG";
+            btnQuanLyNguoiDung.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            btnQuanLyNguoiDung.Size = new System.Drawing.Size(280, 50);
+            btnQuanLyNguoiDung.TabIndex = 7;
+            btnQuanLyNguoiDung.Text = "👤  Quản lý người dùng";
+            btnQuanLyNguoiDung.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnQuanLyNguoiDung.UseVisualStyleBackColor = false;
             btnQuanLyNguoiDung.Click += btnQuanLyNguoiDung_Click;
+            // 
+            // btnDangXuat
+            // 
+            btnDangXuat.BackColor = System.Drawing.Color.Transparent;
+            btnDangXuat.FlatAppearance.BorderSize = 0;
+            btnDangXuat.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(192, 57, 43);
+            btnDangXuat.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(192, 57, 43);
+            btnDangXuat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnDangXuat.Font = new System.Drawing.Font("Segoe UI", 11F);
+            btnDangXuat.ForeColor = System.Drawing.Color.White;
+            btnDangXuat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            btnDangXuat.Location = new System.Drawing.Point(0, 730);
+            btnDangXuat.Name = "btnDangXuat";
+            btnDangXuat.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            btnDangXuat.Size = new System.Drawing.Size(280, 50);
+            btnDangXuat.TabIndex = 8;
+            btnDangXuat.Text = "🚪  Đăng xuất";
+            btnDangXuat.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            btnDangXuat.UseVisualStyleBackColor = false;
+            btnDangXuat.Click += btnDangXuat_Click;
+            // 
+            // lblWelcome
+            // 
+            lblWelcome.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
+            lblWelcome.ForeColor = System.Drawing.Color.FromArgb(44, 62, 80);
+            lblWelcome.Location = new System.Drawing.Point(50, 200);
+            lblWelcome.Name = "lblWelcome";
+            lblWelcome.Size = new System.Drawing.Size(820, 80);
+            lblWelcome.TabIndex = 0;
+            lblWelcome.Text = "Chào mừng đến với HRM";
+            lblWelcome.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblDescription
+            // 
+            lblDescription.Font = new System.Drawing.Font("Segoe UI", 14F);
+            lblDescription.ForeColor = System.Drawing.Color.FromArgb(127, 140, 141);
+            lblDescription.Location = new System.Drawing.Point(50, 280);
+            lblDescription.Name = "lblDescription";
+            lblDescription.Size = new System.Drawing.Size(820, 120);
+            lblDescription.TabIndex = 1;
+            lblDescription.Text = "Hệ thống quản lý nhân viên hiện đại và chuyên nghiệp.\r\nQuản lý thông tin nhân viên, phòng ban, lương và báo cáo một cách hiệu quả.\r\n\r\nSử dụng menu bên trái để điều hướng đến các chức năng.";
+            lblDescription.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // FormMain
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            BackColor = System.Drawing.Color.FromArgb(236, 240, 245);
-            ClientSize = new System.Drawing.Size(723, 421);
-            Controls.Add(btnQuanLyNguoiDung);
-            Controls.Add(btnDangXuat);
-            Controls.Add(btnSaoLuuPhucHoi);
-            Controls.Add(btnLichSuNhanVien);
-            Controls.Add(btnChamCong);
-            Controls.Add(btnLuong);
-            Controls.Add(btnBaoCao);
-            Controls.Add(btnPhongBan);
-            Controls.Add(btnNhanVien);
-            Controls.Add(lblTitle);
-            Font = new System.Drawing.Font("Segoe UI", 9F);
+            BackColor = System.Drawing.Color.White;
+            ClientSize = new System.Drawing.Size(1200, 800);
+            Controls.Add(pnlContent);
+            Controls.Add(pnlHeader);
+            Controls.Add(pnlSidebar);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "FormMain";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            Text = "Hệ thống quản lý nhân viên";
-            Load += FormMain_Load;
+            Text = "HRM - Hệ thống quản lý nhân viên";
+            pnlSidebar.ResumeLayout(false);
+            pnlHeader.ResumeLayout(false);
+            pnlContent.ResumeLayout(false);
             ResumeLayout(false);
         }
 

@@ -15,8 +15,7 @@ namespace QuanLyNhanVien.Database
         public DbSet<PhongBan> PhongBans { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Luong> Luongs { get; set; }
-        public DbSet<ChamCong> ChamCongs { get; set; }
-        public DbSet<NhanVienLog> NhanVienLogs { get; set; }
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,26 +30,7 @@ namespace QuanLyNhanVien.Database
                 .WithMany()
                 .HasForeignKey(nv => nv.PhongBanId);
 
-            // Cấu hình cho bảng NhanVienLog
-            modelBuilder.Entity<NhanVienLog>()
-                .Property(l => l.LoaiThaoTac)
-                .IsRequired()
-                .HasMaxLength(50);
-
-            modelBuilder.Entity<NhanVienLog>()
-                .Property(l => l.TenNhanVien)
-                .IsRequired()
-                .HasMaxLength(100);
-
-            modelBuilder.Entity<NhanVienLog>()
-                .Property(l => l.NguoiThucHien)
-                .IsRequired()
-                .HasMaxLength(50);
-
-            modelBuilder.Entity<NhanVienLog>()
-                .Property(l => l.NoiDungThayDoi)
-                .IsRequired();
-
+        
             base.OnModelCreating(modelBuilder);
         }
 
@@ -210,43 +190,6 @@ namespace QuanLyNhanVien.Database
                     SaveChanges();
                 }
 
-                // 3. Tạo dữ liệu chấm công cho 3 tháng gần nhất
-                if (!ChamCongs.Any())
-                {
-                    var startDate = DateTime.Now.AddMonths(-3).Date;
-                    var endDate = DateTime.Now.Date;
-
-                    foreach (var nhanVien in nhanViens)
-                    {
-                        for (var date = startDate; date <= endDate; date = date.AddDays(1))
-                        {
-                            // Bỏ qua cuối tuần
-                            if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
-                                continue;
-
-                            // 90% khả năng nhân viên đi làm
-                            if (random.Next(100) < 90)
-                            {
-                                var gioVao = new TimeSpan(8, random.Next(0, 30), 0); // 8:00 - 8:30
-                                var gioRa = new TimeSpan(17, random.Next(0, 60), 0); // 17:00 - 17:59
-
-                                var chamCong = new ChamCong
-                                {
-                                    NhanVienId = nhanVien.Id,
-                                    Ngay = date,
-                                    GioVao = gioVao,
-                                    GioRa = gioRa,
-                                    GhiChu = random.Next(10) == 0 ? "Có họp quan trọng" : null,
-                                    NgayTao = date.AddHours(gioVao.Hours).AddMinutes(gioVao.Minutes)
-                                };
-
-                                ChamCongs.Add(chamCong);
-                            }
-                        }
-                    }
-                    SaveChanges();
-                }
-
                 // 4. Tạo dữ liệu lương cho 6 tháng gần nhất
                 if (!Luongs.Any())
                 {
@@ -297,35 +240,7 @@ namespace QuanLyNhanVien.Database
                     }
                     SaveChanges();
                 }
-
-                // 5. Tạo log hoạt động
-                if (!NhanVienLogs.Any())
-                {
-                    var loaiThaoTac = new[] { "Thêm mới", "Chỉnh sửa", "Chuyển phòng ban", "Cập nhật lương" };
-                    var nguoiThucHien = new[] { "admin", "hr_manager", "system" };
-
-                    for (int i = 0; i < 100; i++) // 100 log entries
-                    {
-                        var nhanVien = nhanViens[random.Next(nhanViens.Count)];
-                        var thaoTac = loaiThaoTac[random.Next(loaiThaoTac.Length)];
-
-                        var log = new NhanVienLog
-                        {
-                            LoaiThaoTac = thaoTac,
-                            NhanVienId = nhanVien.Id,
-                            TenNhanVien = nhanVien.HoTen,
-                            NguoiThucHien = nguoiThucHien[random.Next(nguoiThucHien.Length)],
-                            ThoiGian = DateTime.Now.AddDays(-random.Next(1, 180)), // 6 tháng gần nhất
-                            NoiDungThayDoi = $"{{\"action\":\"{thaoTac}\",\"field\":\"general\",\"old_value\":\"\",\"new_value\":\"\"}}",
-                            GhiChu = random.Next(3) == 0 ? "Thao tác định kỳ" : null
-                        };
-
-                        NhanVienLogs.Add(log);
-                    }
-                    SaveChanges();
-                }
-
-                Console.WriteLine("✅ Đã tạo thành công 50 dữ liệu mẫu cho tất cả các bảng!");
+                Console.WriteLine("Đã tạo thành công 50 dữ liệu mẫu cho tất cả các bảng!");
             }
             catch (Exception ex)
             {
