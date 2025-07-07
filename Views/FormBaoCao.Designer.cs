@@ -1,4 +1,4 @@
-namespace QuanLyNhanVien.Views
+﻿namespace QuanLyNhanVien.Views
 {
     partial class FormBaoCao
     {
