@@ -10,8 +10,10 @@
         // Khai báo các control
         private System.Windows.Forms.Panel pnlSidebar;
         private System.Windows.Forms.Panel pnlHeader;
+        private System.Windows.Forms.Panel pnlContent;
         private System.Windows.Forms.Label lblLogo;
         private System.Windows.Forms.Label lblAppName;
+        private System.Windows.Forms.Label lblUserInfo;
         private System.Windows.Forms.Button btnNhanVien;
         private System.Windows.Forms.Button btnPhongBan;
         private System.Windows.Forms.Button btnLuong;
