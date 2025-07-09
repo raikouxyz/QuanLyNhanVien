@@ -12,13 +12,14 @@ namespace QuanLyNhanVien.Views
 {
     public partial class FormDangKy : Form
     {
-        private readonly AppDbContext _context;
-        private int? selectedUserId = null; // ID của user được chọn để sửa
+        private readonly AppDbContext _context; // khai báo database
+        private int? selectedUserId; // ID của user được chọn để sửa
 
+        // constructor
         public FormDangKy()
         {
             InitializeComponent();
-            _context = new AppDbContext();
+            _context = new AppDbContext(); // khởi tạo biến _context để sử dụng database
         }
 
         /// <summary>

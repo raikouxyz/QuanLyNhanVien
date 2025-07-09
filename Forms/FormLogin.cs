@@ -12,7 +12,8 @@ namespace QuanLyNhanVien.Views
     /// </summary>
     public partial class FormLogin : Form
     {
-        private readonly AuthService _authService;
+        private readonly AuthService _authService; // khai báo service xác thực tài khoản
+        private readonly AppDbContext _context; // khai báo database
 
         /// <summary>
         /// Constructor - khởi tạo form đăng nhập
@@ -22,9 +23,8 @@ namespace QuanLyNhanVien.Views
             InitializeComponent();
 
             // Khởi tạo dịch vụ xác thực
-            var context = new AppDbContext();
-            context.Database.EnsureCreated(); // Tạo database nếu chưa tồn tại
-            _authService = new AuthService(context);
+            _context = new AppDbContext(); // khởi tạo database
+            _authService = new AuthService(_context); // khởi tạo xác thu
 
             // Tạo tài khoản admin mặc định nếu chưa có
             TaoTaiKhoanMacDinh();
@@ -37,16 +37,16 @@ namespace QuanLyNhanVien.Views
         {
             try
             {
-                using (var context = new AppDbContext())
+                using (_context)
                 {
                     // Kiểm tra xem đã có tài khoản admin chưa
-                    if (!context.Users.Any())
+                    if (!_context.Users.Any())
                     {
                         // Tạo tài khoản admin mặc định
                         var adminUser = new Models.User
                         {
                             Username = "admin",
-                            Password = AuthService.HashPassword("123456"), // Mật khẩu: 123456
+                            Password = AuthService.HashPassword("123"), // Mật khẩu: 123
                             FullName = "Quản trị viên",
                             Email = "admin@company.com",
                             Role = Models.UserRole.Admin,
@@ -54,8 +54,8 @@ namespace QuanLyNhanVien.Views
                             CreatedDate = DateTime.Now
                         };
 
-                        context.Users.Add(adminUser);
-                        context.SaveChanges();
+                        _context.Users.Add(adminUser);
+                        _context.SaveChanges();
                     }
                 }
             }
@@ -155,7 +155,7 @@ namespace QuanLyNhanVien.Views
 
             // Hiển thị thông tin tài khoản mặc định
             lblThongTin.Text = "Tài khoản mặc định:\n" +
-                              "Admin: admin/123456";
+                              "Admin: admin/123";
         }
 
         /// <summary>
