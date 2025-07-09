@@ -364,7 +364,8 @@
             // 
             dgvNhanVien.AllowUserToAddRows = false;
             dgvNhanVien.AllowUserToDeleteRows = false;
-            dgvNhanVien.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dgvNhanVien.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.None;
+            dgvNhanVien.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             dgvNhanVien.BackgroundColor = System.Drawing.Color.White;
             dgvNhanVien.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dgvNhanVien.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;

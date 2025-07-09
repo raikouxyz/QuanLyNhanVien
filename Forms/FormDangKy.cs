@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
-using QuanLyNhanVien.Data;
 using QuanLyNhanVien.Models;
 using System.ComponentModel;
 using QuanLyNhanVien.Database;

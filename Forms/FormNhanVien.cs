@@ -7,19 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QuanLyNhanVien.Controllers;
-using QuanLyNhanVien.Data;
 using QuanLyNhanVien.Database;
 using QuanLyNhanVien.Models;
 using QuanLyNhanVien.Views;
 using QuanLyNhanVien.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace QuanLyNhanVien.Views
 {
     public partial class FormNhanVien : Form
     {
         // Khai báo các biến cần thiết
-        private readonly NhanVienController _controller;
         private readonly AppDbContext _context;
         private int? selectedNhanVienId = null; // Lưu ID nhân viên đang chọn
 
@@ -28,7 +26,7 @@ namespace QuanLyNhanVien.Views
             try
             {
                 // Khởi tạo giao diện
-            InitializeComponent();
+                InitializeComponent();
                 
                 // Khởi tạo database context
                 _context = new AppDbContext();
@@ -39,14 +37,10 @@ namespace QuanLyNhanVien.Views
                 // Thêm dữ liệu mẫu cho phòng ban
                 _context.SeedDuLieuMau();
                 
-                // Khởi tạo repository và controller
-                var repo = new NhanVienRepo(_context);
-            _controller = new NhanVienController(repo, _context);
-                
                 MessageBox.Show("Khởi tạo form thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
+            }
             catch (Exception ex)
-        {
+            {
                 MessageBox.Show($"Lỗi khởi tạo: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -92,7 +86,8 @@ namespace QuanLyNhanVien.Views
         {
             try
             {
-                var danhSachNhanVien = _controller.GetAllNhanViens();
+                // Lấy danh sách nhân viên từ database, bao gồm thông tin phòng ban
+                var danhSachNhanVien = _context.NhanViens.Include(nv => nv.PhongBan).ToList();
 
                 // Tạo danh sách mới chỉ chứa các trường cần hiển thị
                 var data = danhSachNhanVien.Select(nv => new
@@ -109,6 +104,29 @@ namespace QuanLyNhanVien.Views
                 }).ToList();
 
                 dgvNhanVien.DataSource = data;
+
+                // Thiết lập độ rộng cho các cột
+                dgvNhanVien.Columns["Id"].Width = 80;
+                dgvNhanVien.Columns["HoTen"].Width = 200;
+                dgvNhanVien.Columns["NgaySinh"].Width = 120;
+                dgvNhanVien.Columns["GioiTinh"].Width = 100;
+                dgvNhanVien.Columns["DiaChi"].Width = 250;
+                dgvNhanVien.Columns["SoDT"].Width = 120;
+                dgvNhanVien.Columns["PhongBan"].Width = 150;
+                dgvNhanVien.Columns["ChucVu"].Width = 150;
+                dgvNhanVien.Columns["NgayVaoLam"].Width = 120;
+
+                // Đặt tên hiển thị cho các cột
+                dgvNhanVien.Columns["Id"].HeaderText = "Mã NV";
+                dgvNhanVien.Columns["HoTen"].HeaderText = "Họ và Tên";
+                dgvNhanVien.Columns["NgaySinh"].HeaderText = "Ngày Sinh";
+                dgvNhanVien.Columns["GioiTinh"].HeaderText = "Giới Tính";
+                dgvNhanVien.Columns["DiaChi"].HeaderText = "Địa Chỉ";
+                dgvNhanVien.Columns["SoDT"].HeaderText = "Số ĐT";
+                dgvNhanVien.Columns["PhongBan"].HeaderText = "Phòng Ban";
+                dgvNhanVien.Columns["ChucVu"].HeaderText = "Chức Vụ";
+                dgvNhanVien.Columns["NgayVaoLam"].HeaderText = "Ngày Vào Làm";
+
                 dgvNhanVien.ClearSelection();
                 XoaTrangForm();
             }
@@ -116,6 +134,12 @@ namespace QuanLyNhanVien.Views
             {
                 MessageBox.Show($"Lỗi khi tải danh sách nhân viên: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        // Lấy thông tin nhân viên theo ID
+        private NhanVien GetNhanVienById(int id)
+        {
+            return _context.NhanViens.Include(nv => nv.PhongBan).FirstOrDefault(nv => nv.Id == id);
         }
 
         // Xóa trắng form nhập liệu
@@ -216,7 +240,8 @@ namespace QuanLyNhanVien.Views
                 };
 
                 // Thêm nhân viên mới vào database
-                _controller.AddNhanVien(nhanVienMoi);
+                _context.NhanViens.Add(nhanVienMoi);
+                _context.SaveChanges();
                 
                 MessageBox.Show("Thêm nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 
@@ -256,27 +281,30 @@ namespace QuanLyNhanVien.Views
                     return;
                 }
 
-                // Tạo đối tượng nhân viên với thông tin mới
-                var nhanVienSua = new NhanVien
-                {
-                    Id = selectedNhanVienId.Value,
-                    HoTen = txtHoTen.Text.Trim(),
-                NgaySinh = dtpNgaySinh.Value,
-                    GioiTinh = cmbGioiTinh.Text.Trim(),
-                    DiaChi = txtDiaChi.Text.Trim(),
-                    SoDT = txtSoDT.Text.Trim(),
-                    PhongBanId = (int)cmbPhongBan.SelectedValue,
-                    ChucVu = txtChucVu.Text.Trim(),
-                NgayVaoLam = dtpNgayVaoLam.Value
-            };
+                // Tìm nhân viên trong database có Id trùng với Id đã chọn
+                var existing = _context.NhanViens.FirstOrDefault(x => x.Id == selectedNhanVienId);
 
-                // Cập nhật thông tin nhân viên
-                _controller.UpdateNhanVien(nhanVienSua);
-                
-                MessageBox.Show("Cập nhật thông tin nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
-                // Refresh lại danh sách
-                LoadDanhSachNhanVien();
+                // Nếu tìm thấy nhân viên
+                if (existing != null)
+                {
+                    // Cập nhật các thông tin của nhân viên đó với dữ liệu mới
+                    existing.HoTen = txtHoTen.Text.Trim();
+                    existing.NgaySinh = dtpNgaySinh.Value;
+                    existing.GioiTinh = cmbGioiTinh.Text.Trim();
+                    existing.DiaChi = txtDiaChi.Text.Trim();
+                    existing.SoDT = txtSoDT.Text.Trim();
+                    existing.PhongBanId = (int)cmbPhongBan.SelectedValue;
+                    existing.ChucVu = txtChucVu.Text.Trim();
+                    existing.NgayVaoLam = dtpNgayVaoLam.Value;
+
+                    // Lưu thay đổi vào cơ sở dữ liệu
+                    _context.SaveChanges();
+                    
+                    MessageBox.Show("Cập nhật thông tin nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
+                    // Refresh lại danh sách
+                    LoadDanhSachNhanVien();
+                }
             }
             catch (Exception ex)
             {
@@ -302,19 +330,41 @@ namespace QuanLyNhanVien.Views
                 
                 if (ketQua == DialogResult.Yes)
                 {
-                    // Xóa nhân viên
-                    _controller.DeleteNhanVien(selectedNhanVienId.Value);
-                    
-                    MessageBox.Show("Xóa nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
-                    // Refresh lại danh sách
-                    LoadDanhSachNhanVien();
+                    // Tìm nhân viên trong database có Id bằng với id truyền vào
+                    var nv = _context.NhanViens.FirstOrDefault(x => x.Id == selectedNhanVienId);
+
+                    // Nếu tìm thấy nhân viên
+                    if (nv != null)
+                    {
+                        // Xóa nhân viên khỏi DbSet (đánh dấu là sẽ bị xóa)
+                        _context.NhanViens.Remove(nv);
+
+                        // Lưu thay đổi vào cơ sở dữ liệu (thực hiện lệnh DELETE trong SQL)
+                        _context.SaveChanges();
+                        
+                        MessageBox.Show("Xóa nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
+                        // Refresh lại danh sách
+                        LoadDanhSachNhanVien();
+                    }
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi xóa nhân viên: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        // Phương thức chuyển phòng ban cho nhân viên
+        public void ChuyenPhongBan(NhanVien nv, PhongBan phongBanMoi)
+        {
+            // Lưu thông tin phòng ban cũ
+            var phongBanCu = nv.PhongBan;
+            
+            // Cập nhật phòng ban mới
+            nv.PhongBan = phongBanMoi;
+            nv.PhongBanId = phongBanMoi.Id;
+            _context.SaveChanges();
         }
 
         // Sự kiện khi click nút Tìm kiếm
@@ -331,8 +381,8 @@ namespace QuanLyNhanVien.Views
                     return;
                 }
 
-                // Lấy tất cả nhân viên
-                var tatCaNhanVien = _controller.GetAllNhanViens();
+                // Lấy tất cả nhân viên và thông tin phòng ban
+                var tatCaNhanVien = _context.NhanViens.Include(nv => nv.PhongBan).ToList();
                 
                 // Tìm kiếm theo họ tên, chức vụ, ID hoặc tên phòng ban
                 var ketQuaTimKiem = tatCaNhanVien.Where(nv =>
