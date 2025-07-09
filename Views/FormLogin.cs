@@ -37,26 +37,23 @@ namespace QuanLyNhanVien.Views
         {
             try
             {
-                using (_context)
+                // Kiểm tra xem đã có tài khoản admin chưa
+                if (!_context.Users.Any())
                 {
-                    // Kiểm tra xem đã có tài khoản admin chưa
-                    if (!_context.Users.Any())
+                    // Tạo tài khoản admin mặc định
+                    var adminUser = new Models.User
                     {
-                        // Tạo tài khoản admin mặc định
-                        var adminUser = new Models.User
-                        {
-                            Username = "admin",
-                            Password = AuthService.HashPassword("123"), // Mật khẩu: 123
-                            FullName = "Quản trị viên",
-                            Email = "admin@company.com",
-                            Role = Models.UserRole.Admin,
-                            IsActive = true,
-                            CreatedDate = DateTime.Now
-                        };
+                        Username = "admin",
+                        Password = AuthService.HashPassword("123"), // Mật khẩu: 123
+                        FullName = "Quản trị viên",
+                        Email = "admin@company.com",
+                        Role = Models.UserRole.Admin,
+                        IsActive = true,
+                        CreatedDate = DateTime.Now
+                    };
 
-                        _context.Users.Add(adminUser);
-                        _context.SaveChanges();
-                    }
+                    _context.Users.Add(adminUser);
+                    _context.SaveChanges();
                 }
             }
             catch (Exception ex)
