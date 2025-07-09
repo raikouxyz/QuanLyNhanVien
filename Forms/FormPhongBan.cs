@@ -2,13 +2,7 @@
 using QuanLyNhanVien.Models;
 using QuanLyNhanVien.Services;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QuanLyNhanVien.Views
@@ -23,10 +17,10 @@ namespace QuanLyNhanVien.Views
             try
             {
                 InitializeComponent();
-                
+
                 // Khởi tạo AppDbContext
                 _context = new AppDbContext();
-                
+
                 // Kiểm tra kết nối database
                 if (_context == null)
                 {
@@ -36,10 +30,10 @@ namespace QuanLyNhanVien.Views
 
                 // Đảm bảo database tồn tại
                 _context.EnsureDatabaseExists();
-                
+
                 // Thêm sự kiện FormClosed để giải phóng tài nguyên
                 this.FormClosed += FormPhongBan_FormClosed;
-                
+
                 LoadPhongBan();
                 KiemTraPhanQuyen();
             }
@@ -65,7 +59,7 @@ namespace QuanLyNhanVien.Views
                     var phongBans = _context.PhongBans.ToList();
                     dgvPhongBan.DataSource = null;
                     dgvPhongBan.DataSource = phongBans;
-                    
+
                     // Ẩn cột NhanViens nếu tồn tại
                     if (dgvPhongBan.Columns["NhanViens"] != null)
                     {
@@ -102,11 +96,11 @@ namespace QuanLyNhanVien.Views
 
                 // Tạo đối tượng phòng ban mới
                 var pb = new PhongBan { TenPhongBan = txtTenPhongBan.Text.Trim() };
-                
+
                 // Thêm vào cơ sở dữ liệu
                 _context.PhongBans.Add(pb);
                 _context.SaveChanges();
-                
+
                 MessageBox.Show("Thêm phòng ban thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadPhongBan();
             }
@@ -148,7 +142,7 @@ namespace QuanLyNhanVien.Views
                     // Cập nhật tên phòng ban
                     phongBan.TenPhongBan = txtTenPhongBan.Text.Trim();
                     _context.SaveChanges();
-                    
+
                     MessageBox.Show("Cập nhật phòng ban thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadPhongBan();
                 }
@@ -192,7 +186,7 @@ namespace QuanLyNhanVien.Views
                         // Xóa phòng ban
                         _context.PhongBans.Remove(phongBan);
                         _context.SaveChanges();
-                        
+
                         MessageBox.Show("Xóa phòng ban thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LoadPhongBan();
                     }
@@ -251,19 +245,19 @@ namespace QuanLyNhanVien.Views
 
                 // Chỉ Admin và HR mới được quản lý phòng ban
                 bool coTheQuanLy = AuthService.CanManageEmployees();
-                
+
                 // Ẩn/hiện các nút chức năng dựa trên quyền
                 btnThem.Visible = coTheQuanLy;
                 btnSua.Visible = coTheQuanLy;
                 btnXoa.Visible = coTheQuanLy;
-                
+
                 // Nếu chỉ có quyền xem, disable các control nhập liệu
                 if (AuthService.IsViewOnly())
                 {
                     txtTenPhongBan.ReadOnly = true;
-                    
+
                     // Hiển thị thông báo
-                    MessageBox.Show("Bạn chỉ có quyền xem thông tin phòng ban!", "Thông báo", 
+                    MessageBox.Show("Bạn chỉ có quyền xem thông tin phòng ban!", "Thông báo",
                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
@@ -274,7 +268,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi kiểm tra phân quyền: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi kiểm tra phân quyền: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -288,10 +282,10 @@ namespace QuanLyNhanVien.Views
             {
                 // Xóa trắng form
                 ClearInput();
-                
+
                 // Tải lại danh sách phòng ban
                 LoadPhongBan();
-                
+
                 MessageBox.Show("Đã làm mới dữ liệu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)

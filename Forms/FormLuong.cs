@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
-using QuanLyNhanVien.Database;
+﻿using QuanLyNhanVien.Database;
 using QuanLyNhanVien.Models;
 using QuanLyNhanVien.Services;
+using System;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace QuanLyNhanVien.Views
 {
@@ -24,24 +24,24 @@ namespace QuanLyNhanVien.Views
             try
             {
                 InitializeComponent();
-                
+
                 // Khởi tạo database context
                 _context = new AppDbContext();
-                
+
                 // Kiểm tra kết nối database
                 if (_context == null)
                 {
-                    MessageBox.Show("Không thể khởi tạo kết nối cơ sở dữ liệu!", "Lỗi", 
+                    MessageBox.Show("Không thể khởi tạo kết nối cơ sở dữ liệu!", "Lỗi",
                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 // Đảm bảo database tồn tại
                 _context.EnsureDatabaseExists();
-                
+
                 // Gán sự kiện đóng form
                 this.FormClosed += FormLuong_FormClosed;
-                
+
                 // Kiểm tra phân quyền
                 KiemTraPhanQuyen();
 
@@ -52,7 +52,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khởi tạo form lương: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khởi tạo form lương: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -68,14 +68,14 @@ namespace QuanLyNhanVien.Views
                 LoadDanhSachNhanVien();
                 LoadDanhSachLuong();
                 XoaTrangForm();
-                
+
                 // Đặt giá trị mặc định cho tháng và năm hiện tại
                 cmbThang.SelectedItem = DateTime.Now.Month.ToString();
                 nudNam.Value = DateTime.Now.Year;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tải form: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi tải form: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -90,7 +90,7 @@ namespace QuanLyNhanVien.Views
                 var nhanViens = _context.NhanViens
                     .Select(nv => new { nv.Id, nv.HoTen })
                     .ToList();
-                
+
                 cmbNhanVien.DataSource = nhanViens;
                 cmbNhanVien.DisplayMember = "HoTen";
                 cmbNhanVien.ValueMember = "Id";
@@ -98,7 +98,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tải danh sách nhân viên: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi tải danh sách nhân viên: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -134,7 +134,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tải danh sách lương: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi tải danh sách lương: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -178,7 +178,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tính tổng lương: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi tính tổng lương: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -199,13 +199,13 @@ namespace QuanLyNhanVien.Views
                 int thang = int.Parse(cmbThang.Text);
                 int nam = (int)nudNam.Value;
 
-                var existing = _context.Luongs.FirstOrDefault(l => 
+                var existing = _context.Luongs.FirstOrDefault(l =>
                     l.NhanVienId == nhanVienId && l.Thang == thang && l.Nam == nam);
 
                 if (existing != null)
                 {
                     MessageBox.Show($"Nhân viên này đã có bản ghi lương cho tháng {thang}/{nam}!\n" +
-                                   "Vui lòng chọn tháng khác hoặc sửa bản ghi hiện có.", 
+                                   "Vui lòng chọn tháng khác hoặc sửa bản ghi hiện có.",
                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -228,7 +228,7 @@ namespace QuanLyNhanVien.Views
                 _context.Luongs.Add(luongMoi);
                 _context.SaveChanges();
 
-                MessageBox.Show("Thêm thông tin lương thành công!", "Thành công", 
+                MessageBox.Show("Thêm thông tin lương thành công!", "Thành công",
                                MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Refresh lại danh sách
@@ -236,7 +236,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi thêm lương: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi thêm lương: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -249,7 +249,7 @@ namespace QuanLyNhanVien.Views
             // Kiểm tra nhân viên
             if (cmbNhanVien.SelectedValue == null)
             {
-                MessageBox.Show("Vui lòng chọn nhân viên!", "Thông báo", 
+                MessageBox.Show("Vui lòng chọn nhân viên!", "Thông báo",
                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 cmbNhanVien.Focus();
                 return false;
@@ -258,7 +258,7 @@ namespace QuanLyNhanVien.Views
             // Kiểm tra tháng
             if (string.IsNullOrEmpty(cmbThang.Text))
             {
-                MessageBox.Show("Vui lòng chọn tháng!", "Thông báo", 
+                MessageBox.Show("Vui lòng chọn tháng!", "Thông báo",
                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 cmbThang.Focus();
                 return false;
@@ -267,7 +267,7 @@ namespace QuanLyNhanVien.Views
             // Kiểm tra lương cơ bản
             if (nudLuongCoBan.Value <= 0)
             {
-                MessageBox.Show("Lương cơ bản phải lớn hơn 0!", "Thông báo", 
+                MessageBox.Show("Lương cơ bản phải lớn hơn 0!", "Thông báo",
                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 nudLuongCoBan.Focus();
                 return false;
@@ -308,7 +308,7 @@ namespace QuanLyNhanVien.Views
                         nudKhauTru.Value = luong.KhauTru;
                         nudSoNgayLamViec.Value = luong.SoNgayLamViec;
                         txtGhiChu.Text = luong.GhiChu ?? "";
-                        
+
                         // Tính lại tổng lương
                         TinhTongLuong();
                     }
@@ -316,7 +316,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi chọn bản ghi lương: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi chọn bản ghi lương: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -336,12 +336,12 @@ namespace QuanLyNhanVien.Views
 
                 // Chỉ Admin và HR mới được quản lý lương
                 bool coTheQuanLy = AuthService.CanManageEmployees();
-                
+
                 // Ẩn/hiện các nút chức năng
                 btnThem.Visible = coTheQuanLy;
                 btnSua.Visible = coTheQuanLy;
                 btnXoa.Visible = coTheQuanLy;
-                
+
                 // Nếu chỉ có quyền xem
                 if (AuthService.IsViewOnly())
                 {
@@ -358,7 +358,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi kiểm tra phân quyền: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi kiểm tra phân quyền: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -381,7 +381,7 @@ namespace QuanLyNhanVien.Views
                 // Kiểm tra xem có chọn bản ghi nào không
                 if (selectedLuongId == null)
                 {
-                    MessageBox.Show("Vui lòng chọn một bản ghi lương để sửa!", "Thông báo", 
+                    MessageBox.Show("Vui lòng chọn một bản ghi lương để sửa!", "Thông báo",
                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -394,7 +394,7 @@ namespace QuanLyNhanVien.Views
                 var luong = _context.Luongs.FirstOrDefault(l => l.Id == selectedLuongId);
                 if (luong == null)
                 {
-                    MessageBox.Show("Không tìm thấy bản ghi lương!", "Lỗi", 
+                    MessageBox.Show("Không tìm thấy bản ghi lương!", "Lỗi",
                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -404,21 +404,21 @@ namespace QuanLyNhanVien.Views
                 int thang = int.Parse(cmbThang.Text);
                 int nam = (int)nudNam.Value;
 
-                var existing = _context.Luongs.FirstOrDefault(l => 
+                var existing = _context.Luongs.FirstOrDefault(l =>
                     l.NhanVienId == nhanVienId && l.Thang == thang && l.Nam == nam && l.Id != selectedLuongId);
 
                 if (existing != null)
                 {
                     MessageBox.Show($"Nhân viên này đã có bản ghi lương khác cho tháng {thang}/{nam}!\n" +
-                                   "Vui lòng chọn tháng khác.", 
+                                   "Vui lòng chọn tháng khác.",
                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 // Xác nhận sửa
-                var result = MessageBox.Show($"Bạn có chắc chắn muốn sửa thông tin lương cho tháng {thang}/{nam}?", 
+                var result = MessageBox.Show($"Bạn có chắc chắn muốn sửa thông tin lương cho tháng {thang}/{nam}?",
                                            "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                
+
                 if (result != DialogResult.Yes)
                     return;
 
@@ -435,7 +435,7 @@ namespace QuanLyNhanVien.Views
                 // Lưu thay đổi
                 _context.SaveChanges();
 
-                MessageBox.Show("Cập nhật thông tin lương thành công!", "Thành công", 
+                MessageBox.Show("Cập nhật thông tin lương thành công!", "Thành công",
                                MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Refresh lại danh sách
@@ -443,7 +443,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi sửa lương: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi sửa lương: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -458,7 +458,7 @@ namespace QuanLyNhanVien.Views
                 // Kiểm tra xem có chọn bản ghi nào không
                 if (selectedLuongId == null)
                 {
-                    MessageBox.Show("Vui lòng chọn một bản ghi lương để xóa!", "Thông báo", 
+                    MessageBox.Show("Vui lòng chọn một bản ghi lương để xóa!", "Thông báo",
                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -467,7 +467,7 @@ namespace QuanLyNhanVien.Views
                 var luong = _context.Luongs.FirstOrDefault(l => l.Id == selectedLuongId);
                 if (luong == null)
                 {
-                    MessageBox.Show("Không tìm thấy bản ghi lương!", "Lỗi", 
+                    MessageBox.Show("Không tìm thấy bản ghi lương!", "Lỗi",
                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -481,9 +481,9 @@ namespace QuanLyNhanVien.Views
                                            $"- Nhân viên: {tenNhanVien}\n" +
                                            $"- Tháng: {luong.Thang}/{luong.Nam}\n" +
                                            $"- Tổng lương: {luong.TongLuong:N0} VND\n\n" +
-                                           "Thao tác này không thể hoàn tác!", 
+                                           "Thao tác này không thể hoàn tác!",
                                            "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                
+
                 if (result != DialogResult.Yes)
                     return;
 
@@ -491,7 +491,7 @@ namespace QuanLyNhanVien.Views
                 _context.Luongs.Remove(luong);
                 _context.SaveChanges();
 
-                MessageBox.Show("Xóa thông tin lương thành công!", "Thành công", 
+                MessageBox.Show("Xóa thông tin lương thành công!", "Thành công",
                                MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Refresh lại danh sách và xóa trắng form
@@ -500,7 +500,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi xóa lương: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi xóa lương: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -514,25 +514,25 @@ namespace QuanLyNhanVien.Views
             {
                 // Xác nhận làm mới
                 var result = MessageBox.Show("Bạn có muốn làm mới toàn bộ dữ liệu?\n" +
-                                           "Các thông tin đang nhập sẽ bị mất!", 
+                                           "Các thông tin đang nhập sẽ bị mất!",
                                            "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                
+
                 if (result == DialogResult.Yes)
                 {
                     // Xóa trắng form
                     XoaTrangForm();
-                    
+
                     // Load lại danh sách nhân viên và lương
                     LoadDanhSachNhanVien();
                     LoadDanhSachLuong();
-                    
-                    MessageBox.Show("Đã làm mới dữ liệu thành công!", "Thông báo", 
+
+                    MessageBox.Show("Đã làm mới dữ liệu thành công!", "Thông báo",
                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi làm mới: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi làm mới: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -547,4 +547,4 @@ namespace QuanLyNhanVien.Views
             TinhTongLuong();
         }
     }
-} 
+}

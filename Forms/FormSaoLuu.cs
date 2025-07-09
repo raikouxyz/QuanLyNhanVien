@@ -1,12 +1,11 @@
-﻿using System;
-using System.IO;
+﻿using Microsoft.EntityFrameworkCore;
+using QuanLyNhanVien.Database;
+using QuanLyNhanVien.Models;
+using QuanLyNhanVien.Services;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QuanLyNhanVien.Database;
-using QuanLyNhanVien.Services;
-using QuanLyNhanVien.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace QuanLyNhanVien.Views
 {
@@ -21,10 +20,10 @@ namespace QuanLyNhanVien.Views
         public FormSaoLuu()
         {
             InitializeComponent();
-            
+
             // Khởi tạo database context và backup service
             _context = new AppDbContext();
-            
+
             // Lấy connection string từ context
             var connection = _context.Database.GetDbConnection();
             var connectionString = connection.ConnectionString;
@@ -41,7 +40,7 @@ namespace QuanLyNhanVien.Views
                 // Kiểm tra phân quyền - chỉ admin mới được sao lưu dữ liệu
                 if (AuthService.CurrentUser?.Role != UserRole.Admin)
                 {
-                    MessageBox.Show("Chỉ có Admin mới có quyền sao lưu dữ liệu!", 
+                    MessageBox.Show("Chỉ có Admin mới có quyền sao lưu dữ liệu!",
                         "Không có quyền", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     this.Close();
                     return;
@@ -50,24 +49,24 @@ namespace QuanLyNhanVien.Views
                 // Kiểm tra kết nối database
                 lblTrangThai.Text = "Đang kiểm tra kết nối database...";
                 bool isConnected = await _backupService.TestConnectionAsync();
-                
+
                 if (isConnected)
                 {
                     lblTrangThai.Text = "Sẵn sàng xuất dữ liệu thành file SQL";
-                    
+
                     // Hiển thị thông tin debug
                     await TestDatabaseInfo();
                 }
                 else
                 {
                     lblTrangThai.Text = "Không thể kết nối đến database!";
-                    MessageBox.Show("Không thể kết nối đến database. Vui lòng kiểm tra lại cấu hình!", 
+                    MessageBox.Show("Không thể kết nối đến database. Vui lòng kiểm tra lại cấu hình!",
                         "Lỗi kết nối", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khởi tạo form: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khởi tạo form: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -81,21 +80,21 @@ namespace QuanLyNhanVien.Views
             {
                 using var connection = _context.Database.GetDbConnection();
                 await connection.OpenAsync();
-                
+
                 using var command = connection.CreateCommand();
                 command.CommandText = @"
                     SELECT TABLE_NAME 
                     FROM INFORMATION_SCHEMA.TABLES 
                     WHERE TABLE_TYPE = 'BASE TABLE'
                     ORDER BY TABLE_NAME";
-                
+
                 using var reader = await command.ExecuteReaderAsync();
                 var tables = new List<string>();
                 while (await reader.ReadAsync())
                 {
                     tables.Add(reader.GetString(0));
                 }
-                
+
                 System.Diagnostics.Debug.WriteLine($"Các bảng trong database: {string.Join(", ", tables)}");
             }
             catch (Exception ex)
@@ -128,7 +127,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi chọn file: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi chọn file: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -143,7 +142,7 @@ namespace QuanLyNhanVien.Views
                 // Kiểm tra đường dẫn file SQL
                 if (string.IsNullOrWhiteSpace(txtDuongDanSaoLuu.Text))
                 {
-                    MessageBox.Show("Vui lòng chọn vị trí lưu file SQL!", "Thông báo", 
+                    MessageBox.Show("Vui lòng chọn vị trí lưu file SQL!", "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -152,8 +151,8 @@ namespace QuanLyNhanVien.Views
                 var confirmResult = MessageBox.Show(
                     "Bạn có chắc chắn muốn xuất dữ liệu thành file SQL?\n\n" +
                     "File SQL sẽ chứa tất cả dữ liệu của hệ thống.",
-                    "Xác nhận xuất dữ liệu", 
-                    MessageBoxButtons.YesNo, 
+                    "Xác nhận xuất dữ liệu",
+                    MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
 
                 if (confirmResult != DialogResult.Yes)
@@ -165,7 +164,7 @@ namespace QuanLyNhanVien.Views
                 progressBar.Style = ProgressBarStyle.Marquee;
 
                 // Tạo progress reporter để cập nhật trạng thái
-                var progress = new Progress<string>(message => 
+                var progress = new Progress<string>(message =>
                 {
                     lblTrangThai.Text = message;
                     Application.DoEvents(); // Cập nhật UI
@@ -178,13 +177,13 @@ namespace QuanLyNhanVien.Views
                 // Hiển thị kết quả
                 if (success)
                 {
-                    MessageBox.Show($"Xuất dữ liệu thành công!\n\nFile đã được lưu tại:\n{sqlPath}", 
+                    MessageBox.Show($"Xuất dữ liệu thành công!\n\nFile đã được lưu tại:\n{sqlPath}",
                         "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
+
                     // Hỏi có muốn mở thư mục chứa file không
-                    var openFolderResult = MessageBox.Show("Bạn có muốn mở thư mục chứa file SQL?", 
+                    var openFolderResult = MessageBox.Show("Bạn có muốn mở thư mục chứa file SQL?",
                         "Mở thư mục", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    
+
                     if (openFolderResult == DialogResult.Yes)
                     {
                         System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{sqlPath}\"");
@@ -192,13 +191,13 @@ namespace QuanLyNhanVien.Views
                 }
                 else
                 {
-                    MessageBox.Show("Xuất dữ liệu thất bại! Vui lòng kiểm tra lại.", 
+                    MessageBox.Show("Xuất dữ liệu thất bại! Vui lòng kiểm tra lại.",
                         "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi xuất dữ liệu: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi xuất dữ liệu: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally

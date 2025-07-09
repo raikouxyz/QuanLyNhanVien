@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Microsoft.EntityFrameworkCore;
 using QuanLyNhanVien.Database;
 using QuanLyNhanVien.Models;
-using QuanLyNhanVien.Views;
 using QuanLyNhanVien.Services;
-using Microsoft.EntityFrameworkCore;
+using System;
+using System.Data;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace QuanLyNhanVien.Views
 {
@@ -27,16 +21,16 @@ namespace QuanLyNhanVien.Views
             {
                 // Khởi tạo giao diện
                 InitializeComponent();
-                
+
                 // Khởi tạo database context
                 _context = new AppDbContext();
-                
+
                 // Tạo database nếu chưa tồn tại
                 _context.Database.EnsureCreated();
-                
+
                 // Thêm dữ liệu mẫu cho phòng ban
                 _context.SeedDuLieuMau();
-                
+
                 MessageBox.Show("Khởi tạo form thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -54,7 +48,7 @@ namespace QuanLyNhanVien.Views
                 LoadDanhSachPhongBan();
                 LoadDanhSachNhanVien();
                 KiemTraPhanQuyen();
-                
+
                 MessageBox.Show("Tải dữ liệu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -69,7 +63,7 @@ namespace QuanLyNhanVien.Views
             try
             {
                 var danhSachPhongBan = _context.PhongBans.ToList();
-                
+
                 cmbPhongBan.DataSource = danhSachPhongBan;
                 cmbPhongBan.DisplayMember = "TenPhongBan"; // Hiển thị tên phòng ban
                 cmbPhongBan.ValueMember = "Id"; // Giá trị là ID phòng ban
@@ -242,9 +236,9 @@ namespace QuanLyNhanVien.Views
                 // Thêm nhân viên mới vào database
                 _context.NhanViens.Add(nhanVienMoi);
                 _context.SaveChanges();
-                
+
                 MessageBox.Show("Thêm nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
+
                 // Refresh lại danh sách
                 LoadDanhSachNhanVien();
             }
@@ -299,9 +293,9 @@ namespace QuanLyNhanVien.Views
 
                     // Lưu thay đổi vào cơ sở dữ liệu
                     _context.SaveChanges();
-                    
+
                     MessageBox.Show("Cập nhật thông tin nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
+
                     // Refresh lại danh sách
                     LoadDanhSachNhanVien();
                 }
@@ -325,9 +319,9 @@ namespace QuanLyNhanVien.Views
                 }
 
                 // Xác nhận xóa
-                var ketQua = MessageBox.Show("Bạn có chắc chắn muốn xóa nhân viên này?", "Xác nhận xóa", 
+                var ketQua = MessageBox.Show("Bạn có chắc chắn muốn xóa nhân viên này?", "Xác nhận xóa",
                                            MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                
+
                 if (ketQua == DialogResult.Yes)
                 {
                     // Tìm nhân viên trong database có Id bằng với id truyền vào
@@ -341,9 +335,9 @@ namespace QuanLyNhanVien.Views
 
                         // Lưu thay đổi vào cơ sở dữ liệu (thực hiện lệnh DELETE trong SQL)
                         _context.SaveChanges();
-                        
+
                         MessageBox.Show("Xóa nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        
+
                         // Refresh lại danh sách
                         LoadDanhSachNhanVien();
                     }
@@ -360,7 +354,7 @@ namespace QuanLyNhanVien.Views
         {
             // Lưu thông tin phòng ban cũ
             var phongBanCu = nv.PhongBan;
-            
+
             // Cập nhật phòng ban mới
             nv.PhongBan = phongBanMoi;
             nv.PhongBanId = phongBanMoi.Id;
@@ -373,7 +367,7 @@ namespace QuanLyNhanVien.Views
             try
             {
                 string tuKhoa = txtTimKiem.Text.Trim();
-                
+
                 // Nếu không nhập từ khóa thì hiển thị tất cả
                 if (string.IsNullOrEmpty(tuKhoa))
                 {
@@ -383,7 +377,7 @@ namespace QuanLyNhanVien.Views
 
                 // Lấy tất cả nhân viên và thông tin phòng ban
                 var tatCaNhanVien = _context.NhanViens.Include(nv => nv.PhongBan).ToList();
-                
+
                 // Tìm kiếm theo họ tên, chức vụ, ID hoặc tên phòng ban
                 var ketQuaTimKiem = tatCaNhanVien.Where(nv =>
                     nv.HoTen.ToLower().Contains(tuKhoa.ToLower()) ||
@@ -407,8 +401,8 @@ namespace QuanLyNhanVien.Views
                 dgvNhanVien.DataSource = ketQuaTimKiem;
                 dgvNhanVien.ClearSelection();
                 XoaTrangForm();
-                
-                MessageBox.Show($"Tìm thấy {ketQuaTimKiem.Count} nhân viên!", "Kết quả tìm kiếm", 
+
+                MessageBox.Show($"Tìm thấy {ketQuaTimKiem.Count} nhân viên!", "Kết quả tìm kiếm",
                                MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -487,12 +481,12 @@ namespace QuanLyNhanVien.Views
 
                 // Kiểm tra quyền quản lý nhân viên (Thêm/Sửa/Xóa)
                 bool coTheQuanLy = AuthService.CanManageEmployees();
-                
+
                 // Ẩn/hiện các nút chức năng dựa trên quyền
                 btnThem.Visible = coTheQuanLy;
                 btnSua.Visible = coTheQuanLy;
                 btnXoa.Visible = coTheQuanLy;
-                
+
                 // Nếu chỉ có quyền xem, disable các control nhập liệu
                 if (AuthService.IsViewOnly())
                 {
@@ -504,9 +498,9 @@ namespace QuanLyNhanVien.Views
                     txtChucVu.ReadOnly = true;
                     dtpNgayVaoLam.Enabled = false;
                     cmbPhongBan.Enabled = false;
-                    
+
                     // Hiển thị thông báo
-                    MessageBox.Show("Bạn chỉ có quyền xem thông tin nhân viên!", "Thông báo", 
+                    MessageBox.Show("Bạn chỉ có quyền xem thông tin nhân viên!", "Thông báo",
                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
@@ -524,7 +518,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi kiểm tra phân quyền: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi kiểm tra phân quyền: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -538,13 +532,13 @@ namespace QuanLyNhanVien.Views
             {
                 // Xóa trắng form
                 XoaTrangForm();
-                
+
                 // Tải lại danh sách nhân viên
                 LoadDanhSachNhanVien();
-                
+
                 // Tải lại danh sách phòng ban
                 LoadDanhSachPhongBan();
-                
+
                 MessageBox.Show("Đã làm mới dữ liệu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)

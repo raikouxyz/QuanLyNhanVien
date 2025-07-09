@@ -1,8 +1,8 @@
-﻿using System;
+﻿using QuanLyNhanVien.Database;
+using QuanLyNhanVien.Services;
+using System;
 using System.Linq;
 using System.Windows.Forms;
-using QuanLyNhanVien.Database;
-using QuanLyNhanVien.Services;
 
 namespace QuanLyNhanVien.Views
 {
@@ -20,12 +20,12 @@ namespace QuanLyNhanVien.Views
         public FormLogin()
         {
             InitializeComponent();
-            
+
             // Khởi tạo dịch vụ xác thực
             var context = new AppDbContext();
             context.Database.EnsureCreated(); // Tạo database nếu chưa tồn tại
             _authService = new AuthService(context);
-            
+
             // Tạo tài khoản admin mặc định nếu chưa có
             TaoTaiKhoanMacDinh();
         }
@@ -61,7 +61,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi tạo tài khoản mặc định: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi tạo tài khoản mặc định: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -80,7 +80,7 @@ namespace QuanLyNhanVien.Views
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrWhiteSpace(username))
                 {
-                    MessageBox.Show("Vui lòng nhập tên đăng nhập!", "Thông báo", 
+                    MessageBox.Show("Vui lòng nhập tên đăng nhập!", "Thông báo",
                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtUsername.Focus();
                     return;
@@ -88,7 +88,7 @@ namespace QuanLyNhanVien.Views
 
                 if (string.IsNullOrWhiteSpace(password))
                 {
-                    MessageBox.Show("Vui lòng nhập mật khẩu!", "Thông báo", 
+                    MessageBox.Show("Vui lòng nhập mật khẩu!", "Thông báo",
                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtPassword.Focus();
                     return;
@@ -98,9 +98,9 @@ namespace QuanLyNhanVien.Views
                 if (_authService.Login(username, password))
                 {
                     // Đăng nhập thành công
-                    MessageBox.Show($"Đăng nhập thành công!\nXin chào {AuthService.CurrentUser?.FullName}!", 
+                    MessageBox.Show($"Đăng nhập thành công!\nXin chào {AuthService.CurrentUser?.FullName}!",
                                    "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
+
                     // Đóng form đăng nhập và trả về kết quả thành công
                     this.DialogResult = DialogResult.OK;
                     this.Close();
@@ -108,9 +108,9 @@ namespace QuanLyNhanVien.Views
                 else
                 {
                     // Đăng nhập thất bại
-                    MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng!", "Lỗi đăng nhập", 
+                    MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng!", "Lỗi đăng nhập",
                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    
+
                     // Xóa mật khẩu và focus lại username
                     txtPassword.Text = "";
                     txtUsername.SelectAll();
@@ -119,7 +119,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi đăng nhập: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi đăng nhập: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -152,7 +152,7 @@ namespace QuanLyNhanVien.Views
         {
             // Focus vào ô username khi form mở
             txtUsername.Focus();
-            
+
             // Hiển thị thông tin tài khoản mặc định
             lblThongTin.Text = "Tài khoản mặc định:\n" +
                               "Admin: admin/123456";
@@ -169,7 +169,7 @@ namespace QuanLyNhanVien.Views
                 // Thoát ứng dụng hoàn toàn
                 Application.Exit();
             }
-            
+
             base.OnFormClosing(e);
         }
     }

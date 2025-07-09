@@ -1,10 +1,7 @@
-﻿using System;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using QuanLyNhanVien.Database;
+﻿using QuanLyNhanVien.Database;
 using QuanLyNhanVien.Services;
-using QuanLyNhanVien.Views;
+using System;
+using System.Windows.Forms;
 
 namespace QuanLyNhanVien.Views
 {
@@ -56,10 +53,10 @@ namespace QuanLyNhanVien.Views
                 {
                     // Cập nhật tiêu đề form
                     this.Text = $"HRM - Hệ thống quản lý nhân viên";
-                    
+
                     // Hiển thị thông tin user trong header
                     lblUserInfo.Text = $"Chào mừng, {AuthService.CurrentUser.FullName} ({AuthService.GetRoleName(AuthService.CurrentUser.Role)})";
-                    
+
                     // Debug thông tin user hiện tại
                     System.Diagnostics.Debug.WriteLine($"Current User: {AuthService.CurrentUser.Username}");
                     System.Diagnostics.Debug.WriteLine($"Current Role: {AuthService.CurrentUser.Role}");
@@ -125,7 +122,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi mở form sao lưu và phục hồi: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi mở form sao lưu và phục hồi: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -147,17 +144,17 @@ namespace QuanLyNhanVien.Views
 
                 var formDangKy = new FormDangKy();
                 formDangKy.ShowDialog();
-                
+
                 // Reload thông tin user hiện tại sau khi đóng form quản lý người dùng
                 var authService = new AuthService(new AppDbContext());
                 authService.ReloadCurrentUser();
-                
+
                 // Cập nhật lại phân quyền
                 KiemTraPhanQuyen();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi mở form quản lý người dùng: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi mở form quản lý người dùng: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

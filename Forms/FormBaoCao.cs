@@ -1,14 +1,11 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using QuanLyNhanVien.Database;
+using QuanLyNhanVien.Services;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using System.Drawing;
-using System.Collections.Generic;
-using QuanLyNhanVien.Database;
-using QuanLyNhanVien.Models;
-using QuanLyNhanVien.Services;
-using ClosedXML.Excel;
-using System.IO;
 
 namespace QuanLyNhanVien.Views
 {
@@ -24,7 +21,7 @@ namespace QuanLyNhanVien.Views
             _context = new AppDbContext();
             _authService = new AuthService(_context);
             LoadBaoCao();
-            
+
             // Thêm sự kiện click cho các DataGridView thống kê
             dgvThongKePhongBan.CellClick += DgvThongKePhongBan_CellClick;
             dgvThongKeGioiTinh.CellClick += DgvThongKeGioiTinh_CellClick;
@@ -107,7 +104,7 @@ namespace QuanLyNhanVien.Views
                 // 5. Hiển thị thông tin tổng quan
                 var tongNhanVien = nhanViens.Count;
                 var tuoiTrungBinh = Math.Round(nhanViens.Average(nv => DateTime.Now.Year - nv.NgaySinh.Year), 1);
-                var thoiGianLamTrungBinh = Math.Round(nhanViens.Average(nv => 
+                var thoiGianLamTrungBinh = Math.Round(nhanViens.Average(nv =>
                     (DateTime.Now - nv.NgayVaoLam).TotalDays / 365.25), 1);
 
                 lblTongQuan.Text = $@"Thông tin tổng quan:
@@ -117,7 +114,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tải báo cáo: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi tải báo cáo: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -155,7 +152,7 @@ namespace QuanLyNhanVien.Views
                 {
                     // Lấy tên phòng ban được chọn
                     var tenPhongBan = dgvThongKePhongBan.Rows[e.RowIndex].Cells["TenPhongBan"].Value?.ToString();
-                    
+
                     if (!string.IsNullOrEmpty(tenPhongBan))
                     {
                         // Lọc nhân viên theo phòng ban
@@ -175,7 +172,7 @@ namespace QuanLyNhanVien.Views
 
                         dtNhanVien = ToDataTable(nhanVienTheoPhongBan);
                         dgvDanhSachNhanVien.DataSource = dtNhanVien;
-                        
+
                         // Cập nhật tiêu đề group box
                         grpDanhSachNhanVien.Text = $"Danh sách nhân viên - {tenPhongBan} ({nhanVienTheoPhongBan.Count} người)";
                     }
@@ -183,7 +180,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi lọc theo phòng ban: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi lọc theo phòng ban: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -199,7 +196,7 @@ namespace QuanLyNhanVien.Views
                 {
                     // Lấy giới tính được chọn
                     var gioiTinh = dgvThongKeGioiTinh.Rows[e.RowIndex].Cells["GioiTinh"].Value?.ToString();
-                    
+
                     if (!string.IsNullOrEmpty(gioiTinh))
                     {
                         // Lọc nhân viên theo giới tính
@@ -220,7 +217,7 @@ namespace QuanLyNhanVien.Views
 
                         dtNhanVien = ToDataTable(nhanVienTheoGioiTinh);
                         dgvDanhSachNhanVien.DataSource = dtNhanVien;
-                        
+
                         // Cập nhật tiêu đề group box
                         grpDanhSachNhanVien.Text = $"Danh sách nhân viên - {gioiTinh} ({nhanVienTheoGioiTinh.Count} người)";
                     }
@@ -228,7 +225,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi lọc theo giới tính: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi lọc theo giới tính: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -244,19 +241,19 @@ namespace QuanLyNhanVien.Views
                 {
                     // Lấy nhóm tuổi được chọn
                     var nhomTuoi = dgvThongKeDoTuoi.Rows[e.RowIndex].Cells["NhomTuoi"].Value?.ToString();
-                    
+
                     if (!string.IsNullOrEmpty(nhomTuoi))
                     {
                         // Phân tích nhóm tuổi (ví dụ: "20-29")
                         var tuoiParts = nhomTuoi.Split('-');
-                        if (tuoiParts.Length == 2 && 
-                            int.TryParse(tuoiParts[0], out int tuoiMin) && 
+                        if (tuoiParts.Length == 2 &&
+                            int.TryParse(tuoiParts[0], out int tuoiMin) &&
                             int.TryParse(tuoiParts[1], out int tuoiMax))
                         {
                             // Lọc nhân viên theo độ tuổi
                             var nhanVienTheoDoTuoi = _context.NhanViens
                                 .ToList() // Chuyển về memory để tính toán tuổi
-                                .Where(nv => 
+                                .Where(nv =>
                                 {
                                     var tuoi = DateTime.Now.Year - nv.NgaySinh.Year;
                                     return tuoi >= tuoiMin && tuoi <= tuoiMax;
@@ -277,7 +274,7 @@ namespace QuanLyNhanVien.Views
 
                             dtNhanVien = ToDataTable(nhanVienTheoDoTuoi);
                             dgvDanhSachNhanVien.DataSource = dtNhanVien;
-                            
+
                             // Cập nhật tiêu đề group box
                             grpDanhSachNhanVien.Text = $"Danh sách nhân viên - Độ tuổi {nhomTuoi} ({nhanVienTheoDoTuoi.Count} người)";
                         }
@@ -286,7 +283,7 @@ namespace QuanLyNhanVien.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi lọc theo độ tuổi: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi lọc theo độ tuổi: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -349,14 +346,14 @@ namespace QuanLyNhanVien.Views
                             workbook.SaveAs(sfd.FileName);
                         }
 
-                        MessageBox.Show("Xuất báo cáo Excel thành công!", "Thông báo", 
+                        MessageBox.Show("Xuất báo cáo Excel thành công!", "Thông báo",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi xuất Excel: {ex.Message}", "Lỗi", 
+                MessageBox.Show($"Lỗi khi xuất Excel: {ex.Message}", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -371,4 +368,4 @@ namespace QuanLyNhanVien.Views
             dgvThongKeDoTuoi.ClearSelection();
         }
     }
-} 
+}
