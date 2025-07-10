@@ -164,10 +164,25 @@ namespace QuanLyNhanVien.Views
         /// </summary>
         private void btnDangXuat_Click(object sender, EventArgs e)
         {
+            // Đăng xuất người dùng hiện tại
+            var authService = new AuthService(new AppDbContext());
+            authService.Logout();
+
+            // Ẩn form hiện tại
             this.Hide();
-            var formLogin = new FormLogin();
-            formLogin.ShowDialog();
-            this.Close();
+
+            // Hiển thị form đăng nhập
+            if (DangNhap())
+            {
+                // Nếu đăng nhập thành công, cập nhật lại thông tin và hiển thị form
+                KiemTraPhanQuyen();
+                this.Show();
+            }
+            else
+            {
+                // Nếu không đăng nhập thành công, đóng form và thoát ứng dụng
+                this.Close();
+            }
         }
 
         /// <summary>

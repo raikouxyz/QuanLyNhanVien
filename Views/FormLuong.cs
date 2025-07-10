@@ -2,8 +2,12 @@
 using QuanLyNhanVien.Models;
 using QuanLyNhanVien.Services;
 using System;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Drawing;
+using Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
 
 namespace QuanLyNhanVien.Views
 {
@@ -14,7 +18,7 @@ namespace QuanLyNhanVien.Views
     public partial class FormLuong : Form
     {
         private readonly AppDbContext _context;
-        private int? selectedLuongId = null; // ID bản ghi lương đang chọn
+        private int? selectedLuongId; // ID bản ghi lương đang chọn
 
         /// <summary>
         /// Constructor - khởi tạo form quản lý lương
@@ -27,20 +31,6 @@ namespace QuanLyNhanVien.Views
 
                 // Khởi tạo database context
                 _context = new AppDbContext();
-
-                // Kiểm tra kết nối database
-                if (_context == null)
-                {
-                    MessageBox.Show("Không thể khởi tạo kết nối cơ sở dữ liệu!", "Lỗi",
-                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Đảm bảo database tồn tại
-                _context.EnsureDatabaseExists();
-
-                // Gán sự kiện đóng form
-                this.FormClosed += FormLuong_FormClosed;
 
                 // Kiểm tra phân quyền
                 KiemTraPhanQuyen();
@@ -70,7 +60,8 @@ namespace QuanLyNhanVien.Views
                 XoaTrangForm();
 
                 // Đặt giá trị mặc định cho tháng và năm hiện tại
-                cmbThang.SelectedItem = DateTime.Now.Month.ToString();
+                cmbThang.SelectedIndex = DateTime.Now.Month - 1; // Index bắt đầu từ 0
+                cmbThang.Enabled = false; // Không cho phép thay đổi tháng
                 nudNam.Value = DateTime.Now.Year;
             }
             catch (Exception ex)
@@ -145,12 +136,12 @@ namespace QuanLyNhanVien.Views
         private void XoaTrangForm()
         {
             cmbNhanVien.SelectedIndex = -1;
-            cmbThang.SelectedIndex = -1;
+            cmbThang.SelectedIndex = DateTime.Now.Month - 1;
             nudNam.Value = DateTime.Now.Year;
             nudLuongCoBan.Value = 0;
             nudPhuCap.Value = 0;
             nudKhauTru.Value = 0;
-            nudSoNgayLamViec.Value = 22;
+            nudSoNgayLamViec.Value = 1;
             txtGhiChu.Text = "";
             lblTongLuong.Text = "0 VND";
             selectedLuongId = null;
@@ -184,6 +175,29 @@ namespace QuanLyNhanVien.Views
         }
 
         /// <summary>
+        /// Kiểm tra xem nhân viên đã có lương trong tháng này chưa
+        /// </summary>
+        private bool KiemTraTrungLapLuong(int nhanVienId, int thang, int nam, int? luongIdHienTai = null)
+        {
+            try
+            {
+                // Kiểm tra xem nhân viên đã có bản ghi lương trong tháng này chưa
+                // Nếu đang sửa, bỏ qua bản ghi hiện tại
+                var existing = _context.Luongs.FirstOrDefault(l =>
+                    l.NhanVienId == nhanVienId && 
+                    l.Thang == thang && 
+                    l.Nam == nam && 
+                    (luongIdHienTai == null || l.Id != luongIdHienTai));
+
+                return existing != null;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Sự kiện khi nhấn nút Thêm lương
         /// </summary>
         private void btnThem_Click(object sender, EventArgs e)
@@ -199,13 +213,10 @@ namespace QuanLyNhanVien.Views
                 int thang = int.Parse(cmbThang.Text);
                 int nam = (int)nudNam.Value;
 
-                var existing = _context.Luongs.FirstOrDefault(l =>
-                    l.NhanVienId == nhanVienId && l.Thang == thang && l.Nam == nam);
-
-                if (existing != null)
+                if (KiemTraTrungLapLuong(nhanVienId, thang, nam))
                 {
                     MessageBox.Show($"Nhân viên này đã có bản ghi lương cho tháng {thang}/{nam}!\n" +
-                                   "Vui lòng chọn tháng khác hoặc sửa bản ghi hiện có.",
+                                   "Mỗi nhân viên chỉ được có một bản ghi lương trong một tháng.",
                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -341,6 +352,7 @@ namespace QuanLyNhanVien.Views
                 btnThem.Visible = coTheQuanLy;
                 btnSua.Visible = coTheQuanLy;
                 btnXoa.Visible = coTheQuanLy;
+                btnXuatExcel.Visible = coTheQuanLy; // Ẩn/hiện nút Xuất Excel
 
                 // Nếu chỉ có quyền xem
                 if (AuthService.IsViewOnly())
@@ -354,6 +366,7 @@ namespace QuanLyNhanVien.Views
                     nudKhauTru.Enabled = false;
                     nudSoNgayLamViec.Enabled = false;
                     txtGhiChu.ReadOnly = true;
+                    btnXuatExcel.Visible = false; // Ẩn nút Xuất Excel khi chỉ xem
                 }
             }
             catch (Exception ex)
@@ -361,14 +374,6 @@ namespace QuanLyNhanVien.Views
                 MessageBox.Show($"Lỗi kiểm tra phân quyền: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        /// <summary>
-        /// Sự kiện khi đóng form
-        /// </summary>
-        private void FormLuong_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            _context?.Dispose();
         }
 
         /// <summary>
@@ -404,13 +409,10 @@ namespace QuanLyNhanVien.Views
                 int thang = int.Parse(cmbThang.Text);
                 int nam = (int)nudNam.Value;
 
-                var existing = _context.Luongs.FirstOrDefault(l =>
-                    l.NhanVienId == nhanVienId && l.Thang == thang && l.Nam == nam && l.Id != selectedLuongId);
-
-                if (existing != null)
+                if (KiemTraTrungLapLuong(nhanVienId, thang, nam, selectedLuongId))
                 {
                     MessageBox.Show($"Nhân viên này đã có bản ghi lương khác cho tháng {thang}/{nam}!\n" +
-                                   "Vui lòng chọn tháng khác.",
+                                   "Mỗi nhân viên chỉ được có một bản ghi lương trong một tháng.",
                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -512,28 +514,218 @@ namespace QuanLyNhanVien.Views
         {
             try
             {
-                // Xác nhận làm mới
-                var result = MessageBox.Show("Bạn có muốn làm mới toàn bộ dữ liệu?\n" +
-                                           "Các thông tin đang nhập sẽ bị mất!",
-                                           "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                // Xóa trắng form
+                XoaTrangForm();
 
-                if (result == DialogResult.Yes)
-                {
-                    // Xóa trắng form
-                    XoaTrangForm();
-
-                    // Load lại danh sách nhân viên và lương
-                    LoadDanhSachNhanVien();
-                    LoadDanhSachLuong();
-
-                    MessageBox.Show("Đã làm mới dữ liệu thành công!", "Thông báo",
-                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                // Load lại danh sách nhân viên và lương
+                LoadDanhSachNhanVien();
+                LoadDanhSachLuong();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi làm mới: {ex.Message}", "Lỗi",
                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Sự kiện khi nhấn nút Xuất Excel
+        /// </summary>
+        private void btnXuatExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Kiểm tra xem có dữ liệu để xuất không
+                if (dgvLuong.Rows.Count == 0)
+                {
+                    MessageBox.Show("Không có dữ liệu lương để xuất!", "Thông báo",
+                                   MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Xác nhận xuất Excel và xóa dữ liệu
+                var result = MessageBox.Show("Bạn có chắc chắn muốn xuất dữ liệu lương ra Excel?\n" +
+                                           "Sau khi xuất, TẤT CẢ dữ liệu lương sẽ bị xóa khỏi hệ thống.",
+                                           "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result != DialogResult.Yes)
+                    return;
+
+                // Tạo SaveFileDialog để chọn nơi lưu file
+                SaveFileDialog saveDialog = new SaveFileDialog
+                {
+                    Filter = "Excel Files|*.xlsx",
+                    Title = "Lưu file Excel",
+                    FileName = $"Bang_Luong_Thang_{DateTime.Now.Month}_{DateTime.Now.Year}.xlsx"
+                };
+
+                if (saveDialog.ShowDialog() != DialogResult.OK)
+                    return;
+
+                // Xuất Excel
+                XuatFileExcel(saveDialog.FileName);
+
+                // Xóa tất cả dữ liệu lương
+                XoaTatCaDuLieuLuong();
+
+                MessageBox.Show($"Đã xuất dữ liệu lương ra file Excel thành công!\n" +
+                               $"Đường dẫn: {saveDialog.FileName}\n\n" +
+                               $"Tất cả dữ liệu lương đã được xóa khỏi hệ thống.",
+                               "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Load lại danh sách lương (sẽ trống)
+                LoadDanhSachLuong();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xuất Excel: {ex.Message}", "Lỗi",
+                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Xuất dữ liệu lương ra file Excel
+        /// </summary>
+        private void XuatFileExcel(string filePath)
+        {
+            // Khởi tạo các đối tượng Excel
+            Microsoft.Office.Interop.Excel.Application excelApp = null;
+            Workbook workbook = null;
+            Worksheet worksheet = null;
+
+            try
+            {
+                // Tạo một ứng dụng Excel mới
+                excelApp = new Microsoft.Office.Interop.Excel.Application();
+                workbook = excelApp.Workbooks.Add(Type.Missing);
+                worksheet = workbook.ActiveSheet;
+
+                // Đặt tên cho worksheet - không chứa ký tự đặc biệt và không quá 31 ký tự
+                worksheet.Name = $"Bang_Luong_T{DateTime.Now.Month}_{DateTime.Now.Year}";
+
+                // Định dạng tiêu đề
+                worksheet.Cells[1, 1] = "BẢNG LƯƠNG NHÂN VIÊN";
+                worksheet.Cells[2, 1] = $"Tháng {DateTime.Now.Month}/{DateTime.Now.Year} - Ngày xuất: {DateTime.Now.ToString("dd/MM/yyyy")}";
+
+                // Merge các ô cho tiêu đề
+                Microsoft.Office.Interop.Excel.Range headerRange = worksheet.Range["A1:J1"];
+                headerRange.Merge();
+                headerRange.Font.Bold = true;
+                headerRange.Font.Size = 16;
+                headerRange.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+
+                Microsoft.Office.Interop.Excel.Range subHeaderRange = worksheet.Range["A2:J2"];
+                subHeaderRange.Merge();
+                subHeaderRange.Font.Bold = true;
+                subHeaderRange.Font.Size = 12;
+                subHeaderRange.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+
+                // Tạo tiêu đề cho các cột từ dòng 4
+                int rowIndex = 4;
+                
+                // Đặt tiêu đề cột
+                worksheet.Cells[rowIndex, 1] = "STT";
+                worksheet.Cells[rowIndex, 2] = "Tên nhân viên";
+                worksheet.Cells[rowIndex, 3] = "Tháng";
+                worksheet.Cells[rowIndex, 4] = "Năm";
+                worksheet.Cells[rowIndex, 5] = "Lương cơ bản";
+                worksheet.Cells[rowIndex, 6] = "Phụ cấp";
+                worksheet.Cells[rowIndex, 7] = "Khấu trừ";
+                worksheet.Cells[rowIndex, 8] = "Số ngày làm việc";
+                worksheet.Cells[rowIndex, 9] = "Tổng lương";
+                worksheet.Cells[rowIndex, 10] = "Ghi chú";
+
+                // Định dạng tiêu đề cột
+                Microsoft.Office.Interop.Excel.Range columnHeaderRange = worksheet.Range["A4:J4"];
+                columnHeaderRange.Font.Bold = true;
+                columnHeaderRange.Interior.Color = ColorTranslator.ToOle(Color.LightGray);
+                columnHeaderRange.Borders.LineStyle = XlLineStyle.xlContinuous;
+                columnHeaderRange.HorizontalAlignment = XlHAlign.xlHAlignCenter;
+
+                // Điền dữ liệu từ DataGridView
+                rowIndex = 5;
+                for (int i = 0; i < dgvLuong.Rows.Count; i++)
+                {
+                    var row = dgvLuong.Rows[i];
+
+                    // STT
+                    worksheet.Cells[rowIndex, 1] = i + 1;
+
+                    // Tên nhân viên
+                    worksheet.Cells[rowIndex, 2] = row.Cells["TenNhanVien"].Value?.ToString();
+
+                    // Tháng
+                    worksheet.Cells[rowIndex, 3] = row.Cells["Thang"].Value?.ToString();
+
+                    // Năm
+                    worksheet.Cells[rowIndex, 4] = row.Cells["Nam"].Value?.ToString();
+
+                    // Lương cơ bản
+                    worksheet.Cells[rowIndex, 5] = row.Cells["LuongCoBan"].Value?.ToString();
+
+                    // Phụ cấp
+                    worksheet.Cells[rowIndex, 6] = row.Cells["PhuCap"].Value?.ToString();
+
+                    // Khấu trừ
+                    worksheet.Cells[rowIndex, 7] = row.Cells["KhauTru"].Value?.ToString();
+
+                    // Số ngày làm việc
+                    worksheet.Cells[rowIndex, 8] = row.Cells["SoNgayLamViec"].Value?.ToString();
+
+                    // Tổng lương
+                    worksheet.Cells[rowIndex, 9] = row.Cells["TongLuong"].Value?.ToString();
+
+                    // Ghi chú (nếu có)
+                    var luong = _context.Luongs.FirstOrDefault(l => l.Id == Convert.ToInt32(row.Cells["Id"].Value));
+                    worksheet.Cells[rowIndex, 10] = luong?.GhiChu ?? "";
+
+                    rowIndex++;
+                }
+
+                // Định dạng dữ liệu
+                Microsoft.Office.Interop.Excel.Range dataRange = worksheet.Range[$"A5:J{rowIndex - 1}"];
+                dataRange.Borders.LineStyle = XlLineStyle.xlContinuous;
+                
+                // Tự động điều chỉnh độ rộng cột
+                worksheet.Columns.AutoFit();
+
+                // Lưu file
+                workbook.SaveAs(filePath);
+            }
+            finally
+            {
+                // Đóng và giải phóng tài nguyên
+                workbook?.Close(true);
+                excelApp?.Quit();
+
+                if (worksheet != null) Marshal.ReleaseComObject(worksheet);
+                if (workbook != null) Marshal.ReleaseComObject(workbook);
+                if (excelApp != null) Marshal.ReleaseComObject(excelApp);
+            }
+        }
+
+        /// <summary>
+        /// Xóa tất cả dữ liệu lương khỏi cơ sở dữ liệu
+        /// </summary>
+        private void XoaTatCaDuLieuLuong()
+        {
+            try
+            {
+                // Lấy tất cả bản ghi lương
+                var danhSachLuong = _context.Luongs.ToList();
+
+                // Xóa từng bản ghi
+                foreach (var luong in danhSachLuong)
+                {
+                    _context.Luongs.Remove(luong);
+                }
+
+                // Lưu thay đổi
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Lỗi khi xóa dữ liệu lương: {ex.Message}");
             }
         }
 

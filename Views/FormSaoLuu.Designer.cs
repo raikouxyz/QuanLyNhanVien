@@ -82,7 +82,7 @@
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new System.Drawing.Size(290, 37);
             lblTitle.TabIndex = 0;
-            lblTitle.Text = "📂 SAO LƯU DỮ LIỆU";
+            lblTitle.Text = "📤 XUẤT DỮ LIỆU SQL";
             // 
             // pnlContent
             // 
@@ -132,7 +132,7 @@
             btnSaoLuu.Name = "btnSaoLuu";
             btnSaoLuu.Size = new System.Drawing.Size(200, 45);
             btnSaoLuu.TabIndex = 0;
-            btnSaoLuu.Text = "💾 Xuất dữ liệu ngay";
+            btnSaoLuu.Text = "📤 Xuất dữ liệu ngay";
             btnSaoLuu.UseVisualStyleBackColor = false;
             btnSaoLuu.Click += btnSaoLuu_Click;
             // 
@@ -232,7 +232,7 @@
             MaximizeBox = false;
             Name = "FormSaoLuu";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            Text = "Sao lưu dữ liệu - HRM Professional";
+            Text = "Xuất dữ liệu SQL - HRM Professional";
             Load += FormSaoLuu_Load;
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();

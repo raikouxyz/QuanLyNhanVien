@@ -89,9 +89,9 @@
             pnlRight = new System.Windows.Forms.Panel();
             dgvNhanVien = new System.Windows.Forms.DataGridView();
             pnlSearch = new System.Windows.Forms.Panel();
-            btnLamMoi = new System.Windows.Forms.Button();
             txtTimKiem = new System.Windows.Forms.TextBox();
             btnTimKiem = new System.Windows.Forms.Button();
+            btnLamMoi = new System.Windows.Forms.Button();
             pnlButtons = new System.Windows.Forms.Panel();
             btnThem = new System.Windows.Forms.Button();
             btnSua = new System.Windows.Forms.Button();
@@ -357,7 +357,7 @@
             pnlRight.Controls.Add(pnlSearch);
             pnlRight.Location = new System.Drawing.Point(470, 20);
             pnlRight.Name = "pnlRight";
-            pnlRight.Size = new System.Drawing.Size(900, 580);
+            pnlRight.Size = new System.Drawing.Size(730, 580);
             pnlRight.TabIndex = 1;
             // 
             // dgvNhanVien
@@ -410,22 +410,6 @@
             pnlSearch.Size = new System.Drawing.Size(717, 70);
             pnlSearch.TabIndex = 0;
             // 
-            // btnLamMoi
-            // 
-            btnLamMoi.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            btnLamMoi.BackColor = System.Drawing.Color.FromArgb(108, 117, 125);
-            btnLamMoi.FlatAppearance.BorderSize = 0;
-            btnLamMoi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnLamMoi.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            btnLamMoi.ForeColor = System.Drawing.Color.White;
-            btnLamMoi.Location = new System.Drawing.Point(1031, 15);
-            btnLamMoi.Name = "btnLamMoi";
-            btnLamMoi.Size = new System.Drawing.Size(150, 50);
-            btnLamMoi.TabIndex = 2;
-            btnLamMoi.Text = "🔄 Làm mới";
-            btnLamMoi.UseVisualStyleBackColor = false;
-            btnLamMoi.Click += btnLamMoi_Click;
-            // 
             // txtTimKiem
             // 
             txtTimKiem.Font = new System.Drawing.Font("Segoe UI", 11F);
@@ -449,6 +433,22 @@
             btnTimKiem.Text = "🔍 Tìm kiếm";
             btnTimKiem.UseVisualStyleBackColor = false;
             btnTimKiem.Click += btnTimKiem_Click;
+            // 
+            // btnLamMoi
+            // 
+            btnLamMoi.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            btnLamMoi.BackColor = System.Drawing.Color.FromArgb(108, 117, 125);
+            btnLamMoi.FlatAppearance.BorderSize = 0;
+            btnLamMoi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnLamMoi.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            btnLamMoi.ForeColor = System.Drawing.Color.White;
+            btnLamMoi.Location = new System.Drawing.Point(1031, 15);
+            btnLamMoi.Name = "btnLamMoi";
+            btnLamMoi.Size = new System.Drawing.Size(150, 50);
+            btnLamMoi.TabIndex = 2;
+            btnLamMoi.Text = "🔄 Làm mới";
+            btnLamMoi.UseVisualStyleBackColor = false;
+            btnLamMoi.Click += btnLamMoi_Click;
             // 
             // pnlButtons
             // 

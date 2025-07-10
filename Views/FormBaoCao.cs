@@ -9,12 +9,19 @@ using System.Windows.Forms;
 
 namespace QuanLyNhanVien.Views
 {
+    /// <summary>
+    /// Form báo cáo và thống kê nhân sự
+    /// Hiển thị các báo cáo về phòng ban, giới tính, độ tuổi và danh sách nhân viên
+    /// </summary>
     public partial class FormBaoCao : Form
     {
         private readonly AppDbContext _context;
         private readonly AuthService _authService;
         private DataTable dtPhongBan, dtNhanVien, dtGioiTinh, dtDoTuoi;
 
+        /// <summary>
+        /// Khởi tạo form báo cáo
+        /// </summary>
         public FormBaoCao()
         {
             InitializeComponent();
@@ -28,32 +35,9 @@ namespace QuanLyNhanVien.Views
             dgvThongKeDoTuoi.CellClick += DgvThongKeDoTuoi_CellClick;
         }
 
-        // Hàm chuyển đổi từ danh sách sang DataTable
-        private DataTable ChuyenSangDataTable<T>(IEnumerable<T> data)
-        {
-            var dt = new DataTable();
-            var properties = typeof(T).GetProperties();
-
-            // Tạo các cột cho DataTable
-            foreach (var prop in properties)
-            {
-                dt.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
-            }
-
-            // Thêm dữ liệu vào DataTable
-            foreach (var item in data)
-            {
-                var row = dt.NewRow();
-                foreach (var prop in properties)
-                {
-                    row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
-                }
-                dt.Rows.Add(row);
-            }
-
-            return dt;
-        }
-
+        /// <summary>
+        /// Tải dữ liệu báo cáo từ cơ sở dữ liệu và hiển thị lên các bảng
+        /// </summary>
         private void LoadBaoCao()
         {
             try
@@ -143,6 +127,7 @@ namespace QuanLyNhanVien.Views
 
         /// <summary>
         /// Sự kiện click vào bảng thống kê phòng ban
+        /// Lọc danh sách nhân viên theo phòng ban được chọn
         /// </summary>
         private void DgvThongKePhongBan_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -187,6 +172,7 @@ namespace QuanLyNhanVien.Views
 
         /// <summary>
         /// Sự kiện click vào bảng thống kê giới tính
+        /// Lọc danh sách nhân viên theo giới tính được chọn
         /// </summary>
         private void DgvThongKeGioiTinh_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -232,6 +218,7 @@ namespace QuanLyNhanVien.Views
 
         /// <summary>
         /// Sự kiện click vào bảng thống kê độ tuổi
+        /// Lọc danh sách nhân viên theo nhóm tuổi được chọn
         /// </summary>
         private void DgvThongKeDoTuoi_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -288,6 +275,12 @@ namespace QuanLyNhanVien.Views
             }
         }
 
+        /// <summary>
+        /// Chuyển đổi danh sách đối tượng thành DataTable để hiển thị trên DataGridView
+        /// </summary>
+        /// <typeparam name="T">Kiểu đối tượng cần chuyển đổi</typeparam>
+        /// <param name="data">Danh sách đối tượng</param>
+        /// <returns>DataTable chứa dữ liệu từ danh sách</returns>
         private DataTable ToDataTable<T>(List<T> data)
         {
             var dt = new DataTable();
@@ -305,6 +298,9 @@ namespace QuanLyNhanVien.Views
             return dt;
         }
 
+        /// <summary>
+        /// Xuất báo cáo ra file Excel
+        /// </summary>
         private void btnXuatExcel_Click(object sender, EventArgs e)
         {
             try
@@ -358,6 +354,9 @@ namespace QuanLyNhanVien.Views
             }
         }
 
+        /// <summary>
+        /// Làm mới tất cả dữ liệu báo cáo
+        /// </summary>
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
             LoadBaoCao();

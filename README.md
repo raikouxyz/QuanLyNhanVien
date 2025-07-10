@@ -26,5 +26,5 @@ Cài đặt nhanh
 4. dotnet ef database update
 5. dotnet run
 
-Tài khoản mặc định: admin / 123456
+Tài khoản mặc định: admin / 123
 

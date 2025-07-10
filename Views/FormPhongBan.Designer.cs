@@ -297,6 +297,7 @@
             this.dgvPhongBan.ReadOnly = true;
             this.dgvPhongBan.RowHeadersVisible = false;
             this.dgvPhongBan.RowTemplate.Height = 35;
+            this.dgvPhongBan.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.dgvPhongBan.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvPhongBan.Size = new System.Drawing.Size(600, 573);
             this.dgvPhongBan.TabIndex = 0;

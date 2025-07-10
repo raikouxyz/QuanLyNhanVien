@@ -47,9 +47,7 @@ namespace QuanLyNhanVien.Services
                     "PhongBans",     // Xuất PhongBans trước (không có foreign key)
                     "NhanViens",     // Xuất NhanViens sau (có foreign key tới PhongBans)
                     "Users",         // Xuất Users (không có foreign key)
-                    "ChamCongs",     // Xuất ChamCongs (có foreign key tới NhanViens)
-                    "Luongs",        // Xuất Luongs (có foreign key tới NhanViens)
-                    "NhanVienLogs"   // Xuất NhanVienLogs cuối cùng (có foreign key tới NhanViens)
+                    "Luongs"         // Xuất Luongs (có foreign key tới NhanViens)
                 };
 
                 using (var writer = new StreamWriter(filePath, false, System.Text.Encoding.UTF8))
@@ -105,7 +103,7 @@ namespace QuanLyNhanVien.Services
                 var tableExists = (int)await checkCommand.ExecuteScalarAsync() > 0;
                 if (!tableExists)
                 {
-                    await writer.WriteLineAsync($"-- Bảng {tableName} không tồn tại trong database");
+                    // Không xuất thông báo về bảng không tồn tại
                     return;
                 }
 

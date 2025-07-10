@@ -307,6 +307,7 @@
             this.dgvUsers.ReadOnly = true;
             this.dgvUsers.RowHeadersVisible = false;
             this.dgvUsers.RowTemplate.Height = 35;
+            this.dgvUsers.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.dgvUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvUsers.Size = new System.Drawing.Size(630, 533);
             this.dgvUsers.TabIndex = 0;
