@@ -13,7 +13,7 @@ namespace QuanLyNhanVien.Views
     {
         // Khai báo các biến cần thiết
         private readonly AppDbContext _context;
-        private int? selectedNhanVienId = null; // Lưu ID nhân viên đang chọn
+        private int? selectedNhanVienId; // Lưu ID nhân viên đang chọn
 
         public FormNhanVien()
         {
@@ -24,14 +24,6 @@ namespace QuanLyNhanVien.Views
 
                 // Khởi tạo database context
                 _context = new AppDbContext();
-
-                // Tạo database nếu chưa tồn tại
-                _context.Database.EnsureCreated();
-
-                // Thêm dữ liệu mẫu cho phòng ban
-                _context.SeedDuLieuMau();
-
-                MessageBox.Show("Khởi tạo form thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -48,8 +40,6 @@ namespace QuanLyNhanVien.Views
                 LoadDanhSachPhongBan();
                 LoadDanhSachNhanVien();
                 KiemTraPhanQuyen();
-
-                MessageBox.Show("Tải dữ liệu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -128,12 +118,6 @@ namespace QuanLyNhanVien.Views
             {
                 MessageBox.Show($"Lỗi khi tải danh sách nhân viên: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        // Lấy thông tin nhân viên theo ID
-        private NhanVien GetNhanVienById(int id)
-        {
-            return _context.NhanViens.Include(nv => nv.PhongBan).FirstOrDefault(nv => nv.Id == id);
         }
 
         // Xóa trắng form nhập liệu
@@ -538,8 +522,6 @@ namespace QuanLyNhanVien.Views
 
                 // Tải lại danh sách phòng ban
                 LoadDanhSachPhongBan();
-
-                MessageBox.Show("Đã làm mới dữ liệu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

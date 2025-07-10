@@ -385,21 +385,50 @@ namespace QuanLyNhanVien.Views
                 return false;
             }
 
-            // Tạo user mới
-            var newUser = new User
+            try
             {
-                Username = txtUsername.Text.Trim(),
-                Password = AuthService.HashPassword(txtPassword.Text),
-                FullName = txtFullName.Text.Trim(),
-                Email = txtEmail.Text.Trim(),
-                Role = (UserRole)Enum.Parse(typeof(UserRole), cmbRole.SelectedValue.ToString()),
-                IsActive = chkIsActive.Checked,
-                CreatedDate = DateTime.Now
-            };
+                // Lấy role từ ComboBox (xử lý theo kiểu dữ liệu thực tế)
+                UserRole role;
+                if (cmbRole.SelectedValue != null && cmbRole.SelectedValue is string roleString)
+                {
+                    // Nếu SelectedValue là string
+                    role = (UserRole)Enum.Parse(typeof(UserRole), roleString);
+                }
+                else if (cmbRole.SelectedItem != null)
+                {
+                    // Nếu dùng object động
+                    dynamic item = cmbRole.SelectedItem;
+                    string roleValue = item.Value; // Điều chỉnh theo thuộc tính thực tế của item
+                    role = (UserRole)Enum.Parse(typeof(UserRole), roleValue);
+                }
+                else
+                {
+                    // Mặc định Admin
+                    role = UserRole.Admin;
+                }
 
-            _context.Users.Add(newUser);
-            await _context.SaveChangesAsync();
-            return true;
+                // Tạo user mới
+                var newUser = new User
+                {
+                    Username = txtUsername.Text.Trim(),
+                    Password = AuthService.HashPassword(txtPassword.Text),
+                    FullName = txtFullName.Text.Trim(),
+                    Email = txtEmail.Text.Trim(),
+                    Role = role,
+                    IsActive = chkIsActive.Checked,
+                    CreatedDate = DateTime.Now
+                };
+
+                _context.Users.Add(newUser);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tạo người dùng: {ex.Message}\n{ex.StackTrace}", 
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
         }
 
         /// <summary>

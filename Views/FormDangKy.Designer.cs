@@ -241,7 +241,7 @@
             this.chkIsActive.ForeColor = System.Drawing.Color.FromArgb(52, 73, 94);
             this.chkIsActive.Location = new System.Drawing.Point(30, 445);
             this.chkIsActive.Size = new System.Drawing.Size(200, 25);
-            this.chkIsActive.Text = "✅ Kích hoạt tài khoản";
+            this.chkIsActive.Text = "Kích hoạt tài khoản";
 
             // Buttons với gradient và icon
             this.btnThemMoi.BackColor = System.Drawing.Color.FromArgb(46, 204, 113);
@@ -253,6 +253,7 @@
             this.btnThemMoi.Size = new System.Drawing.Size(180, 40);
             this.btnThemMoi.Text = "➕ Thêm mới";
             this.btnThemMoi.UseVisualStyleBackColor = false;
+            this.btnThemMoi.Click += new System.EventHandler(this.btnThemMoi_Click);
 
             this.btnHuy.BackColor = System.Drawing.Color.FromArgb(231, 76, 60);
             this.btnHuy.FlatAppearance.BorderSize = 0;
@@ -263,6 +264,7 @@
             this.btnHuy.Size = new System.Drawing.Size(180, 40);
             this.btnHuy.Text = "🔄 Làm mới";
             this.btnHuy.UseVisualStyleBackColor = false;
+            this.btnHuy.Click += new System.EventHandler(this.btnHuy_Click);
 
             // grpDanhSach - Card style với shadow
             this.grpDanhSach.BackColor = System.Drawing.Color.White;
@@ -321,6 +323,7 @@
             this.btnSua.Size = new System.Drawing.Size(180, 40);
             this.btnSua.Text = "✏️ Chỉnh sửa";
             this.btnSua.UseVisualStyleBackColor = false;
+            this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
 
             // btnXoa
             this.btnXoa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));

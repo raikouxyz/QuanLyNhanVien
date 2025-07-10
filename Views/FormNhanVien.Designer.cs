@@ -364,8 +364,6 @@
             // 
             dgvNhanVien.AllowUserToAddRows = false;
             dgvNhanVien.AllowUserToDeleteRows = false;
-            dgvNhanVien.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.None;
-            dgvNhanVien.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             dgvNhanVien.BackgroundColor = System.Drawing.Color.White;
             dgvNhanVien.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dgvNhanVien.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
@@ -404,26 +402,25 @@
             // pnlSearch
             // 
             pnlSearch.BackColor = System.Drawing.Color.FromArgb(233, 236, 239);
-            pnlSearch.Controls.Add(btnLamMoi);
             pnlSearch.Controls.Add(txtTimKiem);
             pnlSearch.Controls.Add(btnTimKiem);
-            pnlSearch.Dock = System.Windows.Forms.DockStyle.Top;
             pnlSearch.Location = new System.Drawing.Point(0, 0);
             pnlSearch.Name = "pnlSearch";
             pnlSearch.Padding = new System.Windows.Forms.Padding(20);
-            pnlSearch.Size = new System.Drawing.Size(898, 70);
+            pnlSearch.Size = new System.Drawing.Size(717, 70);
             pnlSearch.TabIndex = 0;
             // 
             // btnLamMoi
             // 
+            btnLamMoi.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             btnLamMoi.BackColor = System.Drawing.Color.FromArgb(108, 117, 125);
             btnLamMoi.FlatAppearance.BorderSize = 0;
             btnLamMoi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnLamMoi.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             btnLamMoi.ForeColor = System.Drawing.Color.White;
-            btnLamMoi.Location = new System.Drawing.Point(730, 18);
+            btnLamMoi.Location = new System.Drawing.Point(1031, 15);
             btnLamMoi.Name = "btnLamMoi";
-            btnLamMoi.Size = new System.Drawing.Size(120, 30);
+            btnLamMoi.Size = new System.Drawing.Size(150, 50);
             btnLamMoi.TabIndex = 2;
             btnLamMoi.Text = "🔄 Làm mới";
             btnLamMoi.UseVisualStyleBackColor = false;
@@ -456,6 +453,7 @@
             // pnlButtons
             // 
             pnlButtons.BackColor = System.Drawing.Color.FromArgb(233, 236, 239);
+            pnlButtons.Controls.Add(btnLamMoi);
             pnlButtons.Controls.Add(btnThem);
             pnlButtons.Controls.Add(btnSua);
             pnlButtons.Controls.Add(btnXoa);
@@ -473,7 +471,7 @@
             btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnThem.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             btnThem.ForeColor = System.Drawing.Color.White;
-            btnThem.Location = new System.Drawing.Point(500, 15);
+            btnThem.Location = new System.Drawing.Point(530, 15);
             btnThem.Name = "btnThem";
             btnThem.Size = new System.Drawing.Size(150, 50);
             btnThem.TabIndex = 0;
@@ -488,7 +486,7 @@
             btnSua.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnSua.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             btnSua.ForeColor = System.Drawing.Color.Black;
-            btnSua.Location = new System.Drawing.Point(670, 15);
+            btnSua.Location = new System.Drawing.Point(696, 15);
             btnSua.Name = "btnSua";
             btnSua.Size = new System.Drawing.Size(150, 50);
             btnSua.TabIndex = 1;
@@ -503,7 +501,7 @@
             btnXoa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnXoa.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             btnXoa.ForeColor = System.Drawing.Color.White;
-            btnXoa.Location = new System.Drawing.Point(840, 15);
+            btnXoa.Location = new System.Drawing.Point(865, 15);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new System.Drawing.Size(150, 50);
             btnXoa.TabIndex = 2;

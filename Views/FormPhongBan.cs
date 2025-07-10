@@ -10,7 +10,7 @@ namespace QuanLyNhanVien.Views
     public partial class FormPhongBan : Form
     {
         private readonly AppDbContext _context;
-        private int? selectedPhongBanId = null; // Lưu Id phòng ban đang chọn để sửa
+        private int? selectedPhongBanId; // Lưu Id phòng ban đang chọn để sửa
 
         public FormPhongBan()
         {
@@ -21,18 +21,6 @@ namespace QuanLyNhanVien.Views
                 // Khởi tạo AppDbContext
                 _context = new AppDbContext();
 
-                // Kiểm tra kết nối database
-                if (_context == null)
-                {
-                    MessageBox.Show("Không thể khởi tạo kết nối cơ sở dữ liệu!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Đảm bảo database tồn tại
-                _context.EnsureDatabaseExists();
-
-                // Thêm sự kiện FormClosed để giải phóng tài nguyên
-                this.FormClosed += FormPhongBan_FormClosed;
 
                 LoadPhongBan();
                 KiemTraPhanQuyen();
@@ -41,12 +29,6 @@ namespace QuanLyNhanVien.Views
             {
                 MessageBox.Show($"Lỗi khởi tạo form phòng ban: {ex.Message}\n\nChi tiết: {ex.InnerException?.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        // Sự kiện khi form đóng để giải phóng DbContext
-        private void FormPhongBan_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            _context?.Dispose();
         }
 
         private void LoadPhongBan()
@@ -285,8 +267,6 @@ namespace QuanLyNhanVien.Views
 
                 // Tải lại danh sách phòng ban
                 LoadPhongBan();
-
-                MessageBox.Show("Đã làm mới dữ liệu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
