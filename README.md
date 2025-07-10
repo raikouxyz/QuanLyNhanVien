@@ -7,11 +7,9 @@ Tính năng chính
 - Quản lý nhân viên: Thêm, xóa, sửa, tìm kiếm, lọc
 - Quản lý phòng ban: Thêm, xóa, chỉnh sửa
 - Báo cáo nhân sự: Thống kê, xuất Excel
-- Quản lý chấm công: Ghi nhận, sửa/xóa ngày làm, tính giờ tự động
 - Quản lý lương: Thêm, xóa, sửa, tính lương tự động (cơ bản * ngày làm việc + phụ cấp - khấu trừ)
 - Quản lý người dùng: Tạo, sửa, xóa tài khoản, phân quyền
 - Sao lưu dữ liệu: Backup SQL, export dữ liệu
-- Lịch sử nhân viên: Theo dõi thay đổi, lọc, tìm kiếm, xuất Excel
 
 Công nghệ sử dụng
 - Frontend: Windows Forms (.NET 8)
